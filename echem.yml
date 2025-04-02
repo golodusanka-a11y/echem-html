@@ -22,8 +22,10 @@ dependencies:
   - rdkit
   - veloxchem
   - multipsi
+  - dftd4-python
+  - xtb-python
   - valet
-  - adcc
+  - adcc<0.16
   - pip
   - pip:
     - git+https://github.com/gator-program/respondo.git@v0.0.5

@@ -22,4 +22,5 @@ dependencies:
   - rdkit
   - veloxchem
   - multipsi
+  - dftd4-python
   - valet
