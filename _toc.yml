@@ -147,7 +147,7 @@ parts:
       - file: docs/spec_prop/tddft_lr_implementation
     - file: docs/spec_prop/tddft_excited_states
       sections:
-      - file: docs/spec_prop/tddft_rpa
+      - file: docs/spec_prop/tddft_rsp_eq
       - file: docs/spec_prop/tddft_tda
       - file: docs/spec_prop/tddft_cvs
       - file: docs/spec_prop/tddft_triplet_inst
