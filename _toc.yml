@@ -36,9 +36,6 @@ parts:
       - file: docs/elec_struct/hf_scf
       - file: docs/elec_struct/hf_example
     - file: docs/elec_struct/mp2
-      sections:
-      - file: docs/elec_struct/mp2_theory
-      - file: docs/elec_struct/mp2_advanced
     - file: docs/elec_struct/ci
     - file: docs/elec_struct/wft_exercises
   - file: docs/elec_struct/dft

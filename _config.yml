@@ -53,4 +53,5 @@ html:
   use_repository_button: true
   favicon: img/favicon.png
   home_page_in_navbar: false
-  google_analytics_id: G-TX4YJ1J5XE # for google analytics
+  analytics:
+    google_analytics_id: G-TX4YJ1J5XE # for google analytics
