@@ -167,6 +167,9 @@ parts:
     sections:
     - file: docs/env/nonpol_emb
     - file: docs/env/pol_emb
+  - file: docs/env/pcm
+    sections:
+    - file: docs/env/cpcm
 - caption: Visualization
   chapters:
   - file: docs/visualize/mol_struct
