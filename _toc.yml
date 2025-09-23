@@ -72,6 +72,7 @@ parts:
     - file: docs/mol_struct/opt_constrained
     - file: docs/mol_struct/conformer
     - file: docs/mol_struct/tst_gen
+    - file: docs/mol_struct/ts_guesser
   - file: docs/mol_struct/impes
     sections:
     - file: docs/mol_struct/impes_calc
