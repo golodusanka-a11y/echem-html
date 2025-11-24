@@ -1,0 +1,60 @@
+Traceback (most recent call last):
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/golo.dusanka/miniconda3/envs/echem/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import veloxchem as vlx
+
+rea1 = vlx.Molecule.read_smiles("[Br]")
+rea2 = vlx.Molecule.read_smiles("CCCl")
+rea1.set_charge(-1)
+
+pro1 = vlx.Molecule.read_smiles("[Cl]")
+pro2 = vlx.Molecule.read_smiles("CCBr")
+pro1.set_charge(-1)
+
+tsguesser = vlx.TransitionStateGuesser()
+results = tsguesser.find_TS([rea1, rea2], [pro1, pro2])
+tsguesser.show_results(results)
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mAttributeError[39m                            Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 12[39m
+[32m      9[39m pro1.set_charge(-[32m1[39m)
+[32m     11[39m tsguesser = vlx.TransitionStateGuesser()
+[32m---> [39m[32m12[39m results = [43mtsguesser[49m[43m.[49m[43mfind_TS[49m[43m([49m[43m[[49m[43mrea1[49m[43m,[49m[43m [49m[43mrea2[49m[43m][49m[43m,[49m[43m [49m[43m[[49m[43mpro1[49m[43m,[49m[43m [49m[43mpro2[49m[43m][49m[43m)[49m
+[32m     13[39m tsguesser.show_results(results)
+
+[36mFile [39m[32m~/miniconda3/envs/echem/lib/python3.12/site-packages/veloxchem/tsguesser.py:87[39m, in [36mTransitionStateGuesser.find_TS[39m[34m(self, evb, scf, constraints)[39m
+[32m     85[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mfind_TS[39m([38;5;28mself[39m, evb, scf=[38;5;28;01mTrue[39;00m, constraints=[38;5;28;01mNone[39;00m):
+[32m     86[39m     [38;5;66;03m#todo ideally find a way to efficiently deal with the input to the EVB object[39;00m
+[32m---> [39m[32m87[39m     [43mevb[49m[43m.[49m[43mtemperature[49m = [38;5;28mself[39m.mm_temperature
+[32m     88[39m     config = evb.default_system_configurations([33m"[39m[33mts_guesser[39m[33m"[39m)
+[32m     90[39m     evb.build_systems([config], [38;5;28mself[39m.lambda_vec, save_output=[38;5;28;01mFalse[39;00m, constraints=constraints)
+
+[31mAttributeError[39m: 'list' object has no attribute 'temperature'
+

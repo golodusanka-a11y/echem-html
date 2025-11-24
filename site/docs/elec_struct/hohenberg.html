@@ -1,0 +1,922 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Hohenberg–Kohn theorems &#8212; Computational Chemistry from  Laptop to HPC</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TX4YJ1J5XE"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/elec_struct/hohenberg';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Kohn–Sham method" href="kohn-sham.html" />
+    <link rel="prev" title="Density functional theory" href="dft.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../title.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Computational Chemistry from  Laptop to HPC - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Computational Chemistry from  Laptop to HPC - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro.html">Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics_notebook.html">Using Jupyter notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../units_notation.html">Units and notation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Electronic ground states</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="elstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="orbitals.html">Orbitals and basis sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slater.html">Many-electron wave functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators.html">Operators and matrix elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduced_density.html">Reduced particle densities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="natural_orbitals.html">Natural orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrals.html">Integrals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spin.html">Electron spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlation.html">Electron correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dispersion.html">Dispersion interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pt.html">Rayleigh–Schrödinger perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="second_quant.html">Second quantization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group_theory.html">Symmetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="wft.html">Wave function theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="hartree-fock.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="hf_theory.html">Hartree–Fock theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fock_diagonalize.html">Fock matrix diagonalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hf_scf.html">SCF optimization</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="hf_example.html">HF in VeloxChem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="mp2.html">Møller–Plesset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">Configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wft_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="dft.html">Density functional theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Hohenberg–Kohn theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kohn-sham.html">Kohn–Sham method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_int.html">Kernel integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft_scf.html">SCF optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft_prop.html">First-order properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="available_xcfun.html">Available XC functionals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="multiref.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mcscf.html">MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcpdft.html">MC-PDFT</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Molecular structure and dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/molstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/coordinates.html">Choice of coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/symmetry.html">Molecular symmetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst.html">Transition-state theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_struct.html">Optimization methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/gradients.html">Gradients</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/energy_grad.html">Energy gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/property_grad.html">Property gradients</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/hessians_vib.html">Hessians and vibrations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/hessians.html">Molecular Hessians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/vibrations.html">Vibrational analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/opt.html">Structure optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_gs.html">Ground state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_constrained.html">Constrained coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/conformer.html">Conformer search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst_gen.html">Transition state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/ts_guesser.html">Guessing transition states with force fireld interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/impes.html">PES interpolation techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/impes_calc.html">Constructing the PES by interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/md.html">Molecular dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/forcefields.html">Force fields</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/reparameterize.html">Reparameterize force fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_setup.html">Ensembles and time integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_run.html">Running a simulation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Spectra and properties</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/spectra_aspects.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/resp_external.html">Responses to external fields</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/mol_prop.html">Molecular properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/first_order.html">First-order properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/linear_resp.html">Linear Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/quad_resp.html">Quadratic response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/cubic_resp.html">Cubic response</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/elec_nuc.html">Electronic and nuclear contributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/rovib.html">Rovibronic states</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/dipole_equiv.html">Dipole equivalence relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/finite_field.html">Finite field method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/nto.html">Natural transition orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/selection_rules.html">Selection rules</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/excoupl.html">Exciton coupling model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/excoupl_impl.html">Implementation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/expt_theory.html">Experiment to theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/uv_vis.html">UV/vis absorption</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/opa.html">One-photon absorption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpa.html">Two-photon absorption</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/optact.html">Optical activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/ecd.html">Electronic Circular Dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/or.html">Optical Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpcd.html">Two-photon circular dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpor.html">Two-photon optical rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/more_optact.html">More birefringences &amp; dichroisms</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/wavefunction.html">Wave function methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/hf.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_rot.html">Orbital rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/kappa_expansion.html">Time-dependence of observables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_param_field.html">Field-dependence of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_param_energy.html">Energy determination of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_quasienergy.html">Quasi-energy determination of parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/adc.html">Algebraic-diagrammatic construction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_pp.html">Polarization propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_isr.html">Intermediate state representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_hpc.html">HPC-QC implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_exercises_new.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/tddft.html">Time-dependent DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_foundation.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_quasienergy.html">Quasi-energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_linear_response.html">Linear response</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_theory.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_implementation.html">Implementation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_excited_states.html">Excited states</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_rsp_eq.html">TDDFT response equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_tda.html">Tamm–Dancoff approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_triplet_inst.html">Triplet instability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_spin_flip.html">Spin-flip</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/tddft_charge_transfer.html">Charge transfer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/mr_response.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/sa_mcscf.html">State-averaged MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/mr_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/localprop.html">Localized properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/esp.html">ESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/chelpg.html">CHELPG charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/resp.html">RESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/loprop.html">LoProp charges and polarisabilities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/embedding.html">Embedding potentials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/nonpol_emb.html">Non-polarizable embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/pol_emb.html">Polarizable embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/pcm.html">Polarizable continuum models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/cpcm.html">Conductor-like polarizable continuum model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/mol_struct.html">Molecular structure and dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/struct_vis.html">Molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/md_vis.html">MD trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/opt_vib_vis.html">Optimization and normal modes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/elec_struct.html">Electronic structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/orb_vis.html">Orbitals and densities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/spec_prop.html">Spectra and properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/exc_vis.html">Excited states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/broadening.html">Spectrum broadening</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and workflows</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/workflow.html">Constructing workflows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_build.html">Building systems</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_struct.html">Optimizing molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_scf.html">Optimizing electronic structure</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/wf_construct.html">Assembling a full workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_methane.html">Methane combustion energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_gwp.html">Global warming potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_spectra.html">From structure to spectrum</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/uv_vis.html">UV/vis spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_absorption.html">Absorption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_fluorescence.html">Fluorescence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/vib_ir.html">Vibrational spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_calc.html">IR spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_raman.html">Raman spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/openshells.html">Open shells</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/rest_unrest.html">Restricted versus unrestricted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/correlation.html">Static versus dynamic correlation correlation</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/xray.html">X-ray spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_calc.html">Spectrum calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_analysis.html">Spectrum analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_aspects.html">Special aspects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/dire_xps.html">Core-hole localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_large.html">Larger systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_nonstandard.html">Non-standard calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_cheatsheet.html">Cheat sheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/colab.html">Google Colab notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cite.html">How to cite and contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem/issues/new?title=Issue%20on%20page%20%2Fdocs/elec_struct/hohenberg.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/elec_struct/hohenberg.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Hohenberg–Kohn theorems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hk-theorem-i">HK theorem I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hk-theorem-ii">HK theorem II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-representability"><span class="math notranslate nohighlight">\(N\)</span>-representability</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hohenbergkohn-theorems">
+<h1>Hohenberg–Kohn theorems<a class="headerlink" href="#hohenbergkohn-theorems" title="Link to this heading">#</a></h1>
+<p>To illustrate the basic idea of DFT, let us consider an isolated molecular system with <span class="math notranslate nohighlight">\(N\)</span> electrons. The anti-symmetric <span class="math notranslate nohighlight">\(N\)</span>-electron wave function describing the electronic ground state of this system, <span class="math notranslate nohighlight">\(\Psi_0(\mathbf{r}_1, \mathbf{r}_2,.., \mathbf{r}_N) \)</span>, depends on the spatial coordinates of the electrons, <span class="math notranslate nohighlight">\(\{\mathbf{r}_i\}\)</span>, and it is a solution to the time-independent Schrödinger equation</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\label{eq:sch}
+\hat{H} \Psi_0 = E_0 \Psi_0 
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(E_0\)</span> is the associated electronic energy and <span class="math notranslate nohighlight">\(\hat{H}\)</span> is the electronic Hamiltonian that is composed of the kinetic energy, electron–electron repulsion, and external potential operators</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\hat{H} = \hat{T} + \hat{U} + \hat{V}
+\end{equation*}\]</div>
+<p>with</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\hat{T} =  - \frac{\hbar^2}{2 m_\mathrm{e}} \sum_i \nabla_i^2 ; \qquad
+%
+\hat{U} = \sum_{i&lt;j}\frac{e^2}{4\pi\varepsilon_0 |\mathbf{r}_i -\mathbf{r}_j|} ; \qquad
+%
+\hat{V} = \sum_i \hat{v}(i)
+\end{equation*}\]</div>
+<p>For an isolated system, the latter reduces to the electron–nuclear attraction operator with a coordinate representation</p>
+<div class="math notranslate nohighlight">
+\[
+v(\mathbf{r}) = - \sum_K \frac{Z_K e^2}{4\pi\varepsilon_0 
+|\mathbf{r} - \mathbf{R}_K|}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Z_K\)</span> is the proton number of atom <span class="math notranslate nohighlight">\(K\)</span> in the system.</p>
+<p>Solving the Schrödinger equation for molecular systems is, however, a non-trivial task and requires the introduction of approximations to the <span class="math notranslate nohighlight">\(N\)</span>-electron wave function. In contrast, the focus in DFT is set on the one-electron density</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+n_0(\mathbf{r}) = N \int 
+|\Psi_0(\mathbf{r}, \mathbf{r}_2,.., \mathbf{r}_N)|^2 
+\mathrm{d}^3\mathbf{r}_2 \cdots 
+\mathrm{d}^3\mathbf{r}_N
+\end{equation*}\]</div>
+<p>which only depends on three variables namely the Cartesian components of the position vector.</p>
+<p>The first attempts to describe ground states of atoms in terms of electron density were made in the 1920s by Thomas and Fermi. But the use of the density as the primary variable to describe the electronic ground state was not legitimized until 1964, when Hohenberg and Kohn (HK) introduced their theorems for <span class="math notranslate nohighlight">\(v\)</span>-representable electron densities <span id="id1">[<a class="reference internal" href="../refs.html#id58" title="P. Hohenberg and W. Kohn. Inhomogeneous electron gas. Phys. Rev., 136:B864-B871, 1964. URL: https://doi.org/10.1103/PhysRev.136.B864.">HK64</a>]</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An electron density is <span class="math notranslate nohighlight">\(v\)</span>-representable if it is associated with a ground-state solution to the Schrödinger equation.</p>
+</div>
+<p>Considering all possible variations in the external potential (system variations), we understand that there is an infinite number of <span class="math notranslate nohighlight">\(v\)</span>-representable densities associated with <span class="math notranslate nohighlight">\(N\)</span>-electron systems. We refer to a general density in this set as <span class="math notranslate nohighlight">\(\tilde{n}_0(\mathbf{r})\)</span>.</p>
+<section id="hk-theorem-i">
+<h2>HK theorem I<a class="headerlink" href="#hk-theorem-i" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>The external potential <span class="math notranslate nohighlight">\(\hat{v}(\mathbf{r})\)</span> of a given system is determined to within a trivial additive constant by the <span class="math notranslate nohighlight">\(v\)</span>-representable electron density of the system.</p>
+</div></blockquote>
+<p>In other words, there is a unique one-to-one mapping between a ground-state wave function and its one-electron density, and the knowledge of <span class="math notranslate nohighlight">\(n_0(\mathbf{r})\)</span> is sufficient to determine the ground-state energy (and other ground-state properties) of the molecular system.</p>
+<p>This allows for the separation of the energy into separate the energy functional into two terms <span id="id2">[<a class="reference internal" href="../refs.html#id58" title="P. Hohenberg and W. Kohn. Inhomogeneous electron gas. Phys. Rev., 136:B864-B871, 1964. URL: https://doi.org/10.1103/PhysRev.136.B864.">HK64</a>]</span></p>
+<div class="math notranslate nohighlight">
+\[
+E_0 =
+E[n_0(\mathbf{r})] =
+F_\mathrm{HK}[n_0(\mathbf{r})] + V[n_0(\mathbf{r})]
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+V[n_0(\mathbf{r})] =
+\int v(\mathbf{r}) n_0(\mathbf{r}) \, \mathrm{d}^3\mathbf{r}
+\]</div>
+<p>and the Hohenberg–Kohn functional is introduced as the sum of kinetic and electron repulsion energies</p>
+<div class="math notranslate nohighlight">
+\[
+F_\mathrm{HK}[n_0(\mathbf{r})] = T[n_0(\mathbf{r})] + U[n_0(\mathbf{r})]
+\]</div>
+<p>The HK functional is universal in the sense that it does not depend on the system under study as such dependencies are isolated to the external potential, and it is left undefined for densities that are not <span class="math notranslate nohighlight">\(v\)</span>-representable.</p>
+</section>
+<section id="hk-theorem-ii">
+<h2>HK theorem II<a class="headerlink" href="#hk-theorem-ii" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>From the <span class="math notranslate nohighlight">\(v\)</span>-representable trial densities <span class="math notranslate nohighlight">\(\tilde{n}_0(\mathbf{r})\)</span> fulfilling</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\int \tilde{n}_0(\mathbf{r}) \, \mathrm{d}^3\mathbf{r} = N ;
+\qquad
+\tilde{n}_0(\mathbf{r}) \geq 0
+\end{equation*}\]</div>
+<p>the ground state energy <span class="math notranslate nohighlight">\(E_0\)</span> of a molecular system can be detemined from the relation</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+ E_0 \leq E[\tilde{n}_0(\mathbf{r})]
+\end{equation*}\]</div>
+</div></blockquote>
+<p>We recognize this relation as the variational principle in wave function theory. Any practical application of this relation in density functional theory is, however, severely hampered by the fact that it is prohibitively difficult to ensure that density variations remain <span class="math notranslate nohighlight">\(v\)</span>-representable.</p>
+</section>
+<section id="n-representability">
+<span id="id3"></span><h2><span class="math notranslate nohighlight">\(N\)</span>-representability<a class="headerlink" href="#n-representability" title="Link to this heading">#</a></h2>
+<p>The Hohenberg–Kohn theorems provide a theoretical foundation of DFT. Still, they do not give a recipe for the practical implementation of a computational scheme due to the strict requirement of <span class="math notranslate nohighlight">\(v\)</span>-representability of densities. Fortunately, the theory can be reformulated on the grounds of the Hohenberg–Kohn theorems but for the wider class of so-called <span class="math notranslate nohighlight">\(N\)</span>-representable densities.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An electron density is <span class="math notranslate nohighlight">\(N\)</span>-representable if it can be obtained from some anti-symmetric wave function. Such a density satisfies the following conditions</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\int n(\mathbf{r}) \, d^3\mathbf{r} = N ; \quad  
+n(\mathbf{r}) \geq 0; \quad 
+\int \left| \nabla n(\mathbf{r})^{1/2}  \right|^{2} \, d^3\mathbf{r}  &lt; \infty
+\end{equation*}\]</div>
+</div>
+<p>For a given <span class="math notranslate nohighlight">\(N\)</span>-representable density, Levy demonstrated that there exists a universal variational functional that delivers the associated sum of kinetic and repulsion energies. This functional can be determined by means of a constrained search over the set of wave functions that yield this density <span id="id4">[<a class="reference internal" href="../refs.html#id70" title="M. Levy. Universal variational functionals of electron densities, first-order density matrices, and natural spin-orbitals and solution of the v-representability problem. Proc. Natl. Acad. Sci. U.S.A., 76:6062-6065, 1979. URL: https://doi.org/10.1073/pnas.76.12.606.">Lev79</a>]</span></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+F[n(\mathbf{r})] = \min_{\Psi \to n(\mathbf{r})} \langle \Psi | \hat{T} +\hat{U}| \Psi \rangle 
+\end{equation*}\]</div>
+<p>When applied to <span class="math notranslate nohighlight">\(v\)</span>-representable densities, it was shown that <span class="math notranslate nohighlight">\(F\)</span> becomes equal to the HK functional such that</p>
+<div class="math notranslate nohighlight">
+\[
+F[n_0(\mathbf{r})] + V[n_0(\mathbf{r})] = E_0
+\]</div>
+<p>and, for <span class="math notranslate nohighlight">\(N\)</span>-representable densities, it was shown that</p>
+<div class="math notranslate nohighlight">
+\[
+F[n(\mathbf{r})] + V[n(\mathbf{r})] \geq E_0
+\]</div>
+<p>This implies a variational principle with respect to <span class="math notranslate nohighlight">\(N\)</span>-representable densities and the minimization condition for the energy functional can be written in terms of the variation of a Lagrangian that preserves the number of electrons</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\delta \Big[ E[n(\mathbf{r})] + \mu \Big( N - \int n(\mathbf{r}) \, d^3\mathbf{r} \Big) \Big] = 0 
+\end{equation*}\]</div>
+<p>where the Lagrange multiplier <span class="math notranslate nohighlight">\(\mu\)</span> is the chemical potential of the molecular system, i.e., <span class="math notranslate nohighlight">\(\mu = \mathrm{d}E/\mathrm{d}N\)</span>. This stationary condition can alternatively be written</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\mu = v(\mathbf{r}) + \frac{\delta F[n(\mathbf{r})]}{\delta n(\mathbf{r})} 
+\end{equation*}\]</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/elec_struct"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dft.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Density functional theory</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kohn-sham.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Kohn–Sham method</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hk-theorem-i">HK theorem I</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hk-theorem-ii">HK theorem II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-representability"><span class="math notranslate nohighlight">\(N\)</span>-representability</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The eChem team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

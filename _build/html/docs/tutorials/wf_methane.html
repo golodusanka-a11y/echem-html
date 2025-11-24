@@ -1,0 +1,1047 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Methane combustion energy &#8212; Computational Chemistry from  Laptop to HPC</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TX4YJ1J5XE"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/tutorials/wf_methane';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Global warming potential" href="wf_gwp.html" />
+    <link rel="prev" title="Assembling a full workflow" href="wf_construct.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../title.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Computational Chemistry from  Laptop to HPC - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Computational Chemistry from  Laptop to HPC - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro.html">Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics_notebook.html">Using Jupyter notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../units_notation.html">Units and notation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Electronic ground states</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/elstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/orbitals.html">Orbitals and basis sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/slater.html">Many-electron wave functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/operators.html">Operators and matrix elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/reduced_density.html">Reduced particle densities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/natural_orbitals.html">Natural orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/integrals.html">Integrals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/spin.html">Electron spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/correlation.html">Electron correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dispersion.html">Dispersion interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/pt.html">Rayleigh–Schrödinger perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/second_quant.html">Second quantization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/group_theory.html">Symmetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/wft.html">Wave function theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../elec_struct/hartree-fock.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_theory.html">Hartree–Fock theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/fock_diagonalize.html">Fock matrix diagonalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_scf.html">SCF optimization</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_example.html">HF in VeloxChem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mp2.html">Møller–Plesset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/wft_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/dft.html">Density functional theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/hohenberg.html">Hohenberg–Kohn theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kohn-sham.html">Kohn–Sham method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kernel_int.html">Kernel integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_scf.html">SCF optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_prop.html">First-order properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/available_xcfun.html">Available XC functionals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/multiref.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcscf.html">MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcpdft.html">MC-PDFT</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Molecular structure and dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/molstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/coordinates.html">Choice of coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/symmetry.html">Molecular symmetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst.html">Transition-state theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_struct.html">Optimization methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/gradients.html">Gradients</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/energy_grad.html">Energy gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/property_grad.html">Property gradients</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/hessians_vib.html">Hessians and vibrations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/hessians.html">Molecular Hessians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/vibrations.html">Vibrational analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/opt.html">Structure optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_gs.html">Ground state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_constrained.html">Constrained coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/conformer.html">Conformer search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst_gen.html">Transition state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/ts_guesser.html">Guessing transition states with force fireld interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/impes.html">PES interpolation techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/impes_calc.html">Constructing the PES by interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/md.html">Molecular dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/forcefields.html">Force fields</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/reparameterize.html">Reparameterize force fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_setup.html">Ensembles and time integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_run.html">Running a simulation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Spectra and properties</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/spectra_aspects.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/resp_external.html">Responses to external fields</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/mol_prop.html">Molecular properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/first_order.html">First-order properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/linear_resp.html">Linear Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/quad_resp.html">Quadratic response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/cubic_resp.html">Cubic response</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/elec_nuc.html">Electronic and nuclear contributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/rovib.html">Rovibronic states</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/dipole_equiv.html">Dipole equivalence relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/finite_field.html">Finite field method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/nto.html">Natural transition orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/selection_rules.html">Selection rules</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/excoupl.html">Exciton coupling model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/excoupl_impl.html">Implementation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/expt_theory.html">Experiment to theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/uv_vis.html">UV/vis absorption</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/opa.html">One-photon absorption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpa.html">Two-photon absorption</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/optact.html">Optical activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/ecd.html">Electronic Circular Dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/or.html">Optical Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpcd.html">Two-photon circular dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpor.html">Two-photon optical rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/more_optact.html">More birefringences &amp; dichroisms</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/wavefunction.html">Wave function methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/hf.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_rot.html">Orbital rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/kappa_expansion.html">Time-dependence of observables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_param_field.html">Field-dependence of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_param_energy.html">Energy determination of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_quasienergy.html">Quasi-energy determination of parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/adc.html">Algebraic-diagrammatic construction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_pp.html">Polarization propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_isr.html">Intermediate state representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_hpc.html">HPC-QC implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_exercises_new.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/tddft.html">Time-dependent DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_foundation.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_quasienergy.html">Quasi-energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_linear_response.html">Linear response</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_theory.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_implementation.html">Implementation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_excited_states.html">Excited states</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_rsp_eq.html">TDDFT response equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_tda.html">Tamm–Dancoff approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_triplet_inst.html">Triplet instability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_spin_flip.html">Spin-flip</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/tddft_charge_transfer.html">Charge transfer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/mr_response.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/sa_mcscf.html">State-averaged MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/mr_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/localprop.html">Localized properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/esp.html">ESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/chelpg.html">CHELPG charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/resp.html">RESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/loprop.html">LoProp charges and polarisabilities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/embedding.html">Embedding potentials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/nonpol_emb.html">Non-polarizable embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/pol_emb.html">Polarizable embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/pcm.html">Polarizable continuum models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/cpcm.html">Conductor-like polarizable continuum model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/mol_struct.html">Molecular structure and dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/struct_vis.html">Molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/md_vis.html">MD trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/opt_vib_vis.html">Optimization and normal modes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/elec_struct.html">Electronic structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/orb_vis.html">Orbitals and densities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/spec_prop.html">Spectra and properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/exc_vis.html">Excited states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/broadening.html">Spectrum broadening</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and workflows</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="workflow.html">Constructing workflows</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="wf_build.html">Building systems</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="wf_struct.html">Optimizing molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf_scf.html">Optimizing electronic structure</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="wf_construct.html">Assembling a full workflow</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Methane combustion energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wf_gwp.html">Global warming potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wf_spectra.html">From structure to spectrum</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="uv_vis.html">UV/vis spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_absorption.html">Absorption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_fluorescence.html">Fluorescence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="vib_ir.html">Vibrational spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vib_ir_calc.html">IR spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vib_ir_raman.html">Raman spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vib_ir_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="openshells.html">Open shells</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest_unrest.html">Restricted versus unrestricted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlation.html">Static versus dynamic correlation correlation</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="xray.html">X-ray spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="xray_calc.html">Spectrum calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_analysis.html">Spectrum analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_aspects.html">Special aspects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dire_xps.html">Core-hole localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_large.html">Larger systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_nonstandard.html">Non-standard calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_cheatsheet.html">Cheat sheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="colab.html">Google Colab notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cite.html">How to cite and contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem/issues/new?title=Issue%20on%20page%20%2Fdocs/tutorials/wf_methane.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/tutorials/wf_methane.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Methane combustion energy</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-optimization">Geometry optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#force-field-optimization">Force field optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xtb-optimization">xTB optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-calculation">Energy calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reaction-energy">Reaction energy</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="methane-combustion-energy">
+<h1>Methane combustion energy<a class="headerlink" href="#methane-combustion-energy" title="Link to this heading">#</a></h1>
+<p>Consider methane combustion:</p>
+<div class="math notranslate nohighlight">
+\[
+\textrm{CH}_4 + 2\textrm{O}_2 \rightarrow \textrm{CO}_2 + 2\textrm{H}_2\textrm{O}
+\]</div>
+<p>We calculate this reaction energy by constructing equilibrium structures of each molecule, calculating the total energy of each molecule in turn, and taking the energy difference between the reactants and products. This example is inspired by <a class="reference external" href="https://doi.org/10.1021/acs.jchemed.1c01243">this paper</a>, in which the authors discuss the practical aspects of calculating the methane combustion energy, taking into account the competing concerns of computational cost and accuracy. More details on the impact of electron correlation, basis set selection, and extrapolation to the complete basis set (CBS) limit can be found therein.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py3Dmol</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">p3d</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">veloxchem</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vlx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="geometry-optimization">
+<h2>Geometry optimization<a class="headerlink" href="#geometry-optimization" title="Link to this heading">#</a></h2>
+<section id="force-field-optimization">
+<h3>Force field optimization<a class="headerlink" href="#force-field-optimization" title="Link to this heading">#</a></h3>
+<p>Construct molecules using SMILES strings and perform a force field optimization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ch4_ff</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">smiles_to_xyz</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<span class="n">h2o_ff</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">smiles_to_xyz</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">)</span>
+<span class="n">co2_ff</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">smiles_to_xyz</span><span class="p">(</span><span class="s2">&quot;O=C=O&quot;</span><span class="p">)</span>
+<span class="n">o2_ff</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">smiles_to_xyz</span><span class="p">(</span><span class="s2">&quot;O=O&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="xtb-optimization">
+<h3>xTB optimization<a class="headerlink" href="#xtb-optimization" title="Link to this heading">#</a></h3>
+<p>Set up xTB driver and perform xTB optimization.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">xtb_optimization</span><span class="p">(</span><span class="n">xyz_ff</span><span class="p">):</span>
+
+    <span class="n">molecule</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">xyz_ff</span><span class="p">)</span>
+    <span class="n">xtb_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">XtbDriver</span><span class="p">()</span>
+    
+    <span class="n">xtb_opt_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">OptimizationDriver</span><span class="p">(</span><span class="n">xtb_drv</span><span class="p">)</span>
+    <span class="n">xtb_opt_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+    
+    <span class="n">xtb_opt</span> <span class="o">=</span> <span class="n">xtb_opt_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">xtb_opt</span><span class="p">[</span><span class="s2">&quot;final_geometry&quot;</span><span class="p">]</span>
+
+
+<span class="n">ch4_xtb</span> <span class="o">=</span> <span class="n">xtb_optimization</span><span class="p">(</span><span class="n">ch4_ff</span><span class="p">)</span>
+<span class="n">h2o_xtb</span> <span class="o">=</span> <span class="n">xtb_optimization</span><span class="p">(</span><span class="n">h2o_ff</span><span class="p">)</span>
+<span class="n">co2_xtb</span> <span class="o">=</span> <span class="n">xtb_optimization</span><span class="p">(</span><span class="n">co2_ff</span><span class="p">)</span>
+<span class="n">o2_xtb</span> <span class="o">=</span> <span class="n">xtb_optimization</span><span class="p">(</span><span class="n">o2_ff</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualization">
+<h3>Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h3>
+<p>Convert to format readable by py3Dmol and visualize structures.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">p3d</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">viewergrid</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">linked</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">ch4_xtb</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">o2_xtb</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">co2_xtb</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">h2o_xtb</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">setViewStyle</span><span class="p">({</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">})</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">setStyle</span><span class="p">({</span><span class="s2">&quot;stick&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;sphere&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">}})</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="3dmolviewer_1763993034200418"  style="position: relative; width: 400px; height: 300px;">
+        <p id="3dmolwarning_1763993034200418" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_1763993034200418 = null;
+var warn = document.getElementById("3dmolwarning_1763993034200418");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_1763993034200418 = null;
+viewergrid_1763993034200418 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_1763993034200418"),{rows: 2, cols: 2, control_all: false},{backgroundColor:"white"});
+viewer_1763993034200418 = viewergrid_1763993034200418[0][0];
+viewergrid_1763993034200418[0][0].zoomTo();viewergrid_1763993034200418[0][1].zoomTo();viewergrid_1763993034200418[1][0].zoomTo();viewergrid_1763993034200418[1][1].zoomTo();	viewergrid_1763993034200418[0][0].addModel("5\n\nC             -1.061172995298         0.122413190041         1.016564361154\nH             -1.635678002130         1.031718530969         0.896965792618\nH             -0.951566264258        -0.099093705128         2.070185320232\nH             -1.574196841507        -0.695384661516         0.527474183279\nH             -0.083250896807         0.252412645634         0.571632342717\n","xyz");
+	viewergrid_1763993034200418[0][1].addModel("2\n\nO              0.097769235638         1.459560641087        -1.851900113550\nO              0.618029764362         0.889994358913        -2.783869886450\n","xyz");
+	viewergrid_1763993034200418[1][0].addModel("3\n\nO              3.149165675244        -0.302360561621        -0.261044214178\nC              3.324917997180         0.466198989939         0.567427676482\nO              3.500670327576         1.234758571682         1.395899537696\n","xyz");
+	viewergrid_1763993034200418[1][1].addModel("3\n\nO             -0.234620641872         0.062224725019         1.620608933964\nH             -0.857724517183         0.740766975045         1.353359126670\nH              0.394437159054         0.473244299936         2.216804939366\n","xyz");
+	viewergrid_1763993034200418[0][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_1763993034200418[0][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_1763993034200418[1][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_1763993034200418[1][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_1763993034200418[0][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_1763993034200418[0][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_1763993034200418[1][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_1763993034200418[1][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+viewergrid_1763993034200418[1][1].render();
+viewergrid_1763993034200418[1][0].render();
+viewergrid_1763993034200418[0][1].render();
+viewergrid_1763993034200418[0][0].render();
+});
+</script></div></div>
+</div>
+</section>
+</section>
+<section id="energy-calculation">
+<h2>Energy calculation<a class="headerlink" href="#energy-calculation" title="Link to this heading">#</a></h2>
+<p>Calculate the total energy of each molecule using B3LYP and a 6-311G* basis set.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keep in mind that O<span class="math notranslate nohighlight">\(_2\)</span> has a triplet ground state, which is here set by changing the multiplicity and using unrestricted SCF.</p>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">scf_calculation</span><span class="p">(</span><span class="n">molecule_xyz</span><span class="p">,</span> <span class="n">basis_set</span><span class="p">,</span> <span class="n">xc</span><span class="p">,</span> <span class="n">multiplicity</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="n">molecule</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">molecule_xyz</span><span class="p">)</span>
+    <span class="n">basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis_set</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">multiplicity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">set_multiplicity</span><span class="p">(</span><span class="n">multiplicity</span><span class="p">)</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">check_multiplicity</span><span class="p">()</span>
+        <span class="n">scf_gs</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfUnrestrictedDriver</span><span class="p">()</span>
+        <span class="n">scf_gs</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">scf_gs</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+        <span class="n">scf_gs</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+
+    <span class="n">scf_gs</span><span class="o">.</span><span class="n">xcfun</span> <span class="o">=</span> <span class="n">xc</span>
+    <span class="n">scf_results</span> <span class="o">=</span> <span class="n">scf_gs</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">scf_results</span><span class="p">,</span> <span class="n">scf_gs</span>
+
+
+<span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;b3lyp&quot;</span>
+<span class="n">basis_set</span> <span class="o">=</span> <span class="s2">&quot;6-311G*&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ch4_results</span><span class="p">,</span> <span class="n">ch4_scf</span> <span class="o">=</span> <span class="n">scf_calculation</span><span class="p">(</span><span class="n">ch4_xtb</span><span class="p">,</span> <span class="n">basis_set</span><span class="p">,</span> <span class="n">xc</span><span class="p">)</span>
+<span class="n">o2_results</span><span class="p">,</span> <span class="n">o2_scf</span> <span class="o">=</span> <span class="n">scf_calculation</span><span class="p">(</span><span class="n">o2_xtb</span><span class="p">,</span> <span class="n">basis_set</span><span class="p">,</span> <span class="n">xc</span><span class="p">,</span> <span class="n">multiplicity</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">co2_results</span><span class="p">,</span> <span class="n">co2_scf</span> <span class="o">=</span> <span class="n">scf_calculation</span><span class="p">(</span><span class="n">co2_xtb</span><span class="p">,</span> <span class="n">basis_set</span><span class="p">,</span> <span class="n">xc</span><span class="p">)</span>
+<span class="n">h2o_results</span><span class="p">,</span> <span class="n">h2o_scf</span> <span class="o">=</span> <span class="n">scf_calculation</span><span class="p">(</span><span class="n">h2o_xtb</span><span class="p">,</span> <span class="n">basis_set</span><span class="p">,</span> <span class="n">xc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reaction-energy">
+<h2>Reaction energy<a class="headerlink" href="#reaction-energy" title="Link to this heading">#</a></h2>
+<p>The reaction energy is now taken as the energy difference between the reactants and products:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e_reactants</span> <span class="o">=</span> <span class="n">ch4_scf</span><span class="o">.</span><span class="n">get_scf_energy</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">o2_scf</span><span class="o">.</span><span class="n">get_scf_energy</span><span class="p">()</span>
+<span class="n">e_products</span> <span class="o">=</span> <span class="n">co2_scf</span><span class="o">.</span><span class="n">get_scf_energy</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h2o_scf</span><span class="o">.</span><span class="n">get_scf_energy</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The reaction energy is </span><span class="si">{</span><span class="mf">627.5</span><span class="o">*</span><span class="p">(</span><span class="n">e_products</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">e_reactants</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> kcal/mol&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The reaction energy is -157.1 kcal/mol
+</pre></div>
+</div>
+</div>
+</div>
+<p>This can be compared to the results presented <a class="reference external" href="https://doi.org/10.1021/acs.jchemed.1c01243">here</a>, with combustion energies ranging from approximately -157.3 kcal/mol (obtained with Hartree-Fock and a small basis set), to a high-quality estimate of -193.2 kcal/mol.</p>
+<p>In order to investigate the combustion energy of any other alkane, we merely need to change the corresponding SMILES string and calculating energy differences according to the general reaction equation:</p>
+<div class="math notranslate nohighlight">
+\[
+2\textrm{C}_n\textrm{H}_{2n+2} + (3n+1)\textrm{O}_2 \rightarrow 2n\textrm{CO}_2 + 2(n+1)\textrm{H}_2\textrm{O}
+\]</div>
+<p>With this, we obtain reaction energies for the first five alkanes, considering both the total energy and the energy per carbon atom:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hydrocarbon</p></th>
+<th class="head"><p>kcal/mol</p></th>
+<th class="head"><p>kcal/mol per carbon</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>methane</p></td>
+<td><p>-157.1</p></td>
+<td><p>-157.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>ethane</p></td>
+<td><p>-286.8</p></td>
+<td><p>-143.4</p></td>
+</tr>
+<tr class="row-even"><td><p>propane</p></td>
+<td><p>-415.4</p></td>
+<td><p>-138.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>butane</p></td>
+<td><p>-544.9</p></td>
+<td><p>-136.2</p></td>
+</tr>
+<tr class="row-even"><td><p>heptane</p></td>
+<td><p>-673.7</p></td>
+<td><p>-134.7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="wf_construct.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Assembling a full workflow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="wf_gwp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Global warming potential</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-optimization">Geometry optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#force-field-optimization">Force field optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xtb-optimization">xTB optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-calculation">Energy calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reaction-energy">Reaction energy</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The eChem team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

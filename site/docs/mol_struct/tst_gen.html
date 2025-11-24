@@ -1,0 +1,2317 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Transition state &#8212; Computational Chemistry from  Laptop to HPC</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TX4YJ1J5XE"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/mol_struct/tst_gen';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Guessing transition states with force fireld interpolation" href="ts_guesser.html" />
+    <link rel="prev" title="Conformer search" href="conformer.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../title.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Computational Chemistry from  Laptop to HPC - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Computational Chemistry from  Laptop to HPC - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro.html">Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics_notebook.html">Using Jupyter notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../units_notation.html">Units and notation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Electronic ground states</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/elstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/orbitals.html">Orbitals and basis sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/slater.html">Many-electron wave functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/operators.html">Operators and matrix elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/reduced_density.html">Reduced particle densities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/natural_orbitals.html">Natural orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/integrals.html">Integrals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/spin.html">Electron spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/correlation.html">Electron correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dispersion.html">Dispersion interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/pt.html">Rayleigh–Schrödinger perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/second_quant.html">Second quantization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/group_theory.html">Symmetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/wft.html">Wave function theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../elec_struct/hartree-fock.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_theory.html">Hartree–Fock theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/fock_diagonalize.html">Fock matrix diagonalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_scf.html">SCF optimization</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_example.html">HF in VeloxChem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mp2.html">Møller–Plesset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/wft_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/dft.html">Density functional theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/hohenberg.html">Hohenberg–Kohn theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kohn-sham.html">Kohn–Sham method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kernel_int.html">Kernel integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_scf.html">SCF optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_prop.html">First-order properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/available_xcfun.html">Available XC functionals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/multiref.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcscf.html">MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcpdft.html">MC-PDFT</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Molecular structure and dynamics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="molstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="coordinates.html">Choice of coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symmetry.html">Molecular symmetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tst.html">Transition-state theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opt_struct.html">Optimization methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gradients.html">Gradients</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="energy_grad.html">Energy gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="property_grad.html">Property gradients</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="hessians_vib.html">Hessians and vibrations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="hessians.html">Molecular Hessians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vibrations.html">Vibrational analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="opt.html">Structure optimization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="opt_gs.html">Ground state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opt_constrained.html">Constrained coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conformer.html">Conformer search</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Transition state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ts_guesser.html">Guessing transition states with force fireld interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="impes.html">PES interpolation techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="impes_calc.html">Constructing the PES by interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="md.html">Molecular dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="forcefields.html">Force fields</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="reparameterize.html">Reparameterize force fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="md_setup.html">Ensembles and time integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="md_run.html">Running a simulation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Spectra and properties</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/spectra_aspects.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/resp_external.html">Responses to external fields</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/mol_prop.html">Molecular properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/first_order.html">First-order properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/linear_resp.html">Linear Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/quad_resp.html">Quadratic response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/cubic_resp.html">Cubic response</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/elec_nuc.html">Electronic and nuclear contributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/rovib.html">Rovibronic states</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/dipole_equiv.html">Dipole equivalence relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/finite_field.html">Finite field method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/nto.html">Natural transition orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/selection_rules.html">Selection rules</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/excoupl.html">Exciton coupling model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/excoupl_impl.html">Implementation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/expt_theory.html">Experiment to theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/uv_vis.html">UV/vis absorption</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/opa.html">One-photon absorption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpa.html">Two-photon absorption</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/optact.html">Optical activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/ecd.html">Electronic Circular Dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/or.html">Optical Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpcd.html">Two-photon circular dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpor.html">Two-photon optical rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/more_optact.html">More birefringences &amp; dichroisms</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/wavefunction.html">Wave function methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/hf.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_rot.html">Orbital rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/kappa_expansion.html">Time-dependence of observables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_param_field.html">Field-dependence of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_param_energy.html">Energy determination of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_quasienergy.html">Quasi-energy determination of parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/adc.html">Algebraic-diagrammatic construction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_pp.html">Polarization propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_isr.html">Intermediate state representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_hpc.html">HPC-QC implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_exercises_new.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/tddft.html">Time-dependent DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_foundation.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_quasienergy.html">Quasi-energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_linear_response.html">Linear response</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_theory.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_implementation.html">Implementation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_excited_states.html">Excited states</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_rsp_eq.html">TDDFT response equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_tda.html">Tamm–Dancoff approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_triplet_inst.html">Triplet instability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_spin_flip.html">Spin-flip</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/tddft_charge_transfer.html">Charge transfer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/mr_response.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/sa_mcscf.html">State-averaged MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/mr_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/localprop.html">Localized properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/esp.html">ESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/chelpg.html">CHELPG charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/resp.html">RESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/loprop.html">LoProp charges and polarisabilities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/embedding.html">Embedding potentials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/nonpol_emb.html">Non-polarizable embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/pol_emb.html">Polarizable embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/pcm.html">Polarizable continuum models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/cpcm.html">Conductor-like polarizable continuum model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/mol_struct.html">Molecular structure and dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/struct_vis.html">Molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/md_vis.html">MD trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/opt_vib_vis.html">Optimization and normal modes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/elec_struct.html">Electronic structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/orb_vis.html">Orbitals and densities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/spec_prop.html">Spectra and properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/exc_vis.html">Excited states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/broadening.html">Spectrum broadening</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and workflows</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/workflow.html">Constructing workflows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_build.html">Building systems</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_struct.html">Optimizing molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_scf.html">Optimizing electronic structure</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/wf_construct.html">Assembling a full workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_methane.html">Methane combustion energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_gwp.html">Global warming potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_spectra.html">From structure to spectrum</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/uv_vis.html">UV/vis spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_absorption.html">Absorption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_fluorescence.html">Fluorescence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/vib_ir.html">Vibrational spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_calc.html">IR spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_raman.html">Raman spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/openshells.html">Open shells</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/rest_unrest.html">Restricted versus unrestricted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/correlation.html">Static versus dynamic correlation correlation</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/xray.html">X-ray spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_calc.html">Spectrum calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_analysis.html">Spectrum analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_aspects.html">Special aspects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/dire_xps.html">Core-hole localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_large.html">Larger systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_nonstandard.html">Non-standard calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_cheatsheet.html">Cheat sheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/colab.html">Google Colab notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cite.html">How to cite and contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem/issues/new?title=Issue%20on%20page%20%2Fdocs/mol_struct/tst_gen.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/mol_struct/tst_gen.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Transition state</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intrinsic-reaction-coordinate-method">Intrinsic Reaction Coordinate method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-scf-driver">Setting up the SCF driver</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-gradient-driver">Setting up the gradient driver</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-optimization-driver">Setting up the optimization driver</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-of-the-optimized-transition-state">Geometry of the optimized transition state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vibrational-analysis">Vibrational Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#animate-the-normal-mode-of-choice-indexing-starts-with-1">Animate the normal mode of choice (indexing starts with 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irc">IRC</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Setting up the SCF driver</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setting up the gradient driver</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-optimization-driver-for-the-irc">Setting up the optimization driver for the IRC</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-the-optimized-reactant-and-product-geometries">Visualization of the optimized reactant and product geometries</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculation-of-thermodynamic-and-kinetic-parameters">Calculation of Thermodynamic and Kinetic Parameters</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="transition-state">
+<h1>Transition state<a class="headerlink" href="#transition-state" title="Link to this heading">#</a></h1>
+<p>Once we have a suitable candidate for transition state we can optimize the structure for a transition state. As explained before the transition state will be characterized by a vanishing gradient and one negative Hessian
+eigenvalue. Therefore, in essence, we are exploring the PES looking for a maximum.<br />
+<br />
+To ilustrate the concepts we will use a simple example in which we will perform the Intrinsic Reaction Coordinate (IRC) method. So, we will start with a transition state candidate and optimize it to transition state. Then we will just minimize the energy in the backward path and the forward path to obtain the reactant and the product as illustrated in the following figure:<br /></p>
+<figure class="align-default">
+<img alt="../../_images/irc.png" src="../../_images/irc.png" />
+</figure>
+<section id="intrinsic-reaction-coordinate-method">
+<h2>Intrinsic Reaction Coordinate method<a class="headerlink" href="#intrinsic-reaction-coordinate-method" title="Link to this heading">#</a></h2>
+<p>The Intrinsic Reaction Coordinate method traces the minimum energy pathway of a chemical reaction, connecting an optimized transition state characterized by a single imaginary frequency to the neighbouring reactant and product minima. <br />
+<br />
+The calculation starts from the optimized TS structure, after the Hessian and vibrational frequencies have been determined. The eigenvector, corresponding to the imaginary vibrational mode defines the displacement vector, which sets the direction along which the system initially moves away from the TS.<br />
+<br />
+The first step is taken in the positive “forward” direction along this eingenvector using mass-weighted internal coordinates. At each step, the Hessian is updated, and the subsequent steps are guided by the instantaneous acceleration vectors. The procedure continues iteratively until convergence is reached in the “forward” direction, then is repeated in the negative “backward” direction to complete the full energy profile.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">veloxchem</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vlx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py3Dmol</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">p3d</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_guess</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;8</span>
+<span class="s1">Initial geometry</span>
+<span class="s1">C        1.4059000000    0.8128000000    0.0009000000</span>
+<span class="s1">C        1.5654000000   -0.3926000000    0.0009000000</span>
+<span class="s1">N       -1.0383000000    1.0196000000   -0.0052000000</span>
+<span class="s1">H       -2.0386000000    1.4291000000    0.0210000000</span>
+<span class="s1">H        1.3741000000    1.8940000000   -0.0007000000</span>
+<span class="s1">H        1.9546000000   -1.4028000000    0.0003000000</span>
+<span class="s1">N       -0.4958000000   -1.3375000000   -0.0011000000</span>
+<span class="s1">N       -1.1970000000   -0.3166000000    0.0018000000</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecule</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">from_xyz_string</span><span class="p">(</span><span class="n">ts_guess</span><span class="p">)</span>
+<span class="n">molecule</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="3dmolviewer_17639964765125902"  style="position: relative; width: 400px; height: 300px;">
+        <p id="3dmolwarning_17639964765125902" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_17639964765125902 = null;
+var warn = document.getElementById("3dmolwarning_17639964765125902");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+viewer_17639964765125902 = $3Dmol.createViewer(document.getElementById("3dmolviewer_17639964765125902"),{backgroundColor:"white"});
+viewer_17639964765125902.zoomTo();
+	viewer_17639964765125902.addModel("8\n\nC              1.405900000000         0.812800000000         0.000900000000\nC              1.565400000000        -0.392600000000         0.000900000000\nN             -1.038300000000         1.019600000000        -0.005200000000\nH             -2.038600000000         1.429100000000         0.021000000000\nH              1.374100000000         1.894000000000        -0.000700000000\nH              1.954600000000        -1.402800000000         0.000300000000\nN             -0.495800000000        -1.337500000000        -0.001100000000\nN             -1.197000000000        -0.316600000000         0.001800000000\n");
+	viewer_17639964765125902.setViewStyle({"style": "outline", "width": 0.05});
+	viewer_17639964765125902.setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewer_17639964765125902.zoomTo();
+viewer_17639964765125902.render();
+});
+</script></div></div>
+</div>
+<p><strong>Fig 1</strong>: TS candidate</p>
+<section id="setting-up-the-scf-driver">
+<h3>Setting up the SCF driver<a class="headerlink" href="#setting-up-the-scf-driver" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span><span class="s2">&quot;def2-svp&quot;</span><span class="p">)</span>
+<span class="n">scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">scf_drv</span><span class="o">.</span><span class="n">conv_thresh</span> <span class="o">=</span> <span class="mf">1.0e-6</span>
+<span class="n">scf_drv</span><span class="o">.</span><span class="n">xcfun</span> <span class="o">=</span> <span class="s2">&quot;b3lyp&quot;</span>
+<span class="n">scf_drv</span><span class="o">.</span><span class="n">grid_level</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">scf_results</span> <span class="o">=</span> <span class="n">scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span><span class="n">basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setting-up-the-gradient-driver">
+<h3>Setting up the gradient driver<a class="headerlink" href="#setting-up-the-gradient-driver" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scf_grad_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfGradientDriver</span><span class="p">(</span><span class="n">scf_drv</span><span class="p">)</span>
+<span class="n">scf_grad_drv</span><span class="o">.</span><span class="n">compute</span> <span class="p">(</span><span class="n">molecule</span><span class="p">,</span><span class="n">basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setting-up-the-optimization-driver">
+<h3>Setting up the optimization driver<a class="headerlink" href="#setting-up-the-optimization-driver" title="Link to this heading">#</a></h3>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scf_opt_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">OptimizationDriver</span><span class="p">(</span><span class="n">scf_drv</span><span class="p">)</span>
+<span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># We set the option to find transition state</span>
+<span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">hessian</span> <span class="o">=</span> <span class="s1">&#39;first+last&#39;</span>
+<span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">scf_opt_ts</span> <span class="o">=</span> <span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">scf_results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">hessian</span> <span class="o">=</span> <span class="s1">&#39;first+last&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">scf_opt_ts</span> <span class="o">=</span> <span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">scf_results</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/veloxchem/optimizationdriver.py:380,</span> in <span class="ni">OptimizationDriver.compute</span><span class="nt">(self, molecule, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">377</span> <span class="k">with</span> <span class="n">redirect_stdout</span><span class="p">(</span><span class="n">StringIO</span><span class="p">())</span> <span class="k">as</span> <span class="n">fg_out</span><span class="p">,</span> <span class="n">redirect_stderr</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">378</span>         <span class="n">StringIO</span><span class="p">())</span> <span class="k">as</span> <span class="n">fg_err</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">379</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">380</span>         <span class="n">m</span> <span class="o">=</span> <span class="n">geometric</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">run_optimizer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">381</span>             <span class="n">customengine</span><span class="o">=</span><span class="n">opt_engine</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span>             <span class="n">coordsys</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">coordsys</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span>             <span class="n">check</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">check_interval</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span>             <span class="n">trust</span><span class="o">=</span><span class="n">default_trust</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span>             <span class="n">tmax</span><span class="o">=</span><span class="n">default_tmax</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span>             <span class="n">maxiter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span>             <span class="n">converge</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conv_flags</span><span class="p">(),</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span>             <span class="n">constraints</span><span class="o">=</span><span class="n">constr_filename</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span>             <span class="n">transition</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transition</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span>             <span class="n">hessian</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hessian</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span>             <span class="nb">input</span><span class="o">=</span><span class="n">optinp_filename</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span>     <span class="k">except</span> <span class="n">geometric</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">HessianExit</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">393</span>         <span class="n">hessian_exit</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/geometric/optimize.py:1300,</span> in <span class="ni">run_optimizer</span><span class="nt">(**kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1298</span>         <span class="n">add</span> <span class="o">=</span> <span class="s2">&quot;_irc.xyz&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1299</span>     <span class="n">params</span><span class="o">.</span><span class="n">xyzout</span> <span class="o">=</span> <span class="n">prefix</span><span class="o">+</span><span class="n">add</span>
+<span class="ne">-&gt; </span><span class="mi">1300</span>     <span class="n">progress</span> <span class="o">=</span> <span class="n">Optimize</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">IC</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1301</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1302</span>     <span class="c1"># Run a single constrained geometry optimization or scan over a grid of values</span>
+<span class="g g-Whitespace">   </span><span class="mi">1303</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">IC</span><span class="p">,</span> <span class="p">(</span><span class="n">CartesianCoordinates</span><span class="p">,</span> <span class="n">PrimitiveInternalCoordinates</span><span class="p">)):</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/geometric/optimize.py:1116,</span> in <span class="ni">Optimize</span><span class="nt">(coords, molecule, IC, engine, dirname, params, print_info)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1088</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1089</span><span class="sd"> Optimize the geometry of a molecule. This function used to contain the whole</span>
+<span class="g g-Whitespace">   </span><span class="mi">1090</span><span class="sd"> optimization loop, which has since been moved to the Optimizer() class;</span>
+<span class="sd">   (...)   1113     A molecule object for opt trajectory and energies</span>
+<span class="g g-Whitespace">   </span><span class="mi">1114</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1115</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">IC</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">print_info</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1116</span> <span class="k">return</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">optimizeGeometry</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/geometric/optimize.py:1029,</span> in <span class="ni">Optimizer.optimizeGeometry</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="k">def</span><span class="w"> </span><span class="nf">optimizeGeometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1025</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1026</span><span class="sd">     High-level optimization loop.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1027</span><span class="sd">     This allows calcEnergyForce() to be separated from the rest of the codes</span>
+<span class="g g-Whitespace">   </span><span class="mi">1028</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1029</span>     <span class="bp">self</span><span class="o">.</span><span class="n">calcEnergyForce</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1030</span>     <span class="bp">self</span><span class="o">.</span><span class="n">prepareFirstStep</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1031</span>     <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">OPT_STATE</span><span class="o">.</span><span class="n">CONVERGED</span><span class="p">,</span> <span class="n">OPT_STATE</span><span class="o">.</span><span class="n">FAILED</span><span class="p">]:</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/geometric/optimize.py:346,</span> in <span class="ni">Optimizer.calcEnergyForce</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">344</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Iteration</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">345</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">hessian</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="s1">&#39;first+last&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="s1">&#39;hess_data&#39;</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">346</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Hx0</span> <span class="o">=</span> <span class="n">calc_cartesian_hessian</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">molecule</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span> <span class="n">read_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bigchem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">bigchem</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">347</span>         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;&gt;&gt; Initial Cartesian Hessian Eigenvalues</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">348</span>         <span class="bp">self</span><span class="o">.</span><span class="n">SortedEigenvalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Hx0</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/geometric/normal_modes.py:194,</span> in <span class="ni">calc_cartesian_hessian</span><span class="nt">(coords, molecule, engine, dirname, read_data, bigchem, verbose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">h</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span> <span class="n">dirname_d</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">&quot;hessian/displace/</span><span class="si">%03i</span><span class="s2">p&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="ne">--&gt; </span><span class="mi">194</span> <span class="n">gfwd</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">calc</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">dirname_d</span><span class="p">,</span> <span class="n">read_data</span><span class="o">=</span><span class="n">read_data</span><span class="p">,</span> <span class="n">copydir</span><span class="o">=</span><span class="n">dirname</span><span class="p">)[</span><span class="s1">&#39;gradient&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span> <span class="n">dirname_d</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">&quot;hessian/displace/</span><span class="si">%03i</span><span class="s2">m&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/geometric/engine.py:255,</span> in <span class="ni">Engine.calc</span><span class="nt">(self, coords, dirname, read_data, copydir)</span>
+<span class="g g-Whitespace">    </span><span class="mi">253</span>             <span class="bp">self</span><span class="o">.</span><span class="n">copy_scratch</span><span class="p">(</span><span class="n">copydir</span><span class="p">,</span> <span class="n">dirname</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">254</span>         <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span> <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">255</span>         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_new</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">dirname</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span>     <span class="bp">self</span><span class="o">.</span><span class="n">stored_calcs</span><span class="p">[</span><span class="n">coord_hash</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coords&#39;</span><span class="p">:</span><span class="n">coords</span><span class="p">,</span> <span class="s1">&#39;result&#39;</span><span class="p">:</span><span class="n">result</span><span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/veloxchem/optimizationengine.py:141,</span> in <span class="ni">OptimizationEngine.calc_new</span><span class="nt">(self, coords, dirname)</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="k">pass</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span> <span class="n">energy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_drv</span><span class="o">.</span><span class="n">compute_energy</span><span class="p">(</span><span class="n">new_mol</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">141</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">new_mol</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span> <span class="n">gradient</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_drv</span><span class="o">.</span><span class="n">get_gradient</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span>     <span class="c1">#self.grad_drv.ostream.unmute()</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/veloxchem/scfgradientdriver.py:131,</span> in <span class="ni">ScfGradientDriver.compute</span><span class="nt">(self, molecule, basis, scf_results)</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span> <span class="n">scf_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">scf_type</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="n">mpi_master</span><span class="p">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span> <span class="k">if</span> <span class="n">scf_type</span> <span class="o">==</span> <span class="s1">&#39;restricted&#39;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">131</span>     <span class="bp">self</span><span class="o">.</span><span class="n">compute_analytical_restricted</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">scf_results</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="k">elif</span> <span class="n">scf_type</span> <span class="o">==</span> <span class="s1">&#39;unrestricted&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="bp">self</span><span class="o">.</span><span class="n">compute_analytical_unrestricted</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>                                          <span class="n">scf_results</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/echem/lib/python3.12/site-packages/veloxchem/scfgradientdriver.py:276,</span> in <span class="ni">ScfGradientDriver.compute_analytical_restricted</span><span class="nt">(self, molecule, basis, scf_results)</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span> <span class="n">ovl_grad_drv</span> <span class="o">=</span> <span class="n">OverlapGeom100Driver</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">275</span> <span class="k">for</span> <span class="n">iatom</span> <span class="ow">in</span> <span class="n">local_atoms</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">276</span>     <span class="n">gmats</span> <span class="o">=</span> <span class="n">ovl_grad_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">iatom</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]):</span>
+<span class="g g-Whitespace">    </span><span class="mi">279</span>         <span class="n">gmat</span> <span class="o">=</span> <span class="n">gmats</span><span class="o">.</span><span class="n">matrix_to_numpy</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="geometry-of-the-optimized-transition-state">
+<h3>Geometry of the optimized transition state<a class="headerlink" href="#geometry-of-the-optimized-transition-state" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">show_convergence</span><span class="p">(</span><span class="n">scf_opt_ts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/441a3f9b512606563561a2235559ff7b7e7b17887ccd63558a1378b225644ec9.png" src="../../_images/441a3f9b512606563561a2235559ff7b7e7b17887ccd63558a1378b225644ec9.png" />
+<div class="output text_html"><div id="3dmolviewer_1757516420799629"  style="position: relative; width: 640px; height: 360px;">
+        <p id="3dmolwarning_1757516420799629" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.2/build/3Dmol-min.js');
+}
+
+var viewer_1757516420799629 = null;
+var warn = document.getElementById("3dmolwarning_1757516420799629");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+viewer_1757516420799629 = $3Dmol.createViewer(document.getElementById("3dmolviewer_1757516420799629"),{backgroundColor:"white"});
+viewer_1757516420799629.zoomTo();
+	viewer_1757516420799629.addModel("8\n\nC              1.267384028538         0.858861037274         0.111578248080\nC              1.514871770868        -0.354653532687         0.079330040429\nN             -0.878745542430         0.895731928573        -0.219123178544\nH             -1.690001642583         1.431578662084         0.102595977912\nH              1.377961209568         1.927169226772         0.160713109770\nH              2.093028695206        -1.262042519530         0.099900426819\nN             -0.381673301953        -1.312215794361        -0.182596621457\nN             -1.037548344687        -0.348440777236        -0.199319887647\n");
+	viewer_1757516420799629.setViewStyle({"style": "outline", "width": 0.05});
+	viewer_1757516420799629.setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewer_1757516420799629.zoomTo();
+viewer_1757516420799629.render();
+});
+</script></div><script type="application/vnd.jupyter.widget-view+json">{"model_id": "a95a890da0024206baa6e23765be3c6c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="vibrational-analysis">
+<h3>Vibrational Analysis<a class="headerlink" href="#vibrational-analysis" title="Link to this heading">#</a></h3>
+<p>To confirm that we obtained the TS, we will perform a vibrational analysis.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">opt_molecule</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">from_xyz_string</span><span class="p">(</span><span class="n">scf_opt_ts</span><span class="p">[</span><span class="s1">&#39;final_geometry&#39;</span><span class="p">])</span>
+<span class="n">opt_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">opt_scf_drv</span><span class="o">.</span><span class="n">xcfun</span> <span class="o">=</span> <span class="s2">&quot;b3lyp&quot;</span>
+<span class="n">opt_scf_results</span> <span class="o">=</span> <span class="n">opt_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>
+
+<span class="n">vib_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">VibrationalAnalysis</span><span class="p">(</span><span class="n">opt_scf_drv</span><span class="p">)</span>
+<span class="n">vib_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">method_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xcfun&#39;</span><span class="p">:</span> <span class="s1">&#39;b3lyp&#39;</span><span class="p">,</span> <span class="s1">&#39;grid_level&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">})</span>
+
+<span class="n">vib_results</span> <span class="o">=</span> <span class="n">vib_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                            Self Consistent Field Driver Setup                                            
+                                           ====================================                                           
+                                                                                                                          
+                   Wave Function Model             : Spin-Restricted Kohn-Sham                                            
+                   Initial Guess Model             : Superposition of Atomic Densities                                    
+                   Convergence Accelerator         : Two Level Direct Inversion of Iterative Subspace                     
+                   Max. Number of Iterations       : 50                                                                   
+                   Max. Number of Error Vectors    : 10                                                                   
+                   Convergence Threshold           : 1.0e-06                                                              
+                   ERI Screening Threshold         : 1.0e-12                                                              
+                   Linear Dependence Threshold     : 1.0e-06                                                              
+                   Exchange-Correlation Functional : B3LYP                                                                
+                   Molecular Grid Level            : 4                                                                    
+                                                                                                                          
+* Info * Nuclear repulsion energy: 148.8029764468 a.u.                                                                    
+                                                                                                                          
+* Info * Using the B3LYP functional.                                                                                      
+                                                                                                                          
+         P. J. Stephens, F. J. Devlin, C. F. Chabalowski, and M. J. Frisch.,  J. Phys. Chem. 98, 11623 (1994)
+                                                                                                                          
+* Info * Using the Libxc library (v7.0.0).                                                                                
+                                                                                                                          
+         S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+                                                                                                                          
+* Info * Using the following algorithm for XC numerical integration.                                                      
+                                                                                                                          
+         J. Kussmann, H. Laqua and C. Ochsenfeld, J. Chem. Theory Comput. 2021, 17, 1512-1521
+                                                                                                                          
+* Info * Molecular grid with 121661 points generated in 0.13 sec.                                                         
+                                                                                                                          
+* Info * Overlap matrix computed in 0.02 sec.                                                                             
+                                                                                                                          
+* Info * Kinetic energy matrix computed in 0.00 sec.                                                                      
+                                                                                                                          
+* Info * Nuclear potential matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+* Info * Orthogonalization matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+* Info * Starting Reduced Basis SCF calculation...                                                                        
+* Info * ...done. SCF energy in reduced basis set: -240.271814063223 a.u. Time: 0.31 sec.                                 
+                                                                                                                          
+* Info * Overlap matrix computed in 0.00 sec.                                                                             
+                                                                                                                          
+* Info * Kinetic energy matrix computed in 0.00 sec.                                                                      
+                                                                                                                          
+* Info * Nuclear potential matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+* Info * Orthogonalization matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+                                                                                                                          
+               Iter. |    Kohn-Sham Energy | Energy Change | Gradient Norm | Max. Gradient | Density Change               
+               --------------------------------------------------------------------------------------------               
+                  1      -241.876407247161    0.0000000000      0.48595865      0.03023715      0.00000000                
+                  2      -241.839062399275    0.0373448479      0.72182418      0.05002553      0.36545124                
+                  3      -241.896891652573   -0.0578292533      0.24997435      0.01733694      0.26234402                
+                  4      -241.903260660054   -0.0063690075      0.07692042      0.00382481      0.07745868                
+                  5      -241.903836185340   -0.0005755253      0.02242984      0.00098641      0.02564385                
+                  6      -241.903894817438   -0.0000586321      0.00290787      0.00015478      0.00816259                
+                  7      -241.903894949330   -0.0000001319      0.00276489      0.00015588      0.00184553                
+                  8      -241.903895999052   -0.0000010497      0.00043047      0.00002327      0.00092490                
+                  9      -241.903896019132   -0.0000000201      0.00017079      0.00000760      0.00018157                
+                 10      -241.903896023476   -0.0000000043      0.00002669      0.00000174      0.00006788                
+                 11      -241.903896023610   -0.0000000001      0.00000453      0.00000023      0.00001779                
+                 12      -241.903896023613   -0.0000000000      0.00000097      0.00000006      0.00000269                
+                                                                                                                          
+               *** SCF converged in 12 iterations. Time: 1.55 sec.                                                        
+                                                                                                                          
+               Spin-Restricted Kohn-Sham:                                                                                 
+               --------------------------                                                                                 
+               Total Energy                       :     -241.9038960236 a.u.                                              
+               Electronic Energy                  :     -390.7068724704 a.u.                                              
+               Nuclear Repulsion Energy           :      148.8029764468 a.u.                                              
+               ------------------------------------                                                                       
+               Gradient Norm                      :        0.0000009657 a.u.                                              
+                                                                                                                          
+                                                                                                                          
+               Ground State Information                                                                                   
+               ------------------------                                                                                   
+               Charge of Molecule            :  0.0                                                                       
+               Multiplicity (2S+1)           :  1                                                                         
+               Magnetic Quantum Number (M_S) :  0.0                                                                       
+                                                                                                                          
+                                                                                                                          
+                                                 Spin Restricted Orbitals                                                 
+                                                 ------------------------                                                 
+                                                                                                                          
+               Molecular Orbital No.  14:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.42699 a.u.                                                                  
+               (   7 N   1s  :    -0.16) (   7 N   2s  :    -0.32) (   7 N   3s  :    -0.48)                              
+               (   7 N   1p+1:     0.18) (   7 N   1p-1:    -0.38) (   8 N   1p+1:    -0.22)                              
+               (   8 N   1p-1:     0.20)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  15:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.32457 a.u.                                                                  
+               (   1 C   1p+1:     0.18) (   3 N   2s  :    -0.17) (   3 N   3s  :    -0.32)                              
+               (   3 N   1p+1:     0.36) (   3 N   2p+1:    -0.21) (   4 H   1s  :     0.20)                              
+               (   7 N   1p+1:    -0.22) (   7 N   1p-1:    -0.24) (   7 N   2p-1:     0.17)                              
+               (   8 N   1p+1:    -0.21)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  16:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.29161 a.u.                                                                  
+               (   1 C   1p0 :     0.43) (   1 C   2p0 :     0.25) (   2 C   1p0 :     0.41)                              
+               (   2 C   2p0 :     0.24)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  17:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.27019 a.u.                                                                  
+               (   1 C   1p+1:    -0.29) (   1 C   2p+1:    -0.17) (   2 C   1p+1:    -0.25)                              
+               (   3 N   3s  :    -0.15) (   3 N   1p0 :    -0.33) (   3 N   2p0 :     0.26)                              
+               (   7 N   1p0 :     0.28) (   7 N   2p0 :    -0.20) (   8 N   1p+1:     0.17)                              
+                                                                                                                          
+               Molecular Orbital No.  18:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.26445 a.u.                                                                  
+               (   1 C   1p+1:     0.19) (   2 C   1p+1:     0.28) (   2 C   2p+1:     0.17)                              
+               (   3 N   1p+1:    -0.15) (   3 N   1p0 :    -0.34) (   3 N   2p0 :     0.27)                              
+               (   7 N   1p-1:     0.15) (   7 N   1p0 :     0.27) (   7 N   2p0 :    -0.20)                              
+                                                                                                                          
+               Molecular Orbital No.  19:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:   -0.05379 a.u.                                                                  
+               (   1 C   1p+1:    -0.25) (   1 C   2p+1:    -0.20) (   3 N   1p+1:     0.25)                              
+               (   3 N   1p-1:     0.23) (   3 N   2p+1:    -0.23) (   3 N   2p-1:    -0.25)                              
+               (   4 H   1s  :     0.15) (   7 N   1p+1:     0.41) (   7 N   2p+1:    -0.38)                              
+               (   7 N   2p-1:    -0.16) (   8 N   3s  :    -0.44) (   8 N   1p+1:    -0.31)                              
+               (   8 N   2p+1:     0.28)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  20:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.00775 a.u.                                                                  
+               (   1 C   2p0 :    -0.17) (   2 C   2p0 :     0.16) (   3 N   3s  :    -0.16)                              
+               (   3 N   1p0 :    -0.30) (   3 N   2p+1:     0.15) (   3 N   2p0 :     0.34)                              
+               (   4 H   2s  :     0.18) (   7 N   1p0 :    -0.39) (   7 N   2p0 :     0.45)                              
+               (   8 N   1p0 :     0.49) (   8 N   2p0 :    -0.52)                                                        
+                                                                                                                          
+               Molecular Orbital No.  21:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.03196 a.u.                                                                  
+               (   1 C   1p0 :     0.39) (   1 C   2p0 :     0.65) (   2 C   1p0 :    -0.42)                              
+               (   2 C   2p0 :    -0.66) (   7 N   1p0 :    -0.17) (   7 N   2p0 :     0.17)                              
+                                                                                                                          
+               Molecular Orbital No.  22:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.04064 a.u.                                                                  
+               (   1 C   2s  :    -0.17) (   1 C   1p+1:     0.27) (   1 C   2p+1:     0.40)                              
+               (   1 C   2p-1:    -0.50) (   2 C   2s  :     0.22) (   2 C   1p+1:    -0.29)                              
+               (   2 C   1p-1:    -0.15) (   2 C   2p+1:    -0.20) (   2 C   2p-1:    -0.64)                              
+               (   3 N   2s  :     0.18) (   3 N   3s  :     0.59) (   4 H   2s  :    -0.61)                              
+               (   5 H   2s  :     0.72) (   6 H   2s  :    -0.74) (   7 N   1p+1:     0.21)                              
+               (   7 N   2p+1:    -0.20) (   8 N   3s  :    -0.17)                                                        
+                                                                                                                          
+               Molecular Orbital No.  23:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.06708 a.u.                                                                  
+               (   1 C   2s  :    -0.16) (   1 C   3s  :    -0.28) (   1 C   2p-1:    -0.60)                              
+               (   2 C   3s  :    -0.15) (   2 C   2p-1:    -0.34) (   3 N   3s  :    -0.98)                              
+               (   3 N   1p+1:    -0.24) (   3 N   2p+1:     0.44) (   3 N   2p0 :    -0.19)                              
+               (   4 H   2s  :     1.40) (   5 H   2s  :     0.94) (   6 H   2s  :    -0.37)                              
+               (   8 N   3s  :     0.21)                                                                                  
+                                                                                                                          
+                                                                                                                          
+                                                Ground State Dipole Moment                                                
+                                               ----------------------------                                               
+                                                                                                                          
+                                   X   :        -0.242227 a.u.        -0.615680 Debye                                     
+                                   Y   :         0.712090 a.u.         1.809953 Debye                                     
+                                   Z   :         0.257673 a.u.         0.654939 Debye                                     
+                                 Total :         0.795073 a.u.         2.020875 Debye                                     
+                                                                                                                          
+                                                                                                                          
+                                               Vibrational Analysis Driver                                                
+                                              =============================                                               
+                                                                                                                          
+                          The following will be computed:                                                                 
+                                                                                                                          
+                          - Vibrational frequencies and normal modes                                                      
+                          - Force constants                                                                               
+                          - IR intensities                                                                                
+                                                                                                                          
+                                                                                                                          
+                                                    SCF Hessian Driver                                                    
+                                                   ====================                                                   
+                                                                                                                          
+                          Hessian Type                    : Analytical                                                    
+                          Exchange-Correlation Functional : B3LYP                                                         
+                          Molecular Grid Level            : 4                                                             
+                                                                                                                          
+* Info * Computing analytical Hessian...                                                                                  
+                                                                                                                          
+         Reference: P. Deglmann, F. Furche, R. Ahlrichs, Chem. Phys. Lett. 2002, 362, 511-518.
+                                                                                                                          
+                                                                                                                          
+                                         Coupled-Perturbed Kohn-Sham Solver Setup                                         
+                                        ==========================================                                        
+                                                                                                                          
+                          Solver Type                     : Iterative Subspace Algorithm                                  
+                          Max. Number of Iterations       : 150                                                           
+                          Convergence Threshold           : 1.0e-04                                                       
+                          Exchange-Correlation Functional : B3LYP                                                         
+                          Molecular Grid Level            : 4                                                             
+                                                                                                                          
+* Info * Using the B3LYP functional.                                                                                      
+                                                                                                                          
+         P. J. Stephens, F. J. Devlin, C. F. Chabalowski, and M. J. Frisch.,  J. Phys. Chem. 98, 11623 (1994)
+                                                                                                                          
+* Info * Using the Libxc library (v7.0.0).                                                                                
+                                                                                                                          
+         S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+                                                                                                                          
+* Info * Using the following algorithm for XC numerical integration.                                                      
+                                                                                                                          
+         J. Kussmann, H. Laqua and C. Ochsenfeld, J. Chem. Theory Comput. 2021, 17, 1512-1521
+                                                                                                                          
+* Info * Molecular grid with 121661 points generated in 0.08 sec.                                                         
+                                                                                                                          
+* Info * CPHF/CPKS integral derivatives computed in 3.20 sec.                                                             
+                                                                                                                          
+* Info * CPHF/CPKS right-hand side computed in 5.94 sec.                                                                  
+                                                                                                                          
+* Info * Processing 21 Fock builds...                                                                                     
+                                                                                                                          
+* Info * 21 trial vectors in reduced space                                                                                
+                                                                                                                          
+* Info * 638.22 kB of memory used for subspace procedure on the master node                                               
+* Info * 70.57 GB of memory available for the solver on the master node                                                   
+                                                                                                                          
+               *** Iteration:   1 * Residuals (Max,Min): 5.30e-01 and 7.01e-02                                            
+                                                                                                                          
+* Info * Processing 21 Fock builds...                                                                                     
+                                                                                                                          
+* Info * 42 trial vectors in reduced space                                                                                
+                                                                                                                          
+* Info * 1.04 MB of memory used for subspace procedure on the master node                                                 
+* Info * 70.57 GB of memory available for the solver on the master node                                                   
+                                                                                                                          
+               *** Iteration:   2 * Residuals (Max,Min): 7.57e-02 and 6.10e-03                                            
+                                                                                                                          
+* Info * Processing 21 Fock builds...                                                                                     
+                                                                                                                          
+* Info * 63 trial vectors in reduced space                                                                                
+                                                                                                                          
+* Info * 1.45 MB of memory used for subspace procedure on the master node                                                 
+* Info * 70.59 GB of memory available for the solver on the master node                                                   
+                                                                                                                          
+               *** Iteration:   3 * Residuals (Max,Min): 7.29e-03 and 7.71e-04                                            
+                                                                                                                          
+* Info * Processing 19 Fock builds...                                                                                     
+                                                                                                                          
+* Info * 82 trial vectors in reduced space                                                                                
+                                                                                                                          
+* Info * 1.83 MB of memory used for subspace procedure on the master node                                                 
+* Info * 70.59 GB of memory available for the solver on the master node                                                   
+                                                                                                                          
+               *** Iteration:   4 * Residuals (Max,Min): 4.54e-04 and 7.22e-05                                            
+                                                                                                                          
+* Info * Processing 18 Fock builds...                                                                                     
+                                                                                                                          
+* Info * 100 trial vectors in reduced space                                                                               
+                                                                                                                          
+* Info * 2.39 MB of memory used for subspace procedure on the master node                                                 
+* Info * 70.60 GB of memory available for the solver on the master node                                                   
+                                                                                                                          
+               *** Iteration:   5 * Residuals (Max,Min): 1.00e-04 and 7.74e-06                                            
+                                                                                                                          
+               *** Coupled-Perturbed Kohn-Sham converged in 5 iterations. Time: 20.42 sec                                 
+                                                                                                                          
+                                                                                                                          
+* Info * First order derivative contributions to the Hessian computed in 0.00 sec.                                        
+                                                                                                                          
+* Info * Second order derivative contributions to the Hessian computed in 9.38 sec.                                       
+                                                                                                                          
+                                   *** Time spent in Hessian calculation: 29.85 sec ***                                   
+                                                                                                                          
+                                                                                                                          
+                                                   Free Energy Analysis                                                   
+                                                  ======================                                                  
+                                                                                                                          
+       Note: Rotational symmetry is set to 1 regardless of true symmetry                                                  
+       1 Imaginary Frequencies (cm^-1): 499.708i                                                                          
+       Note: Free energy does not include contribution from imaginary mode(s)                                             
+                                                                                                                          
+       Free energy contributions calculated at @ 298.15 K:                                                                
+       Zero-point vibrational energy:                                   32.0253 kcal/mol                                  
+       H   (Trans + Rot + Vib = Tot):   1.4812 +   0.8887 +   1.4860 =   3.8559 kcal/mol                                  
+       S   (Trans + Rot + Vib = Tot):  38.6409 +  24.8989 +   7.7808 =  71.3207 cal/mol/K                                 
+       TS  (Trans + Rot + Vib = Tot):  11.5208 +   7.4236 +   2.3199 =  21.2643 kcal/mol                                  
+                                                                                                                          
+       Ground State Electronic Energy    : E0                        =  -241.90389602 au (   -151796.9866 kcal/mol)       
+       Free Energy Correction (Harmonic) : ZPVE + [H-TS]_T,R,V       =     0.02329366 au (        14.6170 kcal/mol)       
+       Gibbs Free Energy (Harmonic)      : E0 + ZPVE + [H-TS]_T,R,V  =  -241.88060237 au (   -151782.3696 kcal/mol)       
+                                                                                                                          
+                                                                                                                          
+                                                   Vibrational Analysis                                                   
+                                                  ======================                                                  
+                                                                                                                          
+* Info * The 5 dominant normal modes are printed below.                                                                   
+                                                                                                                          
+                                   Vibrational Mode      1                                                                
+                                   ----------------------------------------------------                                   
+                                   Harmonic frequency:                -499.71  cm**-1                                     
+                                   Reduced mass:                       6.3846  amu                                        
+                                   Force constant:                     0.9393  mdyne/A                                    
+                                   IR intensity:                     112.3739  km/mol                                     
+                                   Normal mode:                                                                           
+                                                              X           Y           Z                                   
+                                   1       C             0.3521      0.0158      0.0397                                   
+                                   2       C             0.3381      0.1053      0.0487                                   
+                                   3       N            -0.3130      0.0190     -0.0342                                   
+                                   4       H            -0.5225     -0.2539     -0.1162                                   
+                                   5       H            -0.2429      0.0634     -0.0114                                   
+                                   6       H            -0.2572     -0.2573     -0.0305                                   
+                                   7       N            -0.2798     -0.1168     -0.0354                                   
+                                   8       N             0.0746      0.0262      0.0053                                   
+                                                                                                                          
+                                                                                                                          
+                                   Vibrational Mode      7                                                                
+                                   ----------------------------------------------------                                   
+                                   Harmonic frequency:                 683.24  cm**-1                                     
+                                   Reduced mass:                       2.8642  amu                                        
+                                   Force constant:                     0.7878  mdyne/A                                    
+                                   IR intensity:                     113.8464  km/mol                                     
+                                   Normal mode:                                                                           
+                                                              X           Y           Z                                   
+                                   1       C            -0.1539     -0.0351     -0.0424                                   
+                                   2       C            -0.0866      0.0042     -0.0011                                   
+                                   3       N             0.0030      0.0572     -0.0087                                   
+                                   4       H            -0.1812     -0.1102     -0.1978                                   
+                                   5       H            -0.3496     -0.0306      0.1239                                   
+                                   6       H            -0.7009     -0.3692     -0.0411                                   
+                                   7       N            -0.0049     -0.0769     -0.0365                                   
+                                   8       N             0.2968      0.0829      0.0908                                   
+                                                                                                                          
+                                                                                                                          
+                                   Vibrational Mode      12                                                               
+                                   ----------------------------------------------------                                   
+                                   Harmonic frequency:                1205.24  cm**-1                                     
+                                   Reduced mass:                       1.2476  amu                                        
+                                   Force constant:                     1.0678  mdyne/A                                    
+                                   IR intensity:                     138.6046  km/mol                                     
+                                   Normal mode:                                                                           
+                                                              X           Y           Z                                   
+                                   1       C            -0.0069      0.0007     -0.0043                                   
+                                   2       C             0.0056      0.0013      0.0002                                   
+                                   3       N             0.1006      0.0549     -0.0222                                   
+                                   4       H            -0.5117     -0.8462      0.0531                                   
+                                   5       H             0.0250     -0.0026      0.0109                                   
+                                   6       H            -0.0029     -0.0042      0.0128                                   
+                                   7       N            -0.0122      0.0262     -0.0059                                   
+                                   8       N            -0.0521     -0.0214      0.0262                                   
+                                                                                                                          
+                                                                                                                          
+                                   Vibrational Mode      15                                                               
+                                   ----------------------------------------------------                                   
+                                   Harmonic frequency:                2047.71  cm**-1                                     
+                                   Reduced mass:                      11.5535  amu                                        
+                                   Force constant:                    28.5430  mdyne/A                                    
+                                   IR intensity:                     169.6570  km/mol                                     
+                                   Normal mode:                                                                           
+                                                              X           Y           Z                                   
+                                   1       C             0.0271     -0.1136     -0.0019                                   
+                                   2       C             0.0059      0.1241      0.0079                                   
+                                   3       N            -0.0092     -0.1535     -0.0111                                   
+                                   4       H            -0.0984     -0.3255      0.0640                                   
+                                   5       H            -0.0474     -0.1848     -0.0140                                   
+                                   6       H            -0.0982      0.1351     -0.0066                                   
+                                   7       N             0.2775     -0.4588      0.0049                                   
+                                   8       N            -0.2791      0.6304     -0.0020                                   
+                                                                                                                          
+                                                                                                                          
+                                   Vibrational Mode      16                                                               
+                                   ----------------------------------------------------                                   
+                                   Harmonic frequency:                3391.66  cm**-1                                     
+                                   Reduced mass:                       1.0861  amu                                        
+                                   Force constant:                     7.3609  mdyne/A                                    
+                                   IR intensity:                      66.9546  km/mol                                     
+                                   Normal mode:                                                                           
+                                                              X           Y           Z                                   
+                                   1       C            -0.0045     -0.0544     -0.0025                                   
+                                   2       C             0.0327     -0.0552      0.0011                                   
+                                   3       N            -0.0001     -0.0001     -0.0002                                   
+                                   4       H            -0.0065      0.0032      0.0016                                   
+                                   5       H             0.0578      0.6619      0.0298                                   
+                                   6       H            -0.3895      0.6314     -0.0133                                   
+                                   7       N             0.0004     -0.0000      0.0001                                   
+                                   8       N            -0.0001      0.0008     -0.0000                                   
+                                                                                                                          
+                                                                                                                          
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="animate-the-normal-mode-of-choice-indexing-starts-with-1">
+<h3>Animate the normal mode of choice (indexing starts with 1)<a class="headerlink" href="#animate-the-normal-mode-of-choice-indexing-starts-with-1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vib_drv</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">vib_results</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="3dmolviewer_17575207120984967"  style="position: relative; width: 400px; height: 300px;">
+        <p id="3dmolwarning_17575207120984967" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.2/build/3Dmol-min.js');
+}
+
+var viewer_17575207120984967 = null;
+var warn = document.getElementById("3dmolwarning_17575207120984967");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+viewer_17575207120984967 = $3Dmol.createViewer(document.getElementById("3dmolviewer_17575207120984967"),{backgroundColor:"white"});
+viewer_17575207120984967.zoomTo();
+	viewer_17575207120984967.addModel("8\n\nC 1.267384028538 0.858861037274 0.111578248080 0.352060 0.015799 0.039661\nC 1.514871770868 -0.354653532687 0.079330040429 0.338119 0.105301 0.048737\nN -0.878745542430 0.895731928573 -0.219123178544 -0.313033 0.018967 -0.034222\nH -1.690001642583 1.431578662084 0.102595977912 -0.522547 -0.253854 -0.116235\nH 1.377961209568 1.927169226772 0.160713109770 -0.242864 0.063377 -0.011417\nH 2.093028695206 -1.262042519530 0.099900426819 -0.257247 -0.257294 -0.030465\nN -0.381673301953 -1.312215794361 -0.182596621457 -0.279836 -0.116753 -0.035450\nN -1.037548344687 -0.348440777236 -0.199319887647 0.074648 0.026167 0.005252","xyz",{"vibrate": {"frames": 15, "amplitude": 0.5}});
+	viewer_17575207120984967.setViewStyle({"style": "outline", "width": 0.05});
+	viewer_17575207120984967.setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewer_17575207120984967.animate({"loop": "backAndForth"});
+	viewer_17575207120984967.rotate(-90,"x");
+	viewer_17575207120984967.zoomTo();
+viewer_17575207120984967.render();
+});
+</script></div></div>
+</div>
+</section>
+<section id="irc">
+<h3>IRC<a class="headerlink" href="#irc" title="Link to this heading">#</a></h3>
+<p>After obtaining the TS, perform an intrinsic reaction coordinate (IRC) calculation to find the product and reactant.</p>
+<section id="id1">
+<h4>Setting up the SCF driver<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecule</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">scf_opt_ts</span><span class="p">[</span><span class="s2">&quot;final_geometry&quot;</span><span class="p">])</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span><span class="s2">&quot;def2-svp&quot;</span><span class="p">)</span>
+
+<span class="n">scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">scf_drv</span><span class="o">.</span><span class="n">conv_thresh</span> <span class="o">=</span> <span class="mf">1.0e-6</span>
+<span class="n">scf_drv</span><span class="o">.</span><span class="n">xcfun</span> <span class="o">=</span> <span class="s2">&quot;b3lyp&quot;</span>
+<span class="n">scf_drv</span><span class="o">.</span><span class="n">grid_level</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">scf_irc_results</span> <span class="o">=</span> <span class="n">scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span><span class="n">basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                            Self Consistent Field Driver Setup                                            
+                                           ====================================                                           
+                                                                                                                          
+                   Wave Function Model             : Spin-Restricted Kohn-Sham                                            
+                   Initial Guess Model             : Superposition of Atomic Densities                                    
+                   Convergence Accelerator         : Two Level Direct Inversion of Iterative Subspace                     
+                   Max. Number of Iterations       : 50                                                                   
+                   Max. Number of Error Vectors    : 10                                                                   
+                   Convergence Threshold           : 1.0e-06                                                              
+                   ERI Screening Threshold         : 1.0e-12                                                              
+                   Linear Dependence Threshold     : 1.0e-06                                                              
+                   Exchange-Correlation Functional : B3LYP                                                                
+                   Molecular Grid Level            : 4                                                                    
+                                                                                                                          
+* Info * Nuclear repulsion energy: 148.8029764468 a.u.                                                                    
+                                                                                                                          
+* Info * Using the B3LYP functional.                                                                                      
+                                                                                                                          
+         P. J. Stephens, F. J. Devlin, C. F. Chabalowski, and M. J. Frisch.,  J. Phys. Chem. 98, 11623 (1994)
+                                                                                                                          
+* Info * Using the Libxc library (v7.0.0).                                                                                
+                                                                                                                          
+         S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+                                                                                                                          
+* Info * Using the following algorithm for XC numerical integration.                                                      
+                                                                                                                          
+         J. Kussmann, H. Laqua and C. Ochsenfeld, J. Chem. Theory Comput. 2021, 17, 1512-1521
+                                                                                                                          
+* Info * Molecular grid with 121661 points generated in 0.10 sec.                                                         
+                                                                                                                          
+* Info * Overlap matrix computed in 0.00 sec.                                                                             
+                                                                                                                          
+* Info * Kinetic energy matrix computed in 0.00 sec.                                                                      
+                                                                                                                          
+* Info * Nuclear potential matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+* Info * Orthogonalization matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+* Info * Starting Reduced Basis SCF calculation...                                                                        
+* Info * ...done. SCF energy in reduced basis set: -240.271814063223 a.u. Time: 0.20 sec.                                 
+                                                                                                                          
+* Info * Overlap matrix computed in 0.00 sec.                                                                             
+                                                                                                                          
+* Info * Kinetic energy matrix computed in 0.00 sec.                                                                      
+                                                                                                                          
+* Info * Nuclear potential matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+* Info * Orthogonalization matrix computed in 0.00 sec.                                                                   
+                                                                                                                          
+                                                                                                                          
+               Iter. |    Kohn-Sham Energy | Energy Change | Gradient Norm | Max. Gradient | Density Change               
+               --------------------------------------------------------------------------------------------               
+                  1      -241.876407247161    0.0000000000      0.48595865      0.03023715      0.00000000                
+                  2      -241.839062399275    0.0373448479      0.72182418      0.05002553      0.36545124                
+                  3      -241.896891652573   -0.0578292533      0.24997435      0.01733694      0.26234402                
+                  4      -241.903260660054   -0.0063690075      0.07692042      0.00382481      0.07745868                
+                  5      -241.903836185340   -0.0005755253      0.02242984      0.00098641      0.02564385                
+                  6      -241.903894817438   -0.0000586321      0.00290787      0.00015478      0.00816259                
+                  7      -241.903894949330   -0.0000001319      0.00276489      0.00015588      0.00184553                
+                  8      -241.903895999052   -0.0000010497      0.00043047      0.00002327      0.00092490                
+                  9      -241.903896019133   -0.0000000201      0.00017079      0.00000760      0.00018157                
+                 10      -241.903896023476   -0.0000000043      0.00002669      0.00000174      0.00006788                
+                 11      -241.903896023610   -0.0000000001      0.00000453      0.00000023      0.00001779                
+                 12      -241.903896023614   -0.0000000000      0.00000097      0.00000006      0.00000269                
+                                                                                                                          
+               *** SCF converged in 12 iterations. Time: 1.70 sec.                                                        
+                                                                                                                          
+               Spin-Restricted Kohn-Sham:                                                                                 
+               --------------------------                                                                                 
+               Total Energy                       :     -241.9038960236 a.u.                                              
+               Electronic Energy                  :     -390.7068724704 a.u.                                              
+               Nuclear Repulsion Energy           :      148.8029764468 a.u.                                              
+               ------------------------------------                                                                       
+               Gradient Norm                      :        0.0000009657 a.u.                                              
+                                                                                                                          
+                                                                                                                          
+               Ground State Information                                                                                   
+               ------------------------                                                                                   
+               Charge of Molecule            :  0.0                                                                       
+               Multiplicity (2S+1)           :  1                                                                         
+               Magnetic Quantum Number (M_S) :  0.0                                                                       
+                                                                                                                          
+                                                                                                                          
+                                                 Spin Restricted Orbitals                                                 
+                                                 ------------------------                                                 
+                                                                                                                          
+               Molecular Orbital No.  14:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.42699 a.u.                                                                  
+               (   7 N   1s  :    -0.16) (   7 N   2s  :    -0.32) (   7 N   3s  :    -0.48)                              
+               (   7 N   1p+1:     0.18) (   7 N   1p-1:    -0.38) (   8 N   1p+1:    -0.22)                              
+               (   8 N   1p-1:     0.20)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  15:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.32457 a.u.                                                                  
+               (   1 C   1p+1:     0.18) (   3 N   2s  :    -0.17) (   3 N   3s  :    -0.32)                              
+               (   3 N   1p+1:     0.36) (   3 N   2p+1:    -0.21) (   4 H   1s  :     0.20)                              
+               (   7 N   1p+1:    -0.22) (   7 N   1p-1:    -0.24) (   7 N   2p-1:     0.17)                              
+               (   8 N   1p+1:    -0.21)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  16:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.29161 a.u.                                                                  
+               (   1 C   1p0 :     0.43) (   1 C   2p0 :     0.25) (   2 C   1p0 :     0.41)                              
+               (   2 C   2p0 :     0.24)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  17:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.27019 a.u.                                                                  
+               (   1 C   1p+1:    -0.29) (   1 C   2p+1:    -0.17) (   2 C   1p+1:    -0.25)                              
+               (   3 N   3s  :    -0.15) (   3 N   1p0 :    -0.33) (   3 N   2p0 :     0.26)                              
+               (   7 N   1p0 :     0.28) (   7 N   2p0 :    -0.20) (   8 N   1p+1:     0.17)                              
+                                                                                                                          
+               Molecular Orbital No.  18:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 2.000 Energy:   -0.26445 a.u.                                                                  
+               (   1 C   1p+1:     0.19) (   2 C   1p+1:     0.28) (   2 C   2p+1:     0.17)                              
+               (   3 N   1p+1:    -0.15) (   3 N   1p0 :    -0.34) (   3 N   2p0 :     0.27)                              
+               (   7 N   1p-1:     0.15) (   7 N   1p0 :     0.27) (   7 N   2p0 :    -0.20)                              
+                                                                                                                          
+               Molecular Orbital No.  19:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:   -0.05379 a.u.                                                                  
+               (   1 C   1p+1:    -0.25) (   1 C   2p+1:    -0.20) (   3 N   1p+1:     0.25)                              
+               (   3 N   1p-1:     0.23) (   3 N   2p+1:    -0.23) (   3 N   2p-1:    -0.25)                              
+               (   4 H   1s  :     0.15) (   7 N   1p+1:     0.41) (   7 N   2p+1:    -0.38)                              
+               (   7 N   2p-1:    -0.16) (   8 N   3s  :    -0.44) (   8 N   1p+1:    -0.31)                              
+               (   8 N   2p+1:     0.28)                                                                                  
+                                                                                                                          
+               Molecular Orbital No.  20:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.00775 a.u.                                                                  
+               (   1 C   2p0 :    -0.17) (   2 C   2p0 :     0.16) (   3 N   3s  :    -0.16)                              
+               (   3 N   1p0 :    -0.30) (   3 N   2p+1:     0.15) (   3 N   2p0 :     0.34)                              
+               (   4 H   2s  :     0.18) (   7 N   1p0 :    -0.39) (   7 N   2p0 :     0.45)                              
+               (   8 N   1p0 :     0.49) (   8 N   2p0 :    -0.52)                                                        
+                                                                                                                          
+               Molecular Orbital No.  21:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.03196 a.u.                                                                  
+               (   1 C   1p0 :     0.39) (   1 C   2p0 :     0.65) (   2 C   1p0 :    -0.42)                              
+               (   2 C   2p0 :    -0.66) (   7 N   1p0 :    -0.17) (   7 N   2p0 :     0.17)                              
+                                                                                                                          
+               Molecular Orbital No.  22:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.04064 a.u.                                                                  
+               (   1 C   2s  :    -0.17) (   1 C   1p+1:     0.27) (   1 C   2p+1:     0.40)                              
+               (   1 C   2p-1:    -0.50) (   2 C   2s  :     0.22) (   2 C   1p+1:    -0.29)                              
+               (   2 C   1p-1:    -0.15) (   2 C   2p+1:    -0.20) (   2 C   2p-1:    -0.64)                              
+               (   3 N   2s  :     0.18) (   3 N   3s  :     0.59) (   4 H   2s  :    -0.61)                              
+               (   5 H   2s  :     0.72) (   6 H   2s  :    -0.74) (   7 N   1p+1:     0.21)                              
+               (   7 N   2p+1:    -0.20) (   8 N   3s  :    -0.17)                                                        
+                                                                                                                          
+               Molecular Orbital No.  23:                                                                                 
+               --------------------------                                                                                 
+               Occupation: 0.000 Energy:    0.06708 a.u.                                                                  
+               (   1 C   2s  :    -0.16) (   1 C   3s  :    -0.28) (   1 C   2p-1:    -0.60)                              
+               (   2 C   3s  :    -0.15) (   2 C   2p-1:    -0.34) (   3 N   3s  :    -0.98)                              
+               (   3 N   1p+1:    -0.24) (   3 N   2p+1:     0.44) (   3 N   2p0 :    -0.19)                              
+               (   4 H   2s  :     1.40) (   5 H   2s  :     0.94) (   6 H   2s  :    -0.37)                              
+               (   8 N   3s  :     0.21)                                                                                  
+                                                                                                                          
+                                                                                                                          
+                                                Ground State Dipole Moment                                                
+                                               ----------------------------                                               
+                                                                                                                          
+                                   X   :        -0.242227 a.u.        -0.615680 Debye                                     
+                                   Y   :         0.712090 a.u.         1.809953 Debye                                     
+                                   Z   :         0.257673 a.u.         0.654939 Debye                                     
+                                 Total :         0.795073 a.u.         2.020875 Debye                                     
+                                                                                                                          
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="id2">
+<h4>Setting up the gradient driver<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scf_grad_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfGradientDriver</span><span class="p">(</span><span class="n">scf_drv</span><span class="p">)</span>
+<span class="n">scf_grad_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span><span class="n">basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                                   SCF Gradient Driver                                                    
+                                                  =====================                                                   
+                                                                                                                          
+                          Gradient Type                   : Analytical                                                    
+                                                                                                                          
+                                              Molecular Geometry (Angstroms)                                              
+                                             ================================                                             
+                                                                                                                          
+                          Atom         Coordinate X          Coordinate Y          Coordinate Z                           
+                                                                                                                          
+                           C           1.267384028538        0.858861037274        0.111578248080                         
+                           C           1.514871770868       -0.354653532687        0.079330040429                         
+                           N          -0.878745542430        0.895731928573       -0.219123178544                         
+                           H          -1.690001642583        1.431578662084        0.102595977912                         
+                           H           1.377961209568        1.927169226772        0.160713109770                         
+                           H           2.093028695206       -1.262042519530        0.099900426819                         
+                           N          -0.381673301953       -1.312215794361       -0.182596621457                         
+                           N          -1.037548344687       -0.348440777236       -0.199319887647                         
+                                                                                                                          
+                                            Analytical Gradient (Hartree/Bohr)                                            
+                                           ------------------------------------                                           
+                                                                                                                          
+                          Atom           Gradient X            Gradient Y            Gradient Z                           
+                                                                                                                          
+                           C           0.000051193033       -0.000088250478       -0.000011591518                         
+                           C          -0.000023006080        0.000091227526        0.000003631685                         
+                           N           0.000039544083       -0.000075798418        0.000001574304                         
+                           H          -0.000103898054        0.000068805859        0.000031565419                         
+                           H          -0.000031295980       -0.000003097391       -0.000000926937                         
+                           H          -0.000025989414        0.000004775624       -0.000002578470                         
+                           N          -0.000104774256       -0.000013729943        0.000005682970                         
+                           N           0.000163027461        0.000003899385       -0.000016168332                         
+                                                                                                                          
+                                   *** Time spent in gradient calculation: 1.51 sec ***                                   
+                                                                                                                          
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="setting-up-the-optimization-driver-for-the-irc">
+<h4>Setting up the optimization driver for the IRC<a class="headerlink" href="#setting-up-the-optimization-driver-for-the-irc" title="Link to this heading">#</a></h4>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scf_opt_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">OptimizationDriver</span><span class="p">(</span><span class="n">scf_grad_drv</span><span class="p">)</span>
+<span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">irc</span> <span class="o">=</span> <span class="kc">True</span>  
+<span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">hessian</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span>  <span class="c1"># IRC usually uses Hessian from TS</span>
+<span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">scf_opt_irc</span> <span class="o">=</span> <span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span><span class="n">basis</span><span class="p">,</span><span class="n">scf_irc_results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualization-of-the-optimized-reactant-and-product-geometries">
+<h4>Visualization of the optimized reactant and product geometries<a class="headerlink" href="#visualization-of-the-optimized-reactant-and-product-geometries" title="Link to this heading">#</a></h4>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scf_opt_irc</span><span class="p">[</span><span class="s2">&quot;opt_energies&quot;</span><span class="p">]</span> <span class="c1"># use to investigate energies of reactant and product</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[np.float64(-242.04407422005022),
+ np.float64(-242.044073930066),
+ np.float64(-242.04407261220445),
+ np.float64(-242.04407050517236),
+ np.float64(-242.0440681675856),
+ np.float64(-242.04406623076426),
+ np.float64(-242.0440584379007),
+ np.float64(-242.04404118386623),
+ np.float64(-242.04379683698338),
+ np.float64(-242.0431403036591),
+ np.float64(-242.04184646285162),
+ np.float64(-242.0398373239964),
+ np.float64(-242.03715179403363),
+ np.float64(-242.0338613664231),
+ np.float64(-242.030043361477),
+ np.float64(-242.02577329527054),
+ np.float64(-242.02112312962143),
+ np.float64(-242.01616063989732),
+ np.float64(-242.01094906597908),
+ np.float64(-242.00554695273797),
+ np.float64(-242.00000811220406),
+ np.float64(-241.9943816581402),
+ np.float64(-241.9887124839437),
+ np.float64(-241.98304083828646),
+ np.float64(-241.97740365271437),
+ np.float64(-241.9718347595887),
+ np.float64(-241.96636517138612),
+ np.float64(-241.96102325509733),
+ np.float64(-241.9558347924236),
+ np.float64(-241.9508230002611),
+ np.float64(-241.94600857601964),
+ np.float64(-241.94140979457873),
+ np.float64(-241.93704265922068),
+ np.float64(-241.93292108783257),
+ np.float64(-241.92905708989983),
+ np.float64(-241.92546080398023),
+ np.float64(-241.92214047986735),
+ np.float64(-241.91910235264038),
+ np.float64(-241.91635045409276),
+ np.float64(-241.91388654782145),
+ np.float64(-241.91171022675232),
+ np.float64(-241.90981867048797),
+ np.float64(-241.90820748279785),
+ np.float64(-241.90686947251928),
+ np.float64(-241.90579736400582),
+ np.float64(-241.90497917854606),
+ np.float64(-241.90440266811177),
+ np.float64(-241.9040641615717),
+ np.float64(-241.90393701720754),
+ np.float64(-241.90390011215771),
+ np.float64(-241.9038960236135),
+ np.float64(-241.90389871071818),
+ np.float64(-241.90392977804768),
+ np.float64(-241.90403656503375),
+ np.float64(-241.90430871917516),
+ np.float64(-241.90474250574886),
+ np.float64(-241.90531530275135),
+ np.float64(-241.9060105212014),
+ np.float64(-241.90681517630793),
+ np.float64(-241.9077093485337),
+ np.float64(-241.90867989988635),
+ np.float64(-241.90970698251965),
+ np.float64(-241.91077289571834),
+ np.float64(-241.9107956974795),
+ np.float64(-241.9108284142962),
+ np.float64(-241.91087414312227),
+ np.float64(-241.91093830373066),
+ np.float64(-241.91102877324394),
+ np.float64(-241.911156795838),
+ np.float64(-241.9113384927439),
+ np.float64(-241.9115966110424),
+ np.float64(-241.91196369047495),
+ np.float64(-241.91248616246978),
+ np.float64(-241.91322973432156),
+ np.float64(-241.91428527955358),
+ np.float64(-241.91542247383586),
+ np.float64(-241.9165477766548),
+ np.float64(-241.91765334691942),
+ np.float64(-241.91873206907408),
+ np.float64(-241.9197782884909),
+ np.float64(-241.92078686450918),
+ np.float64(-241.92175435644356),
+ np.float64(-241.9226773219902),
+ np.float64(-241.923554420777),
+ np.float64(-241.92438333292316),
+ np.float64(-241.92516474365834),
+ np.float64(-241.92589765944905),
+ np.float64(-241.92658591173262),
+ np.float64(-241.9272306183857),
+ np.float64(-241.927835633134),
+ np.float64(-241.92840159516922),
+ np.float64(-241.92893080453075),
+ np.float64(-241.92942426991527),
+ np.float64(-241.9298840021952),
+ np.float64(-241.9303113958997),
+ np.float64(-241.93070833496142),
+ np.float64(-241.931076324672),
+ np.float64(-241.9314171277425),
+ np.float64(-241.93173220416867),
+ np.float64(-241.93202320678625),
+ np.float64(-241.93229141479242),
+ np.float64(-241.93253831275544),
+ np.float64(-241.93276471164035),
+ np.float64(-241.93297183877507),
+ np.float64(-241.93316044134824),
+ np.float64(-241.93333304947643),
+ np.float64(-241.93349159834185),
+ np.float64(-241.93363771357485),
+ np.float64(-241.93377130393011),
+ np.float64(-241.9338918103389),
+ np.float64(-241.93399791722095),
+ np.float64(-241.9340912555763),
+ np.float64(-241.93417848951214),
+ np.float64(-241.934261097571),
+ np.float64(-241.9343384434887),
+ np.float64(-241.9344093672089),
+ np.float64(-241.93447397877577),
+ np.float64(-241.9345322312361),
+ np.float64(-241.9345849629563),
+ np.float64(-241.93463224579222),
+ np.float64(-241.93467455813686),
+ np.float64(-241.93471201437725),
+ np.float64(-241.93474531462135),
+ np.float64(-241.93477540250666),
+ np.float64(-241.93480291537642),
+ np.float64(-241.93482801697436),
+ np.float64(-241.93485170943228),
+ np.float64(-241.9348746453),
+ np.float64(-241.934897443238),
+ np.float64(-241.9349207936972),
+ np.float64(-241.93494507654555),
+ np.float64(-241.93497019996124),
+ np.float64(-241.9349955114014),
+ np.float64(-241.9350212174332),
+ np.float64(-241.93504893964814),
+ np.float64(-241.93507875840365),
+ np.float64(-241.93511042539473),
+ np.float64(-241.93513096427554),
+ np.float64(-241.93515536504188),
+ np.float64(-241.9351843997592),
+ np.float64(-241.93521776057457),
+ np.float64(-241.93525070284093),
+ np.float64(-241.93527847283772),
+ np.float64(-241.935288419106),
+ np.float64(-241.93529185914662),
+ np.float64(-241.93529313603477),
+ np.float64(-241.93529507334497),
+ np.float64(-241.93529785179555),
+ np.float64(-241.93530182116857),
+ np.float64(-241.93530744107446),
+ np.float64(-241.9353154243331),
+ np.float64(-241.9353267770798),
+ np.float64(-241.93533060632072),
+ np.float64(-241.93533538077196),
+ np.float64(-241.9353444730177),
+ np.float64(-241.935344626289)]
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reactant</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">from_xyz_string</span><span class="p">(</span><span class="n">scf_opt_irc</span><span class="p">[</span><span class="s1">&#39;opt_geometries&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">product</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">from_xyz_string</span><span class="p">(</span><span class="n">scf_opt_irc</span><span class="p">[</span><span class="s1">&#39;opt_geometries&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">reactant</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">product</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">reactant</span><span class="o">.</span><span class="n">write_xyz_file</span><span class="p">(</span><span class="s1">&#39;irc_reactant.xyz&#39;</span><span class="p">)</span>
+<span class="n">product</span><span class="o">.</span><span class="n">write_xyz_file</span><span class="p">(</span><span class="s1">&#39;irc_product.xyz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="3dmolviewer_17636274643095717"  style="position: relative; width: 400px; height: 300px;">
+        <p id="3dmolwarning_17636274643095717" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.2/build/3Dmol-min.js');
+}
+
+var viewer_17636274643095717 = null;
+var warn = document.getElementById("3dmolwarning_17636274643095717");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+viewer_17636274643095717 = $3Dmol.createViewer(document.getElementById("3dmolviewer_17636274643095717"),{backgroundColor:"white"});
+viewer_17636274643095717.zoomTo();
+	viewer_17636274643095717.addModel("8\n\nC              1.963287093229         0.982015369936         0.105291420045\nC              2.238209609543        -0.179894524942         0.298668703371\nN             -1.460434232070         0.827302650220        -0.276330906607\nH             -1.289729771523         1.269366848856         0.632351376542\nH              1.724628316844         2.012670168881        -0.081679675109\nH              2.479477268781        -1.213802825425         0.464700004679\nN             -0.952760834579        -1.479566292806        -0.334427849179\nN             -1.173953082568        -0.371856780738        -0.229588244044\n");
+	viewer_17636274643095717.setViewStyle({"style": "outline", "width": 0.05});
+	viewer_17636274643095717.setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewer_17636274643095717.zoomTo();
+viewer_17636274643095717.render();
+});
+</script></div><div class="output text_html"><div id="3dmolviewer_17636274643106685"  style="position: relative; width: 400px; height: 300px;">
+        <p id="3dmolwarning_17636274643106685" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.2/build/3Dmol-min.js');
+}
+
+var viewer_17636274643106685 = null;
+var warn = document.getElementById("3dmolwarning_17636274643106685");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+viewer_17636274643106685 = $3Dmol.createViewer(document.getElementById("3dmolviewer_17636274643106685"),{backgroundColor:"white"});
+viewer_17636274643106685.zoomTo();
+	viewer_17636274643106685.addModel("8\n\nC              0.826955235958         0.848966526519         0.038272203262\nC              1.112457914669        -0.501332235693         0.020169000301\nN             -0.521424918369         0.884234454777        -0.113647682844\nH             -1.137937983304         1.689220921431        -0.150804913986\nH              1.438935972171         1.740874787458         0.141089344763\nH              2.071001889785        -1.007726001647         0.109612361045\nN             -0.054175694557        -1.188325851655        -0.137304147174\nN             -1.039807206625        -0.349904457946        -0.217513990767\n");
+	viewer_17636274643106685.setViewStyle({"style": "outline", "width": 0.05});
+	viewer_17636274643106685.setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewer_17636274643106685.zoomTo();
+viewer_17636274643106685.render();
+});
+</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scf_opt_drv</span><span class="o">.</span><span class="n">show_convergence</span><span class="p">(</span><span class="n">scf_opt_irc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e86b32f6c61283c7c458d4c6e3ea35a509ccbc31c17f40836af0a18db99dea15.png" src="../../_images/e86b32f6c61283c7c458d4c6e3ea35a509ccbc31c17f40836af0a18db99dea15.png" />
+<div class="output text_html"><div id="3dmolviewer_17575441508076408"  style="position: relative; width: 640px; height: 360px;">
+        <p id="3dmolwarning_17575441508076408" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.2/build/3Dmol-min.js');
+}
+
+var viewer_17575441508076408 = null;
+var warn = document.getElementById("3dmolwarning_17575441508076408");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+viewer_17575441508076408 = $3Dmol.createViewer(document.getElementById("3dmolviewer_17575441508076408"),{backgroundColor:"white"});
+viewer_17575441508076408.zoomTo();
+	viewer_17575441508076408.addModel("8\n\nC              1.963287093229         0.982015369936         0.105291420045\nC              2.238209609543        -0.179894524942         0.298668703371\nN             -1.460434232070         0.827302650220        -0.276330906607\nH             -1.289729771523         1.269366848856         0.632351376542\nH              1.724628316844         2.012670168881        -0.081679675109\nH              2.479477268781        -1.213802825425         0.464700004679\nN             -0.952760834579        -1.479566292806        -0.334427849179\nN             -1.173953082568        -0.371856780738        -0.229588244044\n");
+	viewer_17575441508076408.setViewStyle({"style": "outline", "width": 0.05});
+	viewer_17575441508076408.setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewer_17575441508076408.zoomTo();
+viewer_17575441508076408.render();
+});
+</script></div><script type="application/vnd.jupyter.widget-view+json">{"model_id": "94c5b831bedf43f48024570e078671a3", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+</section>
+</section>
+<section id="calculation-of-thermodynamic-and-kinetic-parameters">
+<h2>Calculation of Thermodynamic and Kinetic Parameters<a class="headerlink" href="#calculation-of-thermodynamic-and-kinetic-parameters" title="Link to this heading">#</a></h2>
+<p>With calculated values of reactant, product, and transition state, we now compute thermodynamic and kinetic quantities for a chemical reaction:</p>
+<ul class="simple">
+<li><p>Activation free energy (<span class="math notranslate nohighlight">\(\Delta G^\ddagger\)</span>)</p></li>
+<li><p>Reaction rate via Transition State Theory</p></li>
+<li><p>Reaction free energy (<span class="math notranslate nohighlight">\(\Delta G^\circ\)</span>)</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Activation free energy</strong> <br>
+By definition the activation free energy is <span class="math notranslate nohighlight">\(\Delta G^{\ddagger} = G^{\ddagger} - G_{react}\)</span>.
+From the outputs of the TS and reactant we can get the activation energy <span class="math notranslate nohighlight">\(\Delta G^{\ddagger}\)</span> that we can relate with TST to estimate the rate of the reaction.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delta_g</span> <span class="o">=</span> <span class="n">scf_opt_ts</span><span class="p">[</span><span class="s1">&#39;opt_energies&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">scf_opt_irc</span><span class="p">[</span><span class="s1">&#39;opt_energies&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Activation energy is </span><span class="si">{</span><span class="mf">627.5095</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta_g</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kcal/mol&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Activation energy is 19.73 kcal/mol
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Reaction rate</strong><br>
+Applying Transition State Theory we can estimate the rate with the Eyring equation: <br />
+<span class="math notranslate nohighlight">\( k = \frac{k_B T}{h}\exp(\frac{-\Delta G^{\ddagger}}{RT}) \)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rate</span><span class="p">(</span><span class="n">delta_g</span><span class="p">):</span>
+    <span class="n">k_B</span> <span class="o">=</span> <span class="mf">1.3806e-23</span>  <span class="c1"># J/K</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mf">6.6261e-34</span>    <span class="c1"># J s</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="mf">1.987e-3</span>      <span class="c1"># kcal/mol K</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="mi">300</span>           <span class="c1"># K</span>
+
+    <span class="n">delta_g_kcal</span> <span class="o">=</span> <span class="n">delta_g</span> <span class="o">*</span> <span class="mf">627.5095</span>
+    
+    <span class="c1"># Eyring equation</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">k_B</span> <span class="o">*</span> <span class="n">T</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta_g_kcal</span> <span class="o">/</span> <span class="p">(</span><span class="n">R</span> <span class="o">*</span> <span class="n">T</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">k</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The reaction rate is </span><span class="si">{</span><span class="n">rate</span><span class="p">(</span><span class="n">delta_g</span><span class="p">)</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2"> s-1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The reaction rate is 2.620e-02 s-1
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Reaction free energy</strong> <br>
+Finally, we can determine the reaction free energy <span class="math notranslate nohighlight">\(\Delta G^{0}\)</span> as the free energy difference between reactant and product:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reaction_energy</span> <span class="o">=</span> <span class="n">scf_opt_irc</span><span class="p">[</span><span class="s2">&quot;opt_energies&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">scf_opt_irc</span><span class="p">[</span><span class="s2">&quot;opt_energies&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># a.u</span>
+<span class="n">reaction_energy_kcal</span> <span class="o">=</span> <span class="n">reaction_energy</span> <span class="o">*</span><span class="mf">627.5095</span> <span class="c1"># kcal/mol</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reaction free energy is </span><span class="si">{</span><span class="n">reaction_energy_kcal</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kcal/mol&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reaction free energy is -68.23 kcal/mol
+</pre></div>
+</div>
+</div>
+</div>
+<p>With all that information we have proffiled the reaction energetics.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/mol_struct"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="conformer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Conformer search</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ts_guesser.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Guessing transition states with force fireld interpolation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intrinsic-reaction-coordinate-method">Intrinsic Reaction Coordinate method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-scf-driver">Setting up the SCF driver</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-gradient-driver">Setting up the gradient driver</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-optimization-driver">Setting up the optimization driver</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-of-the-optimized-transition-state">Geometry of the optimized transition state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vibrational-analysis">Vibrational Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#animate-the-normal-mode-of-choice-indexing-starts-with-1">Animate the normal mode of choice (indexing starts with 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irc">IRC</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Setting up the SCF driver</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setting up the gradient driver</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-optimization-driver-for-the-irc">Setting up the optimization driver for the IRC</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-the-optimized-reactant-and-product-geometries">Visualization of the optimized reactant and product geometries</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculation-of-thermodynamic-and-kinetic-parameters">Calculation of Thermodynamic and Kinetic Parameters</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The eChem team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

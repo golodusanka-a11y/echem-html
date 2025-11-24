@@ -1,0 +1,6 @@
+_build/
+**/*h5
+**/*pot
+**/*xyz
+**/.ipynb_checkpoints
+**/.DS_Store
