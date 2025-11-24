@@ -1,0 +1,1294 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Raman spectroscopy &#8212; Computational Chemistry from  Laptop to HPC</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TX4YJ1J5XE"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/tutorials/vib_ir_raman';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Exercises" href="vib_ir_exercises.html" />
+    <link rel="prev" title="IR spectroscopy" href="vib_ir_calc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../title.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Computational Chemistry from  Laptop to HPC - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Computational Chemistry from  Laptop to HPC - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro.html">Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics_notebook.html">Using Jupyter notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../units_notation.html">Units and notation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Electronic ground states</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/elstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/orbitals.html">Orbitals and basis sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/slater.html">Many-electron wave functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/operators.html">Operators and matrix elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/reduced_density.html">Reduced particle densities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/natural_orbitals.html">Natural orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/integrals.html">Integrals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/spin.html">Electron spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/correlation.html">Electron correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dispersion.html">Dispersion interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/pt.html">Rayleigh–Schrödinger perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/second_quant.html">Second quantization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/group_theory.html">Symmetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/wft.html">Wave function theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../elec_struct/hartree-fock.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_theory.html">Hartree–Fock theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/fock_diagonalize.html">Fock matrix diagonalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_scf.html">SCF optimization</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_example.html">HF in VeloxChem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mp2.html">Møller–Plesset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/wft_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/dft.html">Density functional theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/hohenberg.html">Hohenberg–Kohn theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kohn-sham.html">Kohn–Sham method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kernel_int.html">Kernel integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_scf.html">SCF optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_prop.html">First-order properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/available_xcfun.html">Available XC functionals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/multiref.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcscf.html">MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcpdft.html">MC-PDFT</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Molecular structure and dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/molstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/coordinates.html">Choice of coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/symmetry.html">Molecular symmetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst.html">Transition-state theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_struct.html">Optimization methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/gradients.html">Gradients</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/energy_grad.html">Energy gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/property_grad.html">Property gradients</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/hessians_vib.html">Hessians and vibrations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/hessians.html">Molecular Hessians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/vibrations.html">Vibrational analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/opt.html">Structure optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_gs.html">Ground state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_constrained.html">Constrained coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/conformer.html">Conformer search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst_gen.html">Transition state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/ts_guesser.html">Guessing transition states with force fireld interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/impes.html">PES interpolation techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/impes_calc.html">Constructing the PES by interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/md.html">Molecular dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/forcefields.html">Force fields</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/reparameterize.html">Reparameterize force fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_setup.html">Ensembles and time integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_run.html">Running a simulation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Spectra and properties</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/spectra_aspects.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/resp_external.html">Responses to external fields</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/mol_prop.html">Molecular properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/first_order.html">First-order properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/linear_resp.html">Linear Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/quad_resp.html">Quadratic response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/cubic_resp.html">Cubic response</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/elec_nuc.html">Electronic and nuclear contributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/rovib.html">Rovibronic states</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/dipole_equiv.html">Dipole equivalence relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/finite_field.html">Finite field method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/nto.html">Natural transition orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/selection_rules.html">Selection rules</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/excoupl.html">Exciton coupling model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/excoupl_impl.html">Implementation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/expt_theory.html">Experiment to theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/uv_vis.html">UV/vis absorption</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/opa.html">One-photon absorption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpa.html">Two-photon absorption</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/optact.html">Optical activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/ecd.html">Electronic Circular Dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/or.html">Optical Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpcd.html">Two-photon circular dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpor.html">Two-photon optical rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/more_optact.html">More birefringences &amp; dichroisms</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/wavefunction.html">Wave function methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/hf.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_rot.html">Orbital rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/kappa_expansion.html">Time-dependence of observables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_param_field.html">Field-dependence of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_param_energy.html">Energy determination of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_quasienergy.html">Quasi-energy determination of parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/adc.html">Algebraic-diagrammatic construction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_pp.html">Polarization propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_isr.html">Intermediate state representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_hpc.html">HPC-QC implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_exercises_new.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/tddft.html">Time-dependent DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_foundation.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_quasienergy.html">Quasi-energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_linear_response.html">Linear response</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_theory.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_implementation.html">Implementation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_excited_states.html">Excited states</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_rsp_eq.html">TDDFT response equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_tda.html">Tamm–Dancoff approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_triplet_inst.html">Triplet instability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_spin_flip.html">Spin-flip</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/tddft_charge_transfer.html">Charge transfer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/mr_response.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/sa_mcscf.html">State-averaged MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/mr_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/localprop.html">Localized properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/esp.html">ESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/chelpg.html">CHELPG charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/resp.html">RESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/loprop.html">LoProp charges and polarisabilities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/embedding.html">Embedding potentials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/nonpol_emb.html">Non-polarizable embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/pol_emb.html">Polarizable embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/pcm.html">Polarizable continuum models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/cpcm.html">Conductor-like polarizable continuum model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/mol_struct.html">Molecular structure and dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/struct_vis.html">Molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/md_vis.html">MD trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/opt_vib_vis.html">Optimization and normal modes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/elec_struct.html">Electronic structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/orb_vis.html">Orbitals and densities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/spec_prop.html">Spectra and properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/exc_vis.html">Excited states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/broadening.html">Spectrum broadening</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and workflows</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="workflow.html">Constructing workflows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="wf_build.html">Building systems</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="wf_struct.html">Optimizing molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf_scf.html">Optimizing electronic structure</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="wf_construct.html">Assembling a full workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="wf_methane.html">Methane combustion energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wf_gwp.html">Global warming potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wf_spectra.html">From structure to spectrum</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="uv_vis.html">UV/vis spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_absorption.html">Absorption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_fluorescence.html">Fluorescence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="vib_ir.html">Vibrational spectroscopies</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="vib_ir_calc.html">IR spectroscopy</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Raman spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vib_ir_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="openshells.html">Open shells</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest_unrest.html">Restricted versus unrestricted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlation.html">Static versus dynamic correlation correlation</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="xray.html">X-ray spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="xray_calc.html">Spectrum calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_analysis.html">Spectrum analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_aspects.html">Special aspects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dire_xps.html">Core-hole localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_large.html">Larger systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_nonstandard.html">Non-standard calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_cheatsheet.html">Cheat sheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="colab.html">Google Colab notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cite.html">How to cite and contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem/issues/new?title=Issue%20on%20page%20%2Fdocs/tutorials/vib_ir_raman.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/tutorials/vib_ir_raman.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Raman spectroscopy</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrum-calculation">Spectrum calculation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="raman-spectroscopy">
+<span id="sec-raman-tutorial"></span><h1>Raman spectroscopy<a class="headerlink" href="#raman-spectroscopy" title="Link to this heading">#</a></h1>
+<p>The Raman scattering process involves the inelasic scattering of light in the visible range, leaving the molecule in a different vibrational state. The associated scattering amplitude is related to the transition polarizability tensor <span class="math notranslate nohighlight">\(\boldsymbol{\alpha}\)</span>, as discussed in more details <a class="reference internal" href="../mol_struct/property_grad.html#dipole-mom-gradient-label"><span class="std std-ref">here</span></a>. In the case of normal Raman scattering described using the harmonic approximation for molecular vibrations, the transition polarizability associated to a normal mode <span class="math notranslate nohighlight">\(k\)</span> depends on the derivative of the electronic polarizability with respect to the normal coordinate <span class="math notranslate nohighlight">\(Q_k\)</span>. As a consequence, only modes along which the polarizability changes will be Raman active.</p>
+<section id="spectrum-calculation">
+<h2>Spectrum calculation<a class="headerlink" href="#spectrum-calculation" title="Link to this heading">#</a></h2>
+<p>Here, we will calculate the Raman spectra of H<span class="math notranslate nohighlight">\(_2\)</span>O, NH<span class="math notranslate nohighlight">\(_3\)</span> and CH<span class="math notranslate nohighlight">\(_4\)</span> and determine how going from O over N to C influences the vibrational frequencies of the Hydrogen stretching modes.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">veloxchem</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vlx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py3Dmol</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">p3d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">veloxchem.veloxchemlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">bohr_in_angstroms</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basis_set_label</span> <span class="o">=</span> <span class="s1">&#39;6-31G&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To compute a meaningful Raman spectrum, the molecular geometries must be optimized at the same level of theory and using the same basis set. Let us assume that we have optimized the geometries at the HF/6-31G theory level and we have these geometries stored in xyz files. Otherwise, we would start by performing the necessary geometry optimizations.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare molecules and basis sets</span>
+
+<span class="c1"># Read optimized geometry from file</span>
+<span class="n">h2o_xyz</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../../data/ir_raman/opt_h2o.xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">nh3_xyz</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../../data/ir_raman/opt_nh3.xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">ch4_xyz</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../../data/ir_raman/opt_ch4.xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">h2o</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">h2o_xyz</span><span class="p">)</span>
+<span class="n">h2o_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">nh3</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">nh3_xyz</span><span class="p">)</span>
+<span class="n">nh3_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nh3</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">ch4</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">ch4_xyz</span><span class="p">)</span>
+<span class="n">ch4_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">ch4</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       (a) H2O                   (b) NH3                  (c) CH4
+</pre></div>
+</div>
+<div class="output text_html"><div id="3dmolviewer_17639930119424582"  style="position: relative; width: 600px; height: 250px;">
+        <p id="3dmolwarning_17639930119424582" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_17639930119424582 = null;
+var warn = document.getElementById("3dmolwarning_17639930119424582");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_17639930119424582 = null;
+viewergrid_17639930119424582 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_17639930119424582"),{rows: 1, cols: 3, control_all: true},{backgroundColor:"white"});
+viewer_17639930119424582 = viewergrid_17639930119424582[0][0];
+viewergrid_17639930119424582[0][0].zoomTo();viewergrid_17639930119424582[0][1].zoomTo();viewergrid_17639930119424582[0][2].zoomTo();	viewergrid_17639930119424582[0][0].addModel("3\nHF/6-31G\nO       0.0308991       0.0228758      -0.0161623\nH       0.2572697       0.8975361       0.2762831\nH       0.5960312      -0.2658119      -0.7226208\n","xyz");
+	viewergrid_17639930119424582[0][1].addModel("4\nHF/6-31G\nN       0.0961758       0.0137254       0.1108604\nH      -0.4973546       0.2946055       0.8535526\nH       0.7093592       0.7070993      -0.2441077\nH       0.4632196      -0.9053302       0.1689946\n","xyz");
+	viewergrid_17639930119424582[0][2].addModel("5\nHF/6-31G\nC      -0.0000199       0.0000199       0.0000000\nH       0.5489997       0.7922034       0.4919110\nH       0.6769972      -0.8058792      -0.2512524\nH      -0.7710148      -0.3700500       0.6629997\nH      -0.4550622       0.3838059      -0.9036583\n","xyz");
+	viewergrid_17639930119424582[0][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930119424582[0][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930119424582[0][2].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930119424582[0][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930119424582[0][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930119424582[0][2].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+viewergrid_17639930119424582[0][2].render();
+viewergrid_17639930119424582[0][1].render();
+viewergrid_17639930119424582[0][0].render();
+});
+</script></div></div>
+</div>
+<p>To compute the Raman spectrum, we need the vibrational frequencies and Raman activities. The frequencies are eigenvalues of the molecular Hessian, while the Raman activities are proportional to the gradient of the polarizability. The first step is to determine the Hessian matrix.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Settings:</span>
+<span class="n">method_settings</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Numerical Hessian</span>
+<span class="n">vib_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;do_raman&#39;</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;print_depolarization_ratio&#39;</span><span class="p">:</span><span class="s1">&#39;yes&#39;</span><span class="p">}</span>
+
+<span class="c1"># We first need to run SCF calculations:</span>
+<span class="n">h2o_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">h2o_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">h2o_results</span> <span class="o">=</span> <span class="n">h2o_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span> <span class="n">h2o_basis</span><span class="p">)</span>
+
+<span class="n">nh3_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">nh3_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">nh3_results</span> <span class="o">=</span> <span class="n">nh3_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">nh3</span><span class="p">,</span> <span class="n">nh3_basis</span><span class="p">)</span>
+
+<span class="n">ch4_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">ch4_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">ch4_results</span> <span class="o">=</span> <span class="n">ch4_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">ch4</span><span class="p">,</span> <span class="n">ch4_basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Hessian driver object, update settings, and compute </span>
+<span class="n">h2o_vibanalysis_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">VibrationalAnalysis</span><span class="p">(</span><span class="n">h2o_scf_drv</span><span class="p">)</span>
+<span class="n">h2o_vibanalysis_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">method_settings</span><span class="p">,</span> <span class="n">vib_settings</span><span class="p">)</span>
+
+<span class="n">nh3_vibanalysis_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">VibrationalAnalysis</span><span class="p">(</span><span class="n">nh3_scf_drv</span><span class="p">)</span>
+<span class="n">nh3_vibanalysis_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">method_settings</span><span class="p">,</span> <span class="n">vib_settings</span><span class="p">)</span>
+
+<span class="n">ch4_vibanalysis_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">VibrationalAnalysis</span><span class="p">(</span><span class="n">ch4_scf_drv</span><span class="p">)</span>
+<span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">method_settings</span><span class="p">,</span> <span class="n">vib_settings</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate hessians from scratch</span>
+<span class="n">h2o_results</span> <span class="o">=</span> <span class="n">h2o_vibanalysis_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span> <span class="n">h2o_basis</span><span class="p">,</span> <span class="n">h2o_scf_drv</span><span class="p">)</span>
+<span class="n">nh3_results</span> <span class="o">=</span> <span class="n">nh3_vibanalysis_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">nh3</span><span class="p">,</span> <span class="n">nh3_basis</span><span class="p">,</span> <span class="n">nh3_scf_drv</span><span class="p">)</span>
+<span class="n">ch4_results</span> <span class="o">=</span> <span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">ch4</span><span class="p">,</span> <span class="n">ch4_basis</span><span class="p">,</span> <span class="n">ch4_scf_drv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_broadening</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">,</span> <span class="n">list_osci_strength</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s1">&#39;Lorentzian&#39;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">x_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">)</span> <span class="o">-</span> <span class="mi">50</span>
+        <span class="n">x_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">)</span> <span class="o">+</span> <span class="mi">50</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+        <span class="c1"># go through the frames and calculate the spectrum for each frame</span>
+        <span class="k">for</span> <span class="n">xp</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">,</span> <span class="n">list_osci_strength</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">line_profile</span> <span class="o">==</span> <span class="s1">&#39;Gaussian&#39;</span><span class="p">:</span>
+                    <span class="n">y</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">xp</span><span class="p">])</span> <span class="o">/</span> <span class="n">line_param</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">line_profile</span> <span class="o">==</span> <span class="s1">&#39;Lorentzian&#39;</span><span class="p">:</span>
+                    <span class="n">y</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">line_param</span> <span class="o">*</span> <span class="n">f</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span>
+                        <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">line_param</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the Raman spectra</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">freq</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">h2o_x</span><span class="p">,</span><span class="n">h2o_y</span> <span class="o">=</span> <span class="n">h2o_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span> <span class="n">h2o_vibanalysis_drv</span><span class="o">.</span><span class="n">raman_activities</span><span class="p">[</span><span class="n">freq</span><span class="p">]</span>
+<span class="n">nh3_x</span><span class="p">,</span><span class="n">nh3_y</span> <span class="o">=</span> <span class="n">nh3_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span> <span class="n">nh3_vibanalysis_drv</span><span class="o">.</span><span class="n">raman_activities</span><span class="p">[</span><span class="n">freq</span><span class="p">]</span>
+<span class="n">ch4_x</span><span class="p">,</span><span class="n">ch4_y</span> <span class="o">=</span> <span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span> <span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">raman_activities</span><span class="p">[</span><span class="n">freq</span><span class="p">]</span>
+
+<span class="n">h2o_xl</span><span class="p">,</span> <span class="n">h2o_yl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span><span class="n">h2o_x</span><span class="p">,</span> <span class="n">h2o_y</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s1">&#39;Lorentzian&#39;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">nh3_xl</span><span class="p">,</span> <span class="n">nh3_yl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span><span class="n">nh3_x</span><span class="p">,</span> <span class="n">nh3_y</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s1">&#39;Lorentzian&#39;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ch4_xl</span><span class="p">,</span> <span class="n">ch4_yl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span><span class="n">ch4_x</span><span class="p">,</span> <span class="n">ch4_y</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s1">&#39;Lorentzian&#39;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h2o_xl</span><span class="p">,</span> <span class="n">h2o_yl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;H2O&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">nh3_xl</span><span class="p">,</span> <span class="n">nh3_yl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;NH3&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ch4_xl</span><span class="p">,</span> <span class="n">ch4_yl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CH4&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavenumber (cm**-1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Raman activity (A**4/amu)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Calculated Raman sepctra of H2O, NH3, CH4&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/85208921e7bb5453cdca9d7bf95f380bfc3f25d2de5a2971fe4b5936f4e81ada.png" src="../../_images/85208921e7bb5453cdca9d7bf95f380bfc3f25d2de5a2971fe4b5936f4e81ada.png" />
+</div>
+</div>
+<p>Let’s compare the H-stretching modes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To animate the normal mode we will need both the geometry and the displacements </span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_normal_mode</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">normal_mode</span><span class="p">):</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">get_coordinates_in_angstrom</span><span class="p">()</span>
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">number_of_atoms</span><span class="p">()</span>
+    <span class="n">vib_xyz</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">natm</span>
+    <span class="n">nm</span> <span class="o">=</span> <span class="n">normal_mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">natm</span><span class="p">):</span>
+        <span class="c1"># add coordinates:</span>
+        <span class="n">vib_xyz</span> <span class="o">+=</span> <span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+        <span class="c1"># add displacements:</span>
+        <span class="n">vib_xyz</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">vib_xyz</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h2o_h1</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span> <span class="n">h2o_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">h2o_h2</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span> <span class="n">h2o_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">nh3_h1</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">nh3</span><span class="p">,</span> <span class="n">nh3_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">nh3_h2</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">nh3</span><span class="p">,</span> <span class="n">nh3_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">nh3_h3</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">nh3</span><span class="p">,</span> <span class="n">nh3_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ch4_h1</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">ch4</span><span class="p">,</span> <span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">ch4_h2</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">ch4</span><span class="p">,</span> <span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">ch4_h3</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">ch4</span><span class="p">,</span> <span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ch4_h4</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">ch4</span><span class="p">,</span> <span class="n">ch4_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;These are the two H stretching modes of H2O.&quot;</span><span class="p">)</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">p3d</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">viewergrid</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">linked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">h2o_h1</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">h2o_h2</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">setViewStyle</span><span class="p">({</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setStyle</span><span class="p">({</span><span class="s2">&quot;stick&quot;</span><span class="p">:{},</span><span class="s2">&quot;sphere&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale&quot;</span><span class="p">:</span><span class="mf">0.25</span><span class="p">}})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">animate</span><span class="p">({</span><span class="s1">&#39;loop&#39;</span><span class="p">:</span> <span class="s1">&#39;backAndForth&#39;</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>These are the two H stretching modes of H2O.
+</pre></div>
+</div>
+<div class="output text_html"><div id="3dmolviewer_17639930212118359"  style="position: relative; width: 300px; height: 200px;">
+        <p id="3dmolwarning_17639930212118359" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_17639930212118359 = null;
+var warn = document.getElementById("3dmolwarning_17639930212118359");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_17639930212118359 = null;
+viewergrid_17639930212118359 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_17639930212118359"),{rows: 1, cols: 2, control_all: true},{backgroundColor:"white"});
+viewer_17639930212118359 = viewergrid_17639930212118359[0][0];
+viewergrid_17639930212118359[0][0].zoomTo();viewergrid_17639930212118359[0][1].zoomTo();	viewergrid_17639930212118359[0][0].addModel("3\n\nO       0.0308991       0.0228758      -0.0161623       0.0327102       0.0242165      -0.0171097\nH       0.2572697       0.8975361       0.2762831      -0.1272765      -0.6466146      -0.2543979\nH       0.5960312      -0.2658119      -0.7226208      -0.3919262       0.2622310       0.5259768\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212118359[0][1].addModel("3\n\nO       0.0308991       0.0228758      -0.0161623       0.0158488      -0.0544265      -0.0467332\nH       0.2572697       0.8975361       0.2762831       0.1681025       0.6495211       0.2171693\nH       0.5960312      -0.2658119      -0.7226208      -0.4196683       0.2143802       0.5246176\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212118359[0][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212118359[0][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212118359[0][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212118359[0][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212118359[0][0].animate({"loop": "backAndForth"});
+	viewergrid_17639930212118359[0][1].animate({"loop": "backAndForth"});
+	viewergrid_17639930212118359[0][0].rotate(120,"x");
+	viewergrid_17639930212118359[0][1].rotate(120,"x");
+	viewergrid_17639930212118359[0][0].zoomTo();
+	viewergrid_17639930212118359[0][1].zoomTo();
+viewergrid_17639930212118359[0][1].render();
+viewergrid_17639930212118359[0][0].render();
+});
+</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;These are the three H stretching modes of NH3.&quot;</span><span class="p">)</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">p3d</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">viewergrid</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">linked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">nh3_h1</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">nh3_h2</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">nh3_h3</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">setViewStyle</span><span class="p">({</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setStyle</span><span class="p">({</span><span class="s2">&quot;stick&quot;</span><span class="p">:{},</span><span class="s2">&quot;sphere&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale&quot;</span><span class="p">:</span><span class="mf">0.25</span><span class="p">}})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">animate</span><span class="p">({</span><span class="s1">&#39;loop&#39;</span><span class="p">:</span> <span class="s1">&#39;backAndForth&#39;</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>These are the three H stretching modes of NH3.
+</pre></div>
+</div>
+<div class="output text_html"><div id="3dmolviewer_17639930212216058"  style="position: relative; width: 600px; height: 200px;">
+        <p id="3dmolwarning_17639930212216058" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_17639930212216058 = null;
+var warn = document.getElementById("3dmolwarning_17639930212216058");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_17639930212216058 = null;
+viewergrid_17639930212216058 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_17639930212216058"),{rows: 1, cols: 3, control_all: true},{backgroundColor:"white"});
+viewer_17639930212216058 = viewergrid_17639930212216058[0][0];
+viewergrid_17639930212216058[0][0].zoomTo();viewergrid_17639930212216058[0][1].zoomTo();viewergrid_17639930212216058[0][2].zoomTo();	viewergrid_17639930212216058[0][0].addModel("4\n\nN       0.0961758       0.0137254       0.1108604      -0.0122340      -0.0017460      -0.0141058\nH      -0.4973546       0.2946055       0.8535526      -0.3677185       0.1622816       0.4143221\nH       0.7093592       0.7070993      -0.2441077       0.3411570       0.4045976      -0.2304910\nH       0.4632196      -0.9053302       0.1689946       0.1965663      -0.5426170       0.0121830\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212216058[0][1].addModel("4\n\nN       0.0961758       0.0137254       0.1108604       0.0235769      -0.0796623      -0.0105861\nH      -0.4973546       0.2946055       0.8535526      -0.2693134       0.1074848       0.3343312\nH       0.7093592       0.7070993      -0.2441077       0.2390277       0.2449651      -0.1421708\nH       0.4632196      -0.9053302       0.1689946      -0.2973395       0.7545400      -0.0450554\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212216058[0][2].addModel("4\n\nN       0.0961758       0.0137254       0.1108604      -0.0589336      -0.0246397       0.0541640\nH      -0.4973546       0.2946055       0.8535526       0.4098447      -0.2047411      -0.5062018\nH       0.7093592       0.7070993      -0.2441077       0.4401409       0.5138820      -0.2585348\nH       0.4632196      -0.9053302       0.1689946      -0.0310427       0.0332532       0.0120721\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212216058[0][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212216058[0][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212216058[0][2].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212216058[0][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212216058[0][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212216058[0][2].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212216058[0][0].animate({"loop": "backAndForth"});
+	viewergrid_17639930212216058[0][1].animate({"loop": "backAndForth"});
+	viewergrid_17639930212216058[0][2].animate({"loop": "backAndForth"});
+	viewergrid_17639930212216058[0][0].rotate(90,"x");
+	viewergrid_17639930212216058[0][1].rotate(90,"x");
+	viewergrid_17639930212216058[0][2].rotate(90,"x");
+	viewergrid_17639930212216058[0][0].zoomTo();
+	viewergrid_17639930212216058[0][1].zoomTo();
+	viewergrid_17639930212216058[0][2].zoomTo();
+viewergrid_17639930212216058[0][2].render();
+viewergrid_17639930212216058[0][1].render();
+viewergrid_17639930212216058[0][0].render();
+});
+</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;These are the four H stretching modes of CH4.&quot;</span><span class="p">)</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">p3d</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">viewergrid</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">linked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">ch4_h1</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">ch4_h2</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">ch4_h3</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">ch4_h4</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;vibrate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">setViewStyle</span><span class="p">({</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setStyle</span><span class="p">({</span><span class="s2">&quot;stick&quot;</span><span class="p">:{},</span><span class="s2">&quot;sphere&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale&quot;</span><span class="p">:</span><span class="mf">0.25</span><span class="p">}})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">animate</span><span class="p">({</span><span class="s1">&#39;loop&#39;</span><span class="p">:</span> <span class="s1">&#39;backAndForth&#39;</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>These are the four H stretching modes of CH4.
+</pre></div>
+</div>
+<div class="output text_html"><div id="3dmolviewer_17639930212338839"  style="position: relative; width: 600px; height: 200px;">
+        <p id="3dmolwarning_17639930212338839" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_17639930212338839 = null;
+var warn = document.getElementById("3dmolwarning_17639930212338839");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_17639930212338839 = null;
+viewergrid_17639930212338839 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_17639930212338839"),{rows: 1, cols: 4, control_all: true},{backgroundColor:"white"});
+viewer_17639930212338839 = viewergrid_17639930212338839[0][0];
+viewergrid_17639930212338839[0][0].zoomTo();viewergrid_17639930212338839[0][1].zoomTo();viewergrid_17639930212338839[0][2].zoomTo();viewergrid_17639930212338839[0][3].zoomTo();	viewergrid_17639930212338839[0][0].addModel("5\n\nC      -0.0000199       0.0000199       0.0000000       0.0000000      -0.0000004      -0.0000001\nH       0.5489997       0.7922034       0.4919110       0.2536827       0.3660400       0.2272947\nH       0.6769972      -0.8058792      -0.2512524       0.3128218      -0.3723729      -0.1160934\nH      -0.7710148      -0.3700500       0.6629997      -0.3562472      -0.1709953       0.3063467\nH      -0.4550622       0.3838059      -0.9036583      -0.2102579       0.1773329      -0.4175465\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212338839[0][1].addModel("5\n\nC      -0.0000199       0.0000199       0.0000000      -0.0594532      -0.0492889      -0.0482879\nH       0.5489997       0.7922034       0.4919110       0.4195285       0.6149165       0.3771965\nH       0.6769972      -0.8058792      -0.2512524      -0.0808374       0.0647231       0.0115401\nH      -0.7710148      -0.3700500       0.6629997       0.1896885       0.0856034      -0.1892039\nH      -0.4550622       0.3838059      -0.9036583       0.1800393      -0.1779370       0.3758458\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212338839[0][2].addModel("5\n\nC      -0.0000199       0.0000199       0.0000000      -0.0190881      -0.0495043       0.0740322\nH       0.5489997       0.7922034       0.4919110       0.0555324       0.0743652       0.0736692\nH       0.6769972      -0.8058792      -0.2512524      -0.0520760       0.0430378       0.0368932\nH      -0.7710148      -0.3700500       0.6629997       0.5207681       0.2393779      -0.4327042\nH      -0.4550622       0.3838059      -0.9036583      -0.2967791       0.2330917      -0.5599948\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212338839[0][3].addModel("5\n\nC      -0.0000199       0.0000199       0.0000000       0.0663082      -0.0584442      -0.0219843\nH       0.5489997       0.7922034       0.4919110       0.1118113       0.1208928       0.0788232\nH       0.6769972      -0.8058792      -0.2512524      -0.5308447       0.6372759       0.1976938\nH      -0.7710148      -0.3700500       0.6629997      -0.2647611      -0.1507694       0.2368686\nH      -0.4550622       0.3838059      -0.9036583      -0.1063051       0.0889974      -0.2514296\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_17639930212338839[0][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212338839[0][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212338839[0][2].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212338839[0][3].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639930212338839[0][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212338839[0][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212338839[0][2].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212338839[0][3].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639930212338839[0][0].animate({"loop": "backAndForth"});
+	viewergrid_17639930212338839[0][1].animate({"loop": "backAndForth"});
+	viewergrid_17639930212338839[0][2].animate({"loop": "backAndForth"});
+	viewergrid_17639930212338839[0][3].animate({"loop": "backAndForth"});
+	viewergrid_17639930212338839[0][0].zoomTo();
+	viewergrid_17639930212338839[0][1].zoomTo();
+	viewergrid_17639930212338839[0][2].zoomTo();
+	viewergrid_17639930212338839[0][3].zoomTo();
+viewergrid_17639930212338839[0][3].render();
+viewergrid_17639930212338839[0][2].render();
+viewergrid_17639930212338839[0][1].render();
+viewergrid_17639930212338839[0][0].render();
+});
+</script></div></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="vib_ir_calc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">IR spectroscopy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="vib_ir_exercises.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exercises</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrum-calculation">Spectrum calculation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The eChem team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

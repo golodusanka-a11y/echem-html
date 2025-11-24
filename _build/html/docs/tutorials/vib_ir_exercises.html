@@ -1,0 +1,1847 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Exercises &#8212; Computational Chemistry from  Laptop to HPC</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TX4YJ1J5XE"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/tutorials/vib_ir_exercises';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Open shells" href="openshells.html" />
+    <link rel="prev" title="Raman spectroscopy" href="vib_ir_raman.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../title.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Computational Chemistry from  Laptop to HPC - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Computational Chemistry from  Laptop to HPC - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro.html">Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics_notebook.html">Using Jupyter notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../units_notation.html">Units and notation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Electronic ground states</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/elstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/orbitals.html">Orbitals and basis sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/slater.html">Many-electron wave functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/operators.html">Operators and matrix elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/reduced_density.html">Reduced particle densities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/natural_orbitals.html">Natural orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/integrals.html">Integrals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/spin.html">Electron spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/correlation.html">Electron correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dispersion.html">Dispersion interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/pt.html">Rayleigh–Schrödinger perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/second_quant.html">Second quantization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/group_theory.html">Symmetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/wft.html">Wave function theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../elec_struct/hartree-fock.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_theory.html">Hartree–Fock theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/fock_diagonalize.html">Fock matrix diagonalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_scf.html">SCF optimization</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_example.html">HF in VeloxChem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mp2.html">Møller–Plesset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/wft_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/dft.html">Density functional theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/hohenberg.html">Hohenberg–Kohn theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kohn-sham.html">Kohn–Sham method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kernel_int.html">Kernel integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_scf.html">SCF optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_prop.html">First-order properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/available_xcfun.html">Available XC functionals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/multiref.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcscf.html">MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcpdft.html">MC-PDFT</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Molecular structure and dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/molstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/coordinates.html">Choice of coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/symmetry.html">Molecular symmetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst.html">Transition-state theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_struct.html">Optimization methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/gradients.html">Gradients</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/energy_grad.html">Energy gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/property_grad.html">Property gradients</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/hessians_vib.html">Hessians and vibrations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/hessians.html">Molecular Hessians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/vibrations.html">Vibrational analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/opt.html">Structure optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_gs.html">Ground state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_constrained.html">Constrained coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/conformer.html">Conformer search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst_gen.html">Transition state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/ts_guesser.html">Guessing transition states with force fireld interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/impes.html">PES interpolation techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/impes_calc.html">Constructing the PES by interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/md.html">Molecular dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/forcefields.html">Force fields</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/reparameterize.html">Reparameterize force fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_setup.html">Ensembles and time integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_run.html">Running a simulation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Spectra and properties</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/spectra_aspects.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/resp_external.html">Responses to external fields</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/mol_prop.html">Molecular properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/first_order.html">First-order properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/linear_resp.html">Linear Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/quad_resp.html">Quadratic response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/cubic_resp.html">Cubic response</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/elec_nuc.html">Electronic and nuclear contributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/rovib.html">Rovibronic states</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/dipole_equiv.html">Dipole equivalence relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/finite_field.html">Finite field method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/nto.html">Natural transition orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/selection_rules.html">Selection rules</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/excoupl.html">Exciton coupling model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/excoupl_impl.html">Implementation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/expt_theory.html">Experiment to theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/uv_vis.html">UV/vis absorption</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/opa.html">One-photon absorption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpa.html">Two-photon absorption</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/optact.html">Optical activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/ecd.html">Electronic Circular Dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/or.html">Optical Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpcd.html">Two-photon circular dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tpor.html">Two-photon optical rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/more_optact.html">More birefringences &amp; dichroisms</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/wavefunction.html">Wave function methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/hf.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_rot.html">Orbital rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/kappa_expansion.html">Time-dependence of observables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/orb_param_field.html">Field-dependence of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_param_energy.html">Energy determination of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/hf_quasienergy.html">Quasi-energy determination of parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/adc.html">Algebraic-diagrammatic construction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_pp.html">Polarization propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_isr.html">Intermediate state representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_hpc.html">HPC-QC implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/adc_exercises_new.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/tddft.html">Time-dependent DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_foundation.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_quasienergy.html">Quasi-energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_linear_response.html">Linear response</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_theory.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_lr_implementation.html">Implementation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../spec_prop/tddft_excited_states.html">Excited states</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_rsp_eq.html">TDDFT response equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_tda.html">Tamm–Dancoff approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_triplet_inst.html">Triplet instability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spec_prop/tddft_spin_flip.html">Spin-flip</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/tddft_charge_transfer.html">Charge transfer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../spec_prop/mr_response.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/sa_mcscf.html">State-averaged MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spec_prop/mr_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/localprop.html">Localized properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/esp.html">ESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/chelpg.html">CHELPG charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/resp.html">RESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/loprop.html">LoProp charges and polarisabilities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/embedding.html">Embedding potentials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/nonpol_emb.html">Non-polarizable embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/pol_emb.html">Polarizable embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/pcm.html">Polarizable continuum models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/cpcm.html">Conductor-like polarizable continuum model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/mol_struct.html">Molecular structure and dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/struct_vis.html">Molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/md_vis.html">MD trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/opt_vib_vis.html">Optimization and normal modes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/elec_struct.html">Electronic structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/orb_vis.html">Orbitals and densities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/spec_prop.html">Spectra and properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/exc_vis.html">Excited states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/broadening.html">Spectrum broadening</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and workflows</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="workflow.html">Constructing workflows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="wf_build.html">Building systems</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="wf_struct.html">Optimizing molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wf_scf.html">Optimizing electronic structure</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="wf_construct.html">Assembling a full workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="wf_methane.html">Methane combustion energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wf_gwp.html">Global warming potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wf_spectra.html">From structure to spectrum</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="uv_vis.html">UV/vis spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_absorption.html">Absorption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_fluorescence.html">Fluorescence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv_vis_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="vib_ir.html">Vibrational spectroscopies</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="vib_ir_calc.html">IR spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vib_ir_raman.html">Raman spectroscopy</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="openshells.html">Open shells</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest_unrest.html">Restricted versus unrestricted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlation.html">Static versus dynamic correlation correlation</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="xray.html">X-ray spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="xray_calc.html">Spectrum calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_analysis.html">Spectrum analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_aspects.html">Special aspects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dire_xps.html">Core-hole localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_large.html">Larger systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_nonstandard.html">Non-standard calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xray_cheatsheet.html">Cheat sheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="colab.html">Google Colab notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cite.html">How to cite and contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem/issues/new?title=Issue%20on%20page%20%2Fdocs/tutorials/vib_ir_exercises.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/tutorials/vib_ir_exercises.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercises</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scf-geometry-optimization">SCF geometry optimization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hessians">Hessians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vibrational-analysis">Vibrational analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ir-intensities-and-raman-activities">IR intensities and Raman activities</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
+<p>In this exercise we will look at how substitution affects the vibrational frequencies, IR, and Raman spectra.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import section</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py3Dmol</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">p3d</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">veloxchem</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vlx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">basis_set_label</span> <span class="o">=</span> <span class="s2">&quot;6-31G&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define molecules and basis sets</span>
+<span class="n">ethene_xyz</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;6</span>
+<span class="s2"> ethene</span>
+<span class="s2"> C          0.000000    -0.663984   0.000000</span>
+<span class="s2"> C          0.000000     0.663984   0.000000</span>
+<span class="s2"> H          0.919796    -1.223061   0.000000</span>
+<span class="s2"> H         -0.919796    -1.223061   0.000000</span>
+<span class="s2"> H          0.919796     1.223061   0.000000</span>
+<span class="s2"> H         -0.919796     1.223061   0.000000</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">ethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">ethene_xyz</span><span class="p">)</span>
+<span class="n">ethene_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">ethene</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluoroethene_xyz</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;6</span>
+<span class="s2">fluoroethene</span>
+<span class="s2"> C          0.000000    -0.663984   0.000000</span>
+<span class="s2"> C          0.000000     0.663984   0.000000</span>
+<span class="s2"> F          1.519796    -1.223061   0.000000</span>
+<span class="s2"> H         -0.919796    -1.223061   0.000000</span>
+<span class="s2"> H          0.919796     1.223061   0.000000</span>
+<span class="s2"> H         -0.919796     1.223061   0.000000</span>
+<span class="s2"> &quot;&quot;&quot;</span>
+<span class="n">fluoroethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">fluoroethene_xyz</span><span class="p">)</span>
+<span class="n">fluoroethene_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fluoroethene</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chloroethene_xyz</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;6</span>
+<span class="s2">chloroethene</span>
+<span class="s2"> C          0.000000    -0.663984   0.000000</span>
+<span class="s2"> C          0.000000     0.663984   0.000000</span>
+<span class="s2"> Cl         1.519796    -1.223061   0.000000</span>
+<span class="s2"> H         -0.919796    -1.223061   0.000000</span>
+<span class="s2"> H          0.919796     1.223061   0.000000</span>
+<span class="s2"> H         -0.919796     1.223061   0.000000</span>
+<span class="s2"> &quot;&quot;&quot;</span>
+<span class="n">chloroethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_string</span><span class="p">(</span><span class="n">chloroethene_xyz</span><span class="p">)</span>
+<span class="n">chloroethene_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">chloroethene</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="n">p3d</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">linked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">viewergrid</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">ethene_xyz</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">fluoroethene_xyz</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="n">chloroethene_xyz</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setViewStyle</span><span class="p">({</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setStyle</span><span class="p">({</span><span class="s2">&quot;stick&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;sphere&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">}})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="3dmolviewer_17639928526679318"  style="position: relative; width: 600px; height: 200px;">
+        <p id="3dmolwarning_17639928526679318" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_17639928526679318 = null;
+var warn = document.getElementById("3dmolwarning_17639928526679318");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_17639928526679318 = null;
+viewergrid_17639928526679318 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_17639928526679318"),{rows: 1, cols: 3, control_all: true},{backgroundColor:"white"});
+viewer_17639928526679318 = viewergrid_17639928526679318[0][0];
+viewergrid_17639928526679318[0][0].zoomTo();viewergrid_17639928526679318[0][1].zoomTo();viewergrid_17639928526679318[0][2].zoomTo();	viewergrid_17639928526679318[0][0].addModel("6\n ethene\n C          0.000000    -0.663984   0.000000\n C          0.000000     0.663984   0.000000\n H          0.919796    -1.223061   0.000000\n H         -0.919796    -1.223061   0.000000\n H          0.919796     1.223061   0.000000\n H         -0.919796     1.223061   0.000000\n","xyz");
+	viewergrid_17639928526679318[0][1].addModel("6\nfluoroethene\n C          0.000000    -0.663984   0.000000\n C          0.000000     0.663984   0.000000\n F          1.519796    -1.223061   0.000000\n H         -0.919796    -1.223061   0.000000\n H          0.919796     1.223061   0.000000\n H         -0.919796     1.223061   0.000000\n ","xyz");
+	viewergrid_17639928526679318[0][2].addModel("6\nchloroethene\n C          0.000000    -0.663984   0.000000\n C          0.000000     0.663984   0.000000\n Cl         1.519796    -1.223061   0.000000\n H         -0.919796    -1.223061   0.000000\n H          0.919796     1.223061   0.000000\n H         -0.919796     1.223061   0.000000\n ","xyz");
+	viewergrid_17639928526679318[0][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639928526679318[0][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639928526679318[0][2].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_17639928526679318[0][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639928526679318[0][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639928526679318[0][2].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_17639928526679318[0][0].zoomTo();
+	viewergrid_17639928526679318[0][1].zoomTo();
+	viewergrid_17639928526679318[0][2].zoomTo();
+viewergrid_17639928526679318[0][2].render();
+viewergrid_17639928526679318[0][1].render();
+viewergrid_17639928526679318[0][0].render();
+});
+</script></div></div>
+</div>
+<section id="scf-geometry-optimization">
+<h2>SCF geometry optimization<a class="headerlink" href="#scf-geometry-optimization" title="Link to this heading">#</a></h2>
+<p>Before we can calculate the vibrational spectra, we first must optimize the geometries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Settings for SCF and gradient drivers</span>
+<span class="n">scf_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;conv_thresh&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">}</span>
+<span class="n">method_settings</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run SCF for ethene</span>
+<span class="n">ethene_scf_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+
+<span class="c1"># Run SCF for fluoroethene</span>
+<span class="n">fluoroethene_scf_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+
+<span class="c1"># Run SCF for chloroethene</span>
+<span class="n">chloroethene_scf_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run SCF for ethene</span>
+<span class="n">ethene_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">ethene_scf_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">scf_settings</span><span class="p">,</span> <span class="n">method_settings</span><span class="p">)</span>
+<span class="n">ethene_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">ethene_scf_results</span> <span class="o">=</span> <span class="n">ethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">)</span>
+
+<span class="c1"># Run SCF for fluoroethene</span>
+<span class="n">fluoroethene_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">fluoroethene_scf_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">scf_settings</span><span class="p">,</span> <span class="n">method_settings</span><span class="p">)</span>
+<span class="n">fluoroethene_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">fluoroethene_scf_results</span> <span class="o">=</span> <span class="n">fluoroethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+    <span class="n">fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span>
+<span class="p">)</span>
+
+<span class="c1"># Run SCF for chloroethene</span>
+<span class="n">chloroethene_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">chloroethene_scf_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">scf_settings</span><span class="p">,</span> <span class="n">method_settings</span><span class="p">)</span>
+<span class="n">chloroethene_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">chloroethene_scf_results</span> <span class="o">=</span> <span class="n">chloroethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+    <span class="n">chloroethene</span><span class="p">,</span> <span class="n">chloroethene_basis</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the gradient and optimization dirvers:</span>
+<span class="n">ethene_grad_drv</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">fluoroethene_grad_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+
+<span class="n">chloroethene_grad_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the gradient and optimization dirvers:</span>
+<span class="n">ethene_grad_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfGradientDriver</span><span class="p">(</span><span class="n">ethene_scf_drv</span><span class="p">)</span>
+<span class="n">ethene_opt_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">OptimizationDriver</span><span class="p">(</span><span class="n">ethene_grad_drv</span><span class="p">)</span>
+
+<span class="n">fluoroethene_grad_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfGradientDriver</span><span class="p">(</span><span class="n">fluoroethene_scf_drv</span><span class="p">)</span>
+<span class="n">fluoroethene_opt_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">OptimizationDriver</span><span class="p">(</span><span class="n">fluoroethene_grad_drv</span><span class="p">)</span>
+
+<span class="n">chloroethene_grad_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">ScfGradientDriver</span><span class="p">(</span><span class="n">chloroethene_scf_drv</span><span class="p">)</span>
+<span class="n">chloroethene_opt_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">OptimizationDriver</span><span class="p">(</span><span class="n">chloroethene_grad_drv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optimize the geometries</span>
+<span class="n">opt_ethene</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">opt_fluoroethene</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">opt_chloroethene</span> <span class="o">=</span> <span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Either optimize the geometries</span>
+<span class="c1"># Uncomment below</span>
+<span class="c1"># ethene_opt_drv.ostream.unmute()</span>
+<span class="c1"># opt_ethene = ethene_opt_drv.compute(ethene, ethene_basis)</span>
+<span class="c1"># fluoroethene_opt_drv.ostream.unmute()</span>
+<span class="c1"># opt_fluoroethene = fluoroethene_opt_drv.compute(fluoroethene, fluoroethene_basis)</span>
+<span class="c1"># chloroethene_opt_drv.ostream.unmute()</span>
+<span class="c1"># opt_chloroethene = chloroethene_opt_drv.compute(chloroethene, chloroethene_basis)</span>
+
+<span class="c1"># Or read them from file if already calculated</span>
+<span class="n">opt_ethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_file</span><span class="p">(</span><span class="s2">&quot;../../data/ir_raman/opt_ethene.xyz&quot;</span><span class="p">)</span>
+<span class="n">ethene_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">opt_fluoroethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_file</span><span class="p">(</span>
+    <span class="s2">&quot;../../data/ir_raman/opt_fluoroethene.xyz&quot;</span>
+<span class="p">)</span>
+<span class="n">fluoroethene_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">opt_fluoroethene</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">opt_chloroethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_xyz_file</span><span class="p">(</span>
+    <span class="s2">&quot;../../data/ir_raman/opt_chloroethene.xyz&quot;</span>
+<span class="p">)</span>
+<span class="n">chloroethene_basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">opt_chloroethene</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">,</span> <span class="n">ostream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get optimized coordinates as xyz string</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_xyz</span><span class="p">(</span><span class="n">molecule</span><span class="p">):</span>
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">number_of_atoms</span><span class="p">()</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">get_coordinates_in_angstrom</span><span class="p">()</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">natm</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">natm</span><span class="p">):</span>
+        <span class="n">txt</span> <span class="o">+=</span> <span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">txt</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize the optimized structures</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute SCF with the optimized geometries of all molecules</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ethene_scf_results</span> <span class="o">=</span> <span class="n">ethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">)</span>
+<span class="n">fluoroethene_scf_results</span> <span class="o">=</span> <span class="n">fluoroethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+    <span class="n">opt_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span>
+<span class="p">)</span>
+<span class="n">chloroethene_scf_results</span> <span class="o">=</span> <span class="n">chloroethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+    <span class="n">opt_chloroethene</span><span class="p">,</span> <span class="n">chloroethene_basis</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="hessians">
+<h2>Hessians<a class="headerlink" href="#hessians" title="Link to this heading">#</a></h2>
+<p>Now, we can calculate the IR and Raman spectra for these optimized geometries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Settings for Hessian calculation</span>
+<span class="n">hessian_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;do_raman&quot;</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;print_depolarization_ratio&quot;</span><span class="p">:</span> <span class="s2">&quot;no&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Hessian driver and update settings</span>
+<span class="n">ethene_vibanalysis_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+
+<span class="n">fluoroethene_vibanalysis_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+
+<span class="n">chloroethene_vibanalysis_drv</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the Hessians:</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Hessian driver and update settings</span>
+<span class="n">ethene_vibanalysis_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">VibrationalAnalysis</span><span class="p">(</span><span class="n">ethene_scf_drv</span><span class="p">)</span>
+<span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">method_settings</span><span class="p">,</span> <span class="n">hessian_settings</span><span class="p">)</span>
+
+<span class="n">fluoroethene_vibanalysis_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">VibrationalAnalysis</span><span class="p">(</span><span class="n">fluoroethene_scf_drv</span><span class="p">)</span>
+<span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">method_settings</span><span class="p">,</span> <span class="n">hessian_settings</span><span class="p">)</span>
+
+<span class="n">chloroethene_vibanalysis_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">VibrationalAnalysis</span><span class="p">(</span><span class="n">chloroethene_scf_drv</span><span class="p">)</span>
+<span class="n">chloroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">method_settings</span><span class="p">,</span> <span class="n">hessian_settings</span><span class="p">)</span>
+
+<span class="c1"># Calculate</span>
+<span class="c1"># ethene_vibanalysis_drv.compute(ethene, ethene_basis)</span>
+<span class="c1"># fluoroethene_vibanalysis_drv.compute(fluoroethene, fluoroethene_basis)</span>
+<span class="c1"># chloroethene_vibanalysis_drv.compute(chloroethene, chloroethene_basis)</span>
+
+<span class="c1"># Or read from file:</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+
+<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;../../data/ir_raman/ethenes.h5&quot;</span>
+<span class="n">hf</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ethene&quot;</span><span class="p">,</span> <span class="s2">&quot;fluoroethene&quot;</span><span class="p">,</span> <span class="s2">&quot;chloroethene&quot;</span><span class="p">]</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">driver</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ethene_vibanalysis_drv</span><span class="p">,</span> <span class="n">fluoroethene_vibanalysis_drv</span><span class="p">,</span> <span class="n">chloroethene_vibanalysis_drv</span><span class="p">]:</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="n">driver</span><span class="o">.</span><span class="n">hessian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="s2">&quot;_hessian&quot;</span><span class="p">))</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">dipole_gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="s2">&quot;_dipolegrad&quot;</span><span class="p">))</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">polarizability_gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="s2">&quot;_polgrad&quot;</span><span class="p">))</span>
+
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">hf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Broadening function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_broadening</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">,</span> <span class="n">list_osci_strength</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s1">&#39;Lorentzian&#39;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+
+    <span class="o">...</span>
+    
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Broadening function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_broadening</span><span class="p">(</span>
+    <span class="n">list_ex_energy</span><span class="p">,</span>
+    <span class="n">list_osci_strength</span><span class="p">,</span>
+    <span class="n">line_profile</span><span class="o">=</span><span class="s2">&quot;Lorentzian&quot;</span><span class="p">,</span>
+    <span class="n">line_param</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">x_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">)</span> <span class="o">-</span> <span class="mi">50</span>
+    <span class="n">x_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">)</span> <span class="o">+</span> <span class="mi">50</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+    <span class="c1"># print(x)</span>
+    <span class="c1"># print(y)</span>
+
+    <span class="c1"># go through the frames and calculate the spectrum for each frame</span>
+    <span class="k">for</span> <span class="n">xp</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">list_ex_energy</span><span class="p">,</span> <span class="n">list_osci_strength</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">line_profile</span> <span class="o">==</span> <span class="s2">&quot;Gaussian&quot;</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(((</span><span class="n">e</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">xp</span><span class="p">])</span> <span class="o">/</span> <span class="n">line_param</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">line_profile</span> <span class="o">==</span> <span class="s2">&quot;Lorentzian&quot;</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="mf">0.5</span>
+                    <span class="o">*</span> <span class="n">line_param</span>
+                    <span class="o">*</span> <span class="n">f</span>
+                    <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">line_param</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># To animate the normal mode we will need both the geometry and the displacements </span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_normal_mode</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">normal_mode</span><span class="p">):</span>
+
+    <span class="o">...</span>
+    
+    <span class="k">return</span> <span class="n">vib_xyz</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input tag_hide-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To animate the normal mode we will need both the geometry and the displacements</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_normal_mode</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">normal_mode</span><span class="p">):</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">get_coordinates_in_angstrom</span><span class="p">()</span>
+    <span class="p">)</span>  <span class="c1"># To transform from au to A</span>
+    <span class="n">natm</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">number_of_atoms</span><span class="p">()</span>
+
+    <span class="n">vib_xyz</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">natm</span>
+    <span class="n">nm</span> <span class="o">=</span> <span class="n">normal_mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">natm</span><span class="p">):</span>
+        <span class="c1"># add coordinates:</span>
+        <span class="n">vib_xyz</span> <span class="o">+=</span> <span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="c1"># add displacements:</span>
+        <span class="n">vib_xyz</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="s2"> </span><span class="si">%15.7f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">vib_xyz</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="vibrational-analysis">
+<h2>Vibrational analysis<a class="headerlink" href="#vibrational-analysis" title="Link to this heading">#</a></h2>
+<p>To get a summary of the vibrational analysis, one simply needs to run the following command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run for all molecules</span>
+<span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vibrational_analysis</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run for all molecules</span>
+<span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">)</span>
+<span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span><span class="p">)</span>
+<span class="n">chloroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_chloroethene</span><span class="p">,</span> <span class="n">chloroethene_basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>Think about the dipole moment of these molecules and consider the Hydrogen stretching modes. How do you expect the IR spectra to look like? Which molecule do you expect will have more intense IR-peaks?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the IR spectra</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">eth_x</span><span class="p">,</span> <span class="n">eth_ir</span> <span class="o">=</span> <span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span> <span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">ir_intensities</span>
+<span class="n">flo_x</span><span class="p">,</span> <span class="n">flo_ir</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span>
+    <span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">ir_intensities</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chl_x</span><span class="p">,</span> <span class="n">chl_ir</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">chloroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span>
+    <span class="n">chloroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">ir_intensities</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">eth_xl</span><span class="p">,</span> <span class="n">eth_irl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span>
+    <span class="n">eth_x</span><span class="p">,</span> <span class="n">eth_ir</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s2">&quot;Lorentzian&quot;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="n">flo_xl</span><span class="p">,</span> <span class="n">flo_irl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span>
+    <span class="n">flo_x</span><span class="p">,</span> <span class="n">flo_ir</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s2">&quot;Lorentzian&quot;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="n">chl_xl</span><span class="p">,</span> <span class="n">chl_irl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span>
+    <span class="n">chl_x</span><span class="p">,</span> <span class="n">chl_ir</span><span class="p">,</span> <span class="n">line_profile</span><span class="o">=</span><span class="s2">&quot;Lorentzian&quot;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eth_xl</span><span class="p">,</span> <span class="n">eth_irl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ethene&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">flo_xl</span><span class="p">,</span> <span class="n">flo_irl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Fluoroethene&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chl_xl</span><span class="p">,</span> <span class="n">chl_irl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Chloroethene&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavenumber (cm**-1)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="mi">3200</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">3500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;IR intensity (km/mol)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Calculated IR sepctra, H-stretching region&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/339b84a2b01b6b20a11aa53638dcd64e0d1990f340904479f69319c05e9ee856.png" src="../../_images/339b84a2b01b6b20a11aa53638dcd64e0d1990f340904479f69319c05e9ee856.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Raman spectra</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">eth_x</span><span class="p">,</span> <span class="n">eth_raman</span> <span class="o">=</span> <span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span> <span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">raman_activities</span>
+<span class="n">flo_x</span><span class="p">,</span> <span class="n">flo_raman</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span>
+    <span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">raman_activities</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chl_x</span><span class="p">,</span> <span class="n">chl_raman</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">chloroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">,</span>
+    <span class="n">chloroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">raman_activities</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">freq</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">eth_xl</span><span class="p">,</span> <span class="n">eth_ramanl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span>
+    <span class="n">eth_x</span><span class="p">,</span> <span class="n">eth_raman</span><span class="p">[</span><span class="n">freq</span><span class="p">],</span> <span class="n">line_profile</span><span class="o">=</span><span class="s2">&quot;Lorentzian&quot;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="n">flo_xl</span><span class="p">,</span> <span class="n">flo_ramanl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span>
+    <span class="n">flo_x</span><span class="p">,</span> <span class="n">flo_raman</span><span class="p">[</span><span class="n">freq</span><span class="p">],</span> <span class="n">line_profile</span><span class="o">=</span><span class="s2">&quot;Lorentzian&quot;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="n">chl_xl</span><span class="p">,</span> <span class="n">chl_ramanl</span> <span class="o">=</span> <span class="n">add_broadening</span><span class="p">(</span>
+    <span class="n">chl_x</span><span class="p">,</span> <span class="n">chl_raman</span><span class="p">[</span><span class="n">freq</span><span class="p">],</span> <span class="n">line_profile</span><span class="o">=</span><span class="s2">&quot;Lorentzian&quot;</span><span class="p">,</span> <span class="n">line_param</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eth_xl</span><span class="p">,</span> <span class="n">eth_ramanl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ethene&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">flo_xl</span><span class="p">,</span> <span class="n">flo_ramanl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Fluoroethene&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chl_xl</span><span class="p">,</span> <span class="n">chl_ramanl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Chloroethene&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wavenumber (cm**-1)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="mi">3200</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">3500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Raman activity (A**4/amu)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Calculated Raman sepctra, H-stretching region&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/986926c136ec0108e87480f7d24da0caafaa97734929e0c256e0af325e6e29cb.png" src="../../_images/986926c136ec0108e87480f7d24da0caafaa97734929e0c256e0af325e6e29cb.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the displacements of the normal mode</span>
+<span class="n">ethene_h1</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span><span class="n">ethene</span><span class="p">,</span> <span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">fluoroethene_h1</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span>
+    <span class="n">fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">chloroethene_h1</span> <span class="o">=</span> <span class="n">get_normal_mode</span><span class="p">(</span>
+    <span class="n">chloroethene</span><span class="p">,</span> <span class="n">chloroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Animate the vibration</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">p3d</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">viewergrid</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">linked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span>
+    <span class="n">ethene_h1</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;vibrate&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;frames&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;amplitude&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">}},</span> <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span>
+    <span class="n">fluoroethene_h1</span><span class="p">,</span>
+    <span class="s2">&quot;xyz&quot;</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">&quot;vibrate&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;frames&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;amplitude&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">}},</span>
+    <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span>
+    <span class="n">chloroethene_h1</span><span class="p">,</span>
+    <span class="s2">&quot;xyz&quot;</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">&quot;vibrate&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;frames&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;amplitude&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">}},</span>
+    <span class="n">viewer</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">setViewStyle</span><span class="p">({</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setStyle</span><span class="p">({</span><span class="s2">&quot;stick&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;sphere&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">}})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">animate</span><span class="p">({</span><span class="s2">&quot;loop&quot;</span><span class="p">:</span> <span class="s2">&quot;backAndForth&quot;</span><span class="p">})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="3dmolviewer_1763992968620697"  style="position: relative; width: 600px; height: 200px;">
+        <p id="3dmolwarning_1763992968620697" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdn.jsdelivr.net/npm/3dmol@2.5.0/build/3Dmol-min.js');
+}
+
+var viewer_1763992968620697 = null;
+var warn = document.getElementById("3dmolwarning_1763992968620697");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_1763992968620697 = null;
+viewergrid_1763992968620697 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_1763992968620697"),{rows: 1, cols: 3, control_all: true},{backgroundColor:"white"});
+viewer_1763992968620697 = viewergrid_1763992968620697[0][0];
+viewergrid_1763992968620697[0][0].zoomTo();viewergrid_1763992968620697[0][1].zoomTo();viewergrid_1763992968620697[0][2].zoomTo();	viewergrid_1763992968620697[0][0].addModel("6\n\nC       0.0000000      -0.6639840       0.0000000      -0.0703482      -0.0000118      -0.0000000\nC       0.0000000       0.6639840       0.0000000      -0.0703482       0.0000118       0.0000000\nH       0.9197960      -1.2230610       0.0000000       0.4189469      -0.2680178       0.0000000\nH      -0.9197960      -1.2230610       0.0000000       0.4192924       0.2681322       0.0000000\nH       0.9197960       1.2230610       0.0000000       0.4189469       0.2680178      -0.0000000\nH      -0.9197960       1.2230610       0.0000000       0.4192924      -0.2681323      -0.0000000\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_1763992968620697[0][1].addModel("6\n\nC       0.0000000      -0.6639840       0.0000000       0.0412379       0.0436299       0.0000000\nC       0.0000000       0.6639840       0.0000000       0.0754203      -0.0041437       0.0000000\nF       1.5197960      -1.2230610       0.0000000      -0.0006345       0.0001596      -0.0000000\nH      -0.9197960      -1.2230610       0.0000000      -0.4739416      -0.4411023      -0.0000000\nH       0.9197960       1.2230610       0.0000000      -0.3781504      -0.2912490      -0.0000000\nH      -0.9197960       1.2230610       0.0000000      -0.5259997       0.2588410       0.0000000\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_1763992968620697[0][2].addModel("6\n\nC       0.0000000      -0.6639840       0.0000000      -0.0620849      -0.0573368       0.0000000\nC       0.0000000       0.6639840       0.0000000      -0.0351756       0.0100309      -0.0000000\nCl       1.5197960      -1.2230610       0.0000000       0.0002712      -0.0000132      -0.0000000\nH      -0.9197960      -1.2230610       0.0000000       0.7288884       0.5784378      -0.0000000\nH       0.9197960       1.2230610       0.0000000       0.1725039       0.1238026       0.0000000\nH      -0.9197960       1.2230610       0.0000000       0.2479832      -0.1380981       0.0000000\n","xyz",{"vibrate": {"frames": 10, "amplitude": 0.75}});
+	viewergrid_1763992968620697[0][0].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_1763992968620697[0][1].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_1763992968620697[0][2].setViewStyle({"style": "outline", "width": 0.05});
+	viewergrid_1763992968620697[0][0].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_1763992968620697[0][1].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_1763992968620697[0][2].setStyle({"stick": {}, "sphere": {"scale": 0.25}});
+	viewergrid_1763992968620697[0][0].animate({"loop": "backAndForth"});
+	viewergrid_1763992968620697[0][1].animate({"loop": "backAndForth"});
+	viewergrid_1763992968620697[0][2].animate({"loop": "backAndForth"});
+	viewergrid_1763992968620697[0][0].zoomTo();
+	viewergrid_1763992968620697[0][1].zoomTo();
+	viewergrid_1763992968620697[0][2].zoomTo();
+viewergrid_1763992968620697[0][2].render();
+viewergrid_1763992968620697[0][1].render();
+viewergrid_1763992968620697[0][0].render();
+});
+</script></div></div>
+</div>
+</section>
+<section id="ir-intensities-and-raman-activities">
+<h2>IR intensities and Raman activities<a class="headerlink" href="#ir-intensities-and-raman-activities" title="Link to this heading">#</a></h2>
+<p>To rationalize why the IR and Raman spectra look as they do, calculate how the dipole moment and polarizability change during particular vibrational motions. Look at the Hydrogen stretching modes and select a mode which is IR-active in ethene, but is suppressed in fluoroethene or chloroethene. What is the dipole moment in the optimized molecule? How does the dipole moment change during the vibration?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the dipole moment of the optimized molecules</span>
+<span class="c1"># For this we will use the FirstOrderProperties class from veloxchem</span>
+<span class="n">ethene_prop</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">firstorderprop</span><span class="o">.</span><span class="n">FirstOrderProperties</span><span class="p">()</span>
+<span class="n">ethene_prop</span><span class="o">.</span><span class="n">compute_scf_prop</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">,</span> <span class="n">ethene_scf_results</span><span class="p">)</span>
+<span class="n">ethene_dipole_moment</span> <span class="o">=</span> <span class="n">ethene_prop</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s1">&#39;dipole moment&#39;</span><span class="p">)</span>
+<span class="o">...</span>
+
+<span class="c1"># Select normal mode and get the array of atomic displacements</span>
+<span class="o">...</span>
+
+<span class="c1"># Use the atomic displacement array to construct several new molecular configurations</span>
+<span class="c1"># along the vibrational mode, e.g. -0.75, -0.5, -0.25, 0.25, 0.5, 0.75 displacement </span>
+<span class="o">...</span>
+
+<span class="c1"># Calculate the dipole moment for the new configurations</span>
+<span class="o">...</span>
+
+<span class="c1"># Plot as a function of displacement</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-output tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ethene_prop</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">firstorderprop</span><span class="o">.</span><span class="n">FirstOrderProperties</span><span class="p">()</span>
+<span class="n">ethene_prop</span><span class="o">.</span><span class="n">compute_scf_prop</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">,</span> <span class="n">ethene_scf_results</span><span class="p">)</span>
+<span class="n">ethene_dipole_moment</span> <span class="o">=</span> <span class="n">ethene_prop</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s2">&quot;dipole moment&quot;</span><span class="p">)</span>
+
+<span class="n">fluoroethene_prop</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">firstorderprop</span><span class="o">.</span><span class="n">FirstOrderProperties</span><span class="p">()</span>
+<span class="n">fluoroethene_prop</span><span class="o">.</span><span class="n">compute_scf_prop</span><span class="p">(</span>
+    <span class="n">opt_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span><span class="p">,</span> <span class="n">fluoroethene_scf_results</span>
+<span class="p">)</span>
+<span class="n">fluoroethene_dipole_moment</span> <span class="o">=</span> <span class="n">fluoroethene_prop</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s2">&quot;dipole moment&quot;</span><span class="p">)</span>
+
+<span class="n">chloroethene_prop</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">firstorderprop</span><span class="o">.</span><span class="n">FirstOrderProperties</span><span class="p">()</span>
+<span class="n">chloroethene_prop</span><span class="o">.</span><span class="n">compute_scf_prop</span><span class="p">(</span>
+    <span class="n">opt_chloroethene</span><span class="p">,</span> <span class="n">chloroethene_basis</span><span class="p">,</span> <span class="n">chloroethene_scf_results</span>
+<span class="p">)</span>
+<span class="n">chloroethene_dipole_moment</span> <span class="o">=</span> <span class="n">chloroethene_prop</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s2">&quot;dipole moment&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ground state dipole moments:   x             y            z       </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Ethene                     : </span><span class="si">%5.2f</span><span class="s2"> a.u.    </span><span class="si">%5.2f</span><span class="s2"> a.u.   </span><span class="si">%5.2f</span><span class="s2"> a.u.&quot;</span>
+    <span class="o">%</span> <span class="p">(</span><span class="n">ethene_dipole_moment</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ethene_dipole_moment</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ethene_dipole_moment</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Fluoroethene               : </span><span class="si">%5.2f</span><span class="s2"> a.u.    </span><span class="si">%5.2f</span><span class="s2"> a.u.   </span><span class="si">%5.2f</span><span class="s2"> a.u.&quot;</span>
+    <span class="o">%</span> <span class="p">(</span>
+        <span class="n">fluoroethene_dipole_moment</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">fluoroethene_dipole_moment</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">fluoroethene_dipole_moment</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Chloroethene               : </span><span class="si">%5.2f</span><span class="s2"> a.u.    </span><span class="si">%5.2f</span><span class="s2"> a.u.   </span><span class="si">%5.2f</span><span class="s2"> a.u.&quot;</span>
+    <span class="o">%</span> <span class="p">(</span>
+        <span class="n">chloroethene_dipole_moment</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">chloroethene_dipole_moment</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">chloroethene_dipole_moment</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">ethene_moments</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fluoroethene_moments</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">natm</span> <span class="o">=</span> <span class="n">opt_ethene</span><span class="o">.</span><span class="n">number_of_atoms</span><span class="p">()</span>
+
+<span class="n">new_ethene_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">scfrestdriver</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">new_ethene_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">ethene_displacements</span> <span class="o">=</span> <span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ethene_labels</span> <span class="o">=</span> <span class="n">opt_ethene</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+
+<span class="n">new_fluoroethene_scf_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">scfrestdriver</span><span class="o">.</span><span class="n">ScfRestrictedDriver</span><span class="p">()</span>
+<span class="n">new_fluoroethene_scf_drv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">fluoroethene_displacements</span> <span class="o">=</span> <span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">normal_modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">natm</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">fluoroethene_labels</span> <span class="o">=</span> <span class="n">opt_fluoroethene</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+
+<span class="n">x_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.81</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+
+<span class="c1"># Calculate the dipole moment for different displacements</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_list</span><span class="p">:</span>
+    <span class="n">ethene_coords</span> <span class="o">=</span> <span class="n">opt_ethene</span><span class="o">.</span><span class="n">get_coordinates_in_angstrom</span><span class="p">()</span>
+    <span class="n">ethene_coords</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ethene_displacements</span>
+    <span class="n">new_ethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">molecule</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="n">ethene_labels</span><span class="p">,</span> <span class="n">ethene_coords</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;angstrom&quot;</span><span class="p">)</span>
+    <span class="n">new_ethene_scf_results</span> <span class="o">=</span> <span class="n">new_ethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">new_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">)</span>
+    <span class="n">ethene_prop</span><span class="o">.</span><span class="n">compute_scf_prop</span><span class="p">(</span><span class="n">new_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">,</span> <span class="n">new_ethene_scf_results</span><span class="p">)</span>
+    <span class="n">ethene_dipole_moment</span> <span class="o">=</span> <span class="n">ethene_prop</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s2">&quot;dipole moment&quot;</span><span class="p">)</span>
+    <span class="n">ethene_moments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ethene_dipole_moment</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_list</span><span class="p">:</span>
+    <span class="n">fluoro_coords</span> <span class="o">=</span> <span class="n">opt_fluoroethene</span><span class="o">.</span><span class="n">get_coordinates_in_angstrom</span><span class="p">()</span>
+    <span class="n">fluoro_coords</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">fluoroethene_displacements</span>
+    <span class="n">new_fluoroethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">molecule</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span>
+        <span class="n">fluoroethene_labels</span><span class="p">,</span> <span class="n">fluoro_coords</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;angstrom&quot;</span>
+    <span class="p">)</span>
+    <span class="n">new_fluoroethene_scf_results</span> <span class="o">=</span> <span class="n">new_fluoroethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+        <span class="n">new_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span>
+    <span class="p">)</span>
+    <span class="n">ethene_prop</span><span class="o">.</span><span class="n">compute_scf_prop</span><span class="p">(</span>
+        <span class="n">new_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span><span class="p">,</span> <span class="n">new_fluoroethene_scf_results</span>
+    <span class="p">)</span>
+    <span class="n">fluoroethene_dipole_moment</span> <span class="o">=</span> <span class="n">fluoroethene_prop</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s2">&quot;dipole moment&quot;</span><span class="p">)</span>
+    <span class="n">fluoroethene_moments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fluoroethene_dipole_moment</span><span class="p">)</span>
+
+
+<span class="n">ethene_moments_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ethene_moments</span><span class="p">)</span>
+<span class="n">fluoroethene_moments_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fluoroethene_moments</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt1</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">ethene_moments_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">ethene_moments_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">ethene_moments_array</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;--o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmin</span><span class="o">=-</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Displacement (%)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Dipole moment (a.u.)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+    <span class="s2">&quot;Ethene Dipole Moment along the </span><span class="si">%.2f</span><span class="s2"> cm-1 mode&quot;</span> <span class="o">%</span> <span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt2</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">fluoroethene_moments_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">fluoroethene_moments_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">fluoroethene_moments_array</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;--o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmin</span><span class="o">=-</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Displacement (%)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Dipole moment (a.u.)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+    <span class="s2">&quot;Fluoroethene dipole moment along the </span><span class="si">%.2f</span><span class="s2"> cm-1 mode&quot;</span>
+    <span class="o">%</span> <span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ground state dipole moments:   x             y            z       
+
+Ethene                     : -0.00 a.u.    -0.00 a.u.   -0.00 a.u.
+Fluoroethene               : -0.79 a.u.     0.39 a.u.   -0.00 a.u.
+Chloroethene               : -0.77 a.u.     0.59 a.u.    0.00 a.u.
+</pre></div>
+</div>
+<img alt="../../_images/bc2892c75921ff1ee1b656bb6ca2823607764cbe822951e2681a1c3f1f80ee15.png" src="../../_images/bc2892c75921ff1ee1b656bb6ca2823607764cbe822951e2681a1c3f1f80ee15.png" />
+</div>
+</details>
+</div>
+<p>Now select a mode which is Raman-active in ethene, but is suppressed in fluoroethene or chloroethene. Calculate the polarizability of the optimized molecule. How does the polarizability change during the vibration?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the polarizability of the optimized molecules</span>
+<span class="c1"># For this, we need to run a linear response calculation</span>
+<span class="n">ethene_lrdrv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">lrsolver</span><span class="o">.</span><span class="n">LinearResponseSolver</span><span class="p">()</span>
+<span class="n">ethene_pol_dict</span> <span class="o">=</span> <span class="n">ethene_lrdrv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">,</span> <span class="n">ethene_scf_results</span><span class="p">)</span>
+<span class="n">ethene_polarizability</span> <span class="o">=</span> <span class="n">ethene_pol_dict</span><span class="p">[</span><span class="s1">&#39;response_functions&#39;</span><span class="p">]</span>
+<span class="o">...</span>
+
+<span class="c1"># Select normal mode and get the array of atomic displacements</span>
+<span class="o">...</span>
+
+<span class="c1"># Use the atomic displacement array to construct several new molecular configurations</span>
+<span class="c1"># along the vibrational mode, e.g. -0.75, -0.5, -0.25, 0.25, 0.5, 0.75 displacement </span>
+<span class="o">...</span>
+
+<span class="c1"># Calculate the polarizability for the new configurations</span>
+<span class="o">...</span>
+
+<span class="c1"># Plot component or norm as a function of displacement</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="cell tag_hide-output tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the polarizability of the optimized molecules</span>
+<span class="c1"># For this, we need to run a linear response calculation</span>
+<span class="n">ethene_lrdrv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">lrsolver</span><span class="o">.</span><span class="n">LinearResponseSolver</span><span class="p">()</span>
+<span class="n">ethene_lrdrv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">ethene_pol_dict</span> <span class="o">=</span> <span class="n">ethene_lrdrv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">opt_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">,</span> <span class="n">ethene_scf_results</span><span class="p">)</span>
+<span class="n">ethene_polarizability</span> <span class="o">=</span> <span class="n">ethene_pol_dict</span><span class="p">[</span><span class="s2">&quot;response_functions&quot;</span><span class="p">]</span>
+
+<span class="n">fluoroethene_lrdrv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">lrsolver</span><span class="o">.</span><span class="n">LinearResponseSolver</span><span class="p">()</span>
+<span class="n">fluoroethene_lrdrv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">fluoroethene_pol_dict</span> <span class="o">=</span> <span class="n">fluoroethene_lrdrv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+    <span class="n">opt_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span><span class="p">,</span> <span class="n">fluoroethene_scf_results</span>
+<span class="p">)</span>
+<span class="n">fluoroethene_polarizability</span> <span class="o">=</span> <span class="n">fluoroethene_pol_dict</span><span class="p">[</span><span class="s2">&quot;response_functions&quot;</span><span class="p">]</span>
+
+<span class="n">chloroethene_lrdrv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">lrsolver</span><span class="o">.</span><span class="n">LinearResponseSolver</span><span class="p">()</span>
+<span class="n">chloroethene_lrdrv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+<span class="n">chloroethene_pol_dict</span> <span class="o">=</span> <span class="n">chloroethene_lrdrv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+    <span class="n">opt_chloroethene</span><span class="p">,</span> <span class="n">chloroethene_basis</span><span class="p">,</span> <span class="n">chloroethene_scf_results</span>
+<span class="p">)</span>
+<span class="n">chloroethene_polarizability</span> <span class="o">=</span> <span class="n">chloroethene_pol_dict</span><span class="p">[</span><span class="s2">&quot;response_functions&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ground state polarizabilities:    xx             yy           zz</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Ethene                       : </span><span class="si">%5.2f</span><span class="s2"> a.u.    </span><span class="si">%5.2f</span><span class="s2"> a.u.   </span><span class="si">%5.2f</span><span class="s2"> a.u.&quot;</span>
+    <span class="o">%</span> <span class="p">(</span>
+        <span class="n">ethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="n">ethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="n">ethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Fluoroethene                 : </span><span class="si">%5.2f</span><span class="s2"> a.u.    </span><span class="si">%5.2f</span><span class="s2"> a.u.   </span><span class="si">%5.2f</span><span class="s2"> a.u.&quot;</span>
+    <span class="o">%</span> <span class="p">(</span>
+        <span class="n">fluoroethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="n">fluoroethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="n">fluoroethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Chloroethene                 : </span><span class="si">%5.2f</span><span class="s2"> a.u.    </span><span class="si">%5.2f</span><span class="s2"> a.u.   </span><span class="si">%5.2f</span><span class="s2"> a.u.&quot;</span>
+    <span class="o">%</span> <span class="p">(</span>
+        <span class="n">chloroethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="n">chloroethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="n">chloroethene_polarizability</span><span class="p">[(</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Save polarizability dictionary keys</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">ethene_pol_dict</span><span class="p">[</span><span class="s2">&quot;response_functions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+<span class="n">ethene_pol</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fluoroethene_pol</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Create new linear response solvers to re-calculate the polarizabilities</span>
+<span class="n">new_ethene_lrdrv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">lrsolver</span><span class="o">.</span><span class="n">LinearResponseSolver</span><span class="p">()</span>
+<span class="n">new_ethene_lrdrv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+
+<span class="n">new_fluoroethene_lrdrv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">lrsolver</span><span class="o">.</span><span class="n">LinearResponseSolver</span><span class="p">()</span>
+<span class="n">new_fluoroethene_lrdrv</span><span class="o">.</span><span class="n">ostream</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+
+<span class="c1"># Calculate the polarizability for different displacements</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_list</span><span class="p">:</span>
+    <span class="n">ethene_coords</span> <span class="o">=</span> <span class="n">opt_ethene</span><span class="o">.</span><span class="n">get_coordinates_in_angstrom</span><span class="p">()</span>
+    <span class="n">ethene_coords</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ethene_displacements</span>
+    <span class="n">new_ethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">molecule</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="n">ethene_labels</span><span class="p">,</span> <span class="n">ethene_coords</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;angstrom&quot;</span><span class="p">)</span>
+    <span class="n">new_ethene_scf_results</span> <span class="o">=</span> <span class="n">new_ethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">new_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">)</span>
+
+    <span class="n">new_ethene_pol_dict</span> <span class="o">=</span> <span class="n">new_ethene_lrdrv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+        <span class="n">new_ethene</span><span class="p">,</span> <span class="n">ethene_basis</span><span class="p">,</span> <span class="n">new_ethene_scf_results</span>
+    <span class="p">)</span>
+
+    <span class="n">ethene_polarizability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">9</span><span class="p">))</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="n">ethene_polarizability</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_ethene_pol_dict</span><span class="p">[</span><span class="s2">&quot;response_functions&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">ethene_pol</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ethene_polarizability</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_list</span><span class="p">:</span>
+    <span class="n">fluoro_coords</span> <span class="o">=</span> <span class="n">opt_fluoroethene</span><span class="o">.</span><span class="n">get_coordinates_in_angstrom</span><span class="p">()</span>
+    <span class="n">fluoro_coords</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">fluoroethene_displacements</span>
+    <span class="n">new_fluoroethene</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">molecule</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span>
+        <span class="n">fluoroethene_labels</span><span class="p">,</span> <span class="n">fluoro_coords</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;angstrom&quot;</span>
+    <span class="p">)</span>
+    <span class="n">new_fluoroethene_scf_results</span> <span class="o">=</span> <span class="n">new_fluoroethene_scf_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+        <span class="n">new_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span>
+    <span class="p">)</span>
+
+    <span class="n">new_fluoroethene_pol_dict</span> <span class="o">=</span> <span class="n">new_fluoroethene_lrdrv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+        <span class="n">new_fluoroethene</span><span class="p">,</span> <span class="n">fluoroethene_basis</span><span class="p">,</span> <span class="n">new_fluoroethene_scf_results</span>
+    <span class="p">)</span>
+
+    <span class="n">fluoroethene_polarizability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">9</span><span class="p">))</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="n">fluoroethene_polarizability</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_fluoroethene_pol_dict</span><span class="p">[</span>
+            <span class="s2">&quot;response_functions&quot;</span>
+        <span class="p">][</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">fluoroethene_pol</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fluoroethene_polarizability</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">ethene_polarizability_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ethene_pol</span><span class="p">)</span>
+<span class="n">fluoroethene_polarizability_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fluoroethene_pol</span><span class="p">)</span>
+
+<span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt1</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">ethene_polarizability_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;xx&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">ethene_polarizability_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;yy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">ethene_polarizability_array</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;--o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;zz&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmin</span><span class="o">=-</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">32.0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Displacement (%)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Polarizability (a.u.)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+    <span class="s2">&quot;Ethene polarizability along the </span><span class="si">%.2f</span><span class="s2"> cm-1 mode &quot;</span>
+    <span class="o">%</span> <span class="p">(</span><span class="n">ethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt2</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">fluoroethene_polarizability_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;xx&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">fluoroethene_polarizability_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;yy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">,</span> <span class="n">fluoroethene_polarizability_array</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;--o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;zz&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmin</span><span class="o">=-</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">32.0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Displacement (%)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Polarizability (a.u.)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+    <span class="s2">&quot;Fluoroethene polarizability along the </span><span class="si">%.2f</span><span class="s2"> cm-1 mode &quot;</span>
+    <span class="o">%</span> <span class="p">(</span><span class="n">fluoroethene_vibanalysis_drv</span><span class="o">.</span><span class="n">vib_frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ground state polarizabilities:    xx             yy           zz
+
+Ethene                       : -19.19 a.u.    -32.45 a.u.   -7.15 a.u.
+Fluoroethene                 : -18.86 a.u.    -30.62 a.u.   -7.81 a.u.
+Chloroethene                 : -31.94 a.u.    -41.05 a.u.   -10.12 a.u.
+</pre></div>
+</div>
+<img alt="../../_images/c38ef946e756c046253325044c509afad2cdd814be9ab3ec7c4241945c90b623.png" src="../../_images/c38ef946e756c046253325044c509afad2cdd814be9ab3ec7c4241945c90b623.png" />
+</div>
+</details>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="vib_ir_raman.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Raman spectroscopy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="openshells.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Open shells</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scf-geometry-optimization">SCF geometry optimization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hessians">Hessians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vibrational-analysis">Vibrational analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ir-intensities-and-raman-activities">IR intensities and Raman activities</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The eChem team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

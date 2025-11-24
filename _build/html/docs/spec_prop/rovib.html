@@ -1,0 +1,1633 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Rovibronic states &#8212; Computational Chemistry from  Laptop to HPC</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TX4YJ1J5XE"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-TX4YJ1J5XE');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/spec_prop/rovib';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Dipole equivalence relations" href="dipole_equiv.html" />
+    <link rel="prev" title="Electronic and nuclear contributions" href="elec_nuc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../title.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Computational Chemistry from  Laptop to HPC - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Computational Chemistry from  Laptop to HPC - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro.html">Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basics_notebook.html">Using Jupyter notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../units_notation.html">Units and notation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Electronic ground states</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/elstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/orbitals.html">Orbitals and basis sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/slater.html">Many-electron wave functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/operators.html">Operators and matrix elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/reduced_density.html">Reduced particle densities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/natural_orbitals.html">Natural orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/integrals.html">Integrals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/spin.html">Electron spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/correlation.html">Electron correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dispersion.html">Dispersion interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/pt.html">Rayleigh–Schrödinger perturbation theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/second_quant.html">Second quantization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/group_theory.html">Symmetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/wft.html">Wave function theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../elec_struct/hartree-fock.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_theory.html">Hartree–Fock theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/fock_diagonalize.html">Fock matrix diagonalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_scf.html">SCF optimization</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../elec_struct/hf_example.html">HF in VeloxChem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mp2.html">Møller–Plesset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/ci.html">Configuration interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/wft_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/dft.html">Density functional theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/hohenberg.html">Hohenberg–Kohn theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kohn-sham.html">Kohn–Sham method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/kernel_int.html">Kernel integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_scf.html">SCF optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/dft_prop.html">First-order properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/available_xcfun.html">Available XC functionals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../elec_struct/multiref.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcscf.html">MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../elec_struct/mcpdft.html">MC-PDFT</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Molecular structure and dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/molstruct_gen.html">General aspects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/coordinates.html">Choice of coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/symmetry.html">Molecular symmetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst.html">Transition-state theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_struct.html">Optimization methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/gradients.html">Gradients</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/energy_grad.html">Energy gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/property_grad.html">Property gradients</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/hessians_vib.html">Hessians and vibrations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/hessians.html">Molecular Hessians</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/vibrations.html">Vibrational analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/opt.html">Structure optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_gs.html">Ground state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/opt_constrained.html">Constrained coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/conformer.html">Conformer search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/tst_gen.html">Transition state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/ts_guesser.html">Guessing transition states with force fireld interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/impes.html">PES interpolation techniques</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/impes_calc.html">Constructing the PES by interpolation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mol_struct/md.html">Molecular dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/forcefields.html">Force fields</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/reparameterize.html">Reparameterize force fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_setup.html">Ensembles and time integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mol_struct/md_run.html">Running a simulation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Spectra and properties</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="spectra_aspects.html">General aspects</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="resp_external.html">Responses to external fields</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="mol_prop.html">Molecular properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="first_order.html">First-order properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="linear_resp.html">Linear Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quad_resp.html">Quadratic response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cubic_resp.html">Cubic response</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="elec_nuc.html">Electronic and nuclear contributions</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Rovibronic states</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="dipole_equiv.html">Dipole equivalence relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="finite_field.html">Finite field method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nto.html">Natural transition orbitals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selection_rules.html">Selection rules</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="excoupl.html">Exciton coupling model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="excoupl_impl.html">Implementation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="expt_theory.html">Experiment to theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="uv_vis.html">UV/vis absorption</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="opa.html">One-photon absorption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tpa.html">Two-photon absorption</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="optact.html">Optical activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecd.html">Electronic Circular Dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="or.html">Optical Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tpcd.html">Two-photon circular dichroism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tpor.html">Two-photon optical rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="more_optact.html">More birefringences &amp; dichroisms</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="wavefunction.html">Wave function methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="hf.html">Hartree–Fock</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="orb_rot.html">Orbital rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kappa_expansion.html">Time-dependence of observables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="orb_param_field.html">Field-dependence of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hf_param_energy.html">Energy determination of parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hf_quasienergy.html">Quasi-energy determination of parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">Configuration interaction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="adc.html">Algebraic-diagrammatic construction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="adc_pp.html">Polarization propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adc_isr.html">Intermediate state representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adc_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adc_hpc.html">HPC-QC implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adc_exercises_new.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tddft.html">Time-dependent DFT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tddft_foundation.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="tddft_quasienergy.html">Quasi-energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tddft_linear_response.html">Linear response</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="tddft_lr_theory.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tddft_lr_implementation.html">Implementation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tddft_excited_states.html">Excited states</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="tddft_rsp_eq.html">TDDFT response equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tddft_tda.html">Tamm–Dancoff approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tddft_cvs.html">Core-valence separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tddft_triplet_inst.html">Triplet instability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tddft_spin_flip.html">Spin-flip</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="tddft_charge_transfer.html">Charge transfer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="mr_response.html">Multireference methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="sa_mcscf.html">State-averaged MCSCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mr_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/localprop.html">Localized properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/esp.html">ESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/chelpg.html">CHELPG charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/resp.html">RESP charges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/loprop.html">LoProp charges and polarisabilities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/embedding.html">Embedding potentials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/nonpol_emb.html">Non-polarizable embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env/pol_emb.html">Polarizable embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../env/pcm.html">Polarizable continuum models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../env/cpcm.html">Conductor-like polarizable continuum model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/mol_struct.html">Molecular structure and dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/struct_vis.html">Molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/md_vis.html">MD trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/opt_vib_vis.html">Optimization and normal modes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/elec_struct.html">Electronic structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/orb_vis.html">Orbitals and densities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../visualize/spec_prop.html">Spectra and properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/exc_vis.html">Excited states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/broadening.html">Spectrum broadening</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and workflows</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/workflow.html">Constructing workflows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_build.html">Building systems</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_struct.html">Optimizing molecular structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/wf_scf.html">Optimizing electronic structure</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/wf_construct.html">Assembling a full workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_methane.html">Methane combustion energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_gwp.html">Global warming potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/wf_spectra.html">From structure to spectrum</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/uv_vis.html">UV/vis spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_absorption.html">Absorption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_fluorescence.html">Fluorescence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/uv_vis_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/vib_ir.html">Vibrational spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_calc.html">IR spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_raman.html">Raman spectroscopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/vib_ir_exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/openshells.html">Open shells</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/rest_unrest.html">Restricted versus unrestricted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/correlation.html">Static versus dynamic correlation correlation</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/xray.html">X-ray spectroscopies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_calc.html">Spectrum calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_analysis.html">Spectrum analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_aspects.html">Special aspects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/dire_xps.html">Core-hole localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_large.html">Larger systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_nonstandard.html">Non-standard calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_rec.html">Recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_exercises.html">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/xray_cheatsheet.html">Cheat sheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/colab.html">Google Colab notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cite.html">How to cite and contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kthpanor/echem/issues/new?title=Issue%20on%20page%20%2Fdocs/spec_prop/rovib.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/spec_prop/rovib.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Rovibronic states</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rotational-schrodinger-equation">Rotational Schrödinger equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-s-method-and-the-vibrational-schrodinger-equation">Numerov’s method and the vibrational Schrödinger equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-s-method-in-veloxchem">Numerov’s method in VeloxChem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rovibrational-spectra">Rovibrational spectra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vibronic-transitions">Vibronic transitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-defined-potential">User defined potential</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="rovibronic-states">
+<span id="sec-vibrot"></span><h1>Rovibronic states<a class="headerlink" href="#rovibronic-states" title="Link to this heading">#</a></h1>
+<p>The sum-over-states expressions for response functions are expressed in terms of the exact rovibronic eigenstates of the molecular Hamiltonian in the absence of external fields. These states are rarely available in practical calculations, where instead electronic states are employed. However, for a diatomic system, we can determine the rovibrational wave functions and the associated transition moments and energies.</p>
+<p>Adopting the <a class="reference internal" href="../elec_struct/operators.html#sec-bo-approximation"><span class="std std-ref">adiabatic Born–Oppenheimer approximation</span></a>, the total molecular rovibronic wave function takes the form of a product</p>
+<div class="math notranslate nohighlight">
+\[
+\Psi_{K, k}(\mathbf{r}, \mathbf{R}) = 
+\Phi_{K;k}(\mathbf{R})
+\Psi_K^\mathrm{e}(\mathbf{r}; \mathbf{R})
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(k\)</span> are indices identifying the electronic and rovibrational levels, respectively. For a diatomic system, the rovibrational wave function is in turn separated into its vibrational, <span class="math notranslate nohighlight">\(\psi\)</span>, and rotational, <span class="math notranslate nohighlight">\(\psi_\mathrm{r}\)</span>, components</p>
+<div class="math notranslate nohighlight">
+\[
+\Phi_{K;k}(\mathbf{R}) =  \psi_k(R) \psi_{\mathrm{r}; k}(\theta,\phi) 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(k\)</span> is understood as a compound index uniquely identifying a given rotational level of a given vibrational state.</p>
+<section id="rotational-schrodinger-equation">
+<h2>Rotational Schrödinger equation<a class="headerlink" href="#rotational-schrodinger-equation" title="Link to this heading">#</a></h2>
+<p>The Schrödinger equation for diatomic molecule with <em>fixed</em> bond length equals</p>
+<div class="math notranslate nohighlight">
+\[
+- \frac{\hbar^2}{2\mu R_0^2} \left[ 
+\frac{1}{\sin\theta}\frac{\partial}{\partial \theta} \left(\sin\theta \frac{\partial}{\partial \theta} \right) 
++ 
+ \frac{1}{\sin^2\theta} \frac{\partial^2}{\partial \phi^2} 
+\right] \psi_\mathrm{r}(\theta,\phi)  = E \, \psi_\mathrm{r}(\theta,\phi) 
+\]</div>
+<p>or, equivalently,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\hat{L}^2\psi_\mathrm{r}(\theta,\phi)}{2\mu R_0^2} = E \, \psi_\mathrm{r}(\theta,\phi)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{L}^2\)</span> is the square of the total angular moment operator. The angles <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> describe the orientation of the diatomic molecule with respect to a laboratory-fixed coordinate system and <span class="math notranslate nohighlight">\(\mu\)</span> is the reduced mass defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\mu=\dfrac{M_A M_B}{M_A + M_B}
+\]</div>
+<p>The eigenfunctions to the total angular momentum operator are known to the the sperical harmonics, <span class="math notranslate nohighlight">\(Y_J^M(\theta, \phi)\)</span>, and the associated rotational energies are given by</p>
+<div class="math notranslate nohighlight">
+\[
+E_J =  \frac{\hbar^2 J(J+1)}{2\mu R_0^2} = B J(J+1)
+\]</div>
+<p>introducing the rotational constant <span class="math notranslate nohighlight">\(B\)</span>. We note that rotational levels are <span class="math notranslate nohighlight">\((2J+1)\)</span>-fold degenerate.</p>
+<p>Transitions between rotational levels are classified according to</p>
+<ol class="arabic simple">
+<li><p>Q-branch: when <span class="math notranslate nohighlight">\(\Delta J = 0\)</span></p></li>
+<li><p>R-branch: when <span class="math notranslate nohighlight">\(\Delta J = +1\)</span></p></li>
+<li><p>P-branch: when <span class="math notranslate nohighlight">\(\Delta J = -1\)</span></p></li>
+</ol>
+</section>
+<section id="numerov-s-method-and-the-vibrational-schrodinger-equation">
+<h2>Numerov’s method and the vibrational Schrödinger equation<a class="headerlink" href="#numerov-s-method-and-the-vibrational-schrodinger-equation" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Numerov%27s_method">Numerov’s method</a> can be employed to solve 1D differential equations using finite differences on a grid of points. It applies to a differential equation on the form</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{d^2 y}{dx^2} = -g(x)y(x) + s(x)
+\]</div>
+<p>This method will be used to solve the vibrational part of the Schrödinger equation that for the lowest rotational level (<span class="math notranslate nohighlight">\(J=0\)</span>) takes the form</p>
+<div class="math notranslate nohighlight">
+\[   
+- \dfrac{\hbar^2}{2\mu} \dfrac{\partial^2\psi(R)}{\partial R^2} +V(R) \psi(R) = E \psi(R) 
+\]</div>
+<p>For notational convenience, we introduce <span class="math notranslate nohighlight">\(x = (R - R_0)\)</span> to arrive at</p>
+<div class="math notranslate nohighlight">
+\[ \psi^{\prime \prime} (x) = - k^{2} (x) \psi (x) \]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[ 
+k^{2} (x) = \dfrac {2\mu} {\hbar^{2}} [ E - V (x) ] 
+\]</div>
+<p>The values of the wave function in three equidistant points separated by <span class="math notranslate nohighlight">\(h\)</span> are related as</p>
+<div class="math notranslate nohighlight">
+\[ 
+\psi(x_{i+1}) = 
+\dfrac{
+    \psi(x_{i}) 
+    \left( 2 + \dfrac {10 h^{2}} {12} k^{2}(x_{i}) \right) - 
+    \psi(x_{i-1}) 
+    \left( 1 - \dfrac {h^{2}} {12} k^{2}(x_{i-1}) \right)
+    }{
+    1 - \dfrac {h^{2}} {12} k^{2}(x_{i+1})
+    } 
+\]</div>
+<p>from which solutions are found by the algorithm</p>
+<ol class="arabic simple">
+<li><p>Guess the energy <span class="math notranslate nohighlight">\(E_\mathrm{guess}\)</span></p></li>
+<li><p>For <span class="math notranslate nohighlight">\(E_\mathrm{guess}\)</span>, determine the classically allowed interval [<span class="math notranslate nohighlight">\(x_a,x_b\)</span>] inside <span class="math notranslate nohighlight">\(V(x)\)</span></p></li>
+<li><p>Pick two points <span class="math notranslate nohighlight">\(x_\mathrm{min}\)</span> and <span class="math notranslate nohighlight">\(x_\mathrm{max}\)</span> far into the classically forbidden region and impose the wave function to be zero at these points</p></li>
+<li><p>Determine iteratively the wave functions inside the interval <span class="math notranslate nohighlight">\([x_\mathrm{min}, x_\mathrm{max}]\)</span>:</p>
+<ol class="arabic simple">
+<li><p>If <span class="math notranslate nohighlight">\(\psi(x_a)&lt;\epsilon\)</span> and <span class="math notranslate nohighlight">\(\psi(x_b)&lt;\epsilon\)</span>, accept the wave function</p></li>
+<li><p>If not, renew the energy guess</p></li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="numerov-s-method-in-veloxchem">
+<h2>Numerov’s method in VeloxChem<a class="headerlink" href="#numerov-s-method-in-veloxchem" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">veloxchem</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vlx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will use HCl as an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mol_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Cl   0.0     0.0   0.0</span>
+<span class="s2">H    1.274   0.0   0.0</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">molecule</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">Molecule</span><span class="o">.</span><span class="n">read_molecule_string</span><span class="p">(</span><span class="n">mol_str</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;angstrom&quot;</span><span class="p">)</span>
+
+<span class="n">basis_set_label</span> <span class="o">=</span> <span class="s2">&quot;6-31+G&quot;</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">MolecularBasis</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis_set_label</span><span class="p">)</span>
+
+<span class="n">scf_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;conv_thresh&quot;</span><span class="p">:</span> <span class="mf">1.0e-6</span><span class="p">}</span>
+<span class="n">method_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;xcfun&quot;</span><span class="p">:</span> <span class="s2">&quot;b3lyp&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_level&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following settings are available for the Numerov solver in VeloxChem.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">NumerovDriver</span><span class="p">()</span>
+<span class="n">num_drv</span><span class="o">.</span><span class="n">print_keywords</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                ==========================================================================================                
+                  @numerov                                                                                                
+                ------------------------------------------------------------------------------------------                
+                  pec_displacements  sequence    PEC scanning range [bohr]                                                
+                  pec_potential      string      potential type for fitting                                               
+                  reduced_mass       float       reduced mass of the molecule                                             
+                  el_transition      boolean     include an electronic transition                                         
+                  final_el_state     integer     final state of the electronic transition                                 
+                  exc_conv_thresh    float       excited state calculation threshold                                      
+                  n_vib_states       integer     number of vibrational states to be resolved                              
+                  temp               float       temperature in Kelvin                                                    
+                  n_rot_states       integer     number of rotational states to be resolved                               
+                  conv_thresh        float       convergence threshold for vibronic energies                              
+                  max_iter           integer     max. iteration number per vibronic state                                 
+                  n_margin           float       negative margin of the grid [bohr]                                       
+                  p_margin           float       positive margin of the grid [bohr]                                       
+                  steps_per_au       integer     number of grid points per Bohr radius                                    
+                ==========================================================================================                
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will determine the potential on an interval of</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numerov_settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;n_vib_states&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s2">&quot;pec_displacements&quot;</span><span class="p">:</span> <span class="s2">&quot;-0.3 - 0.9 (0.2)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;el_transition&quot;</span><span class="p">:</span> <span class="s2">&quot;no&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pec_potential&quot;</span><span class="p">:</span> <span class="s2">&quot;morse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;n_rot_states&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">num_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">numerov_settings</span><span class="p">,</span> <span class="n">scf_settings</span><span class="p">,</span> <span class="n">method_settings</span><span class="p">)</span>
+<span class="n">num_results</span> <span class="o">=</span> <span class="n">num_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                           Potential Energy Curve Driver Setup                                            
+                                          =====================================                                           
+                                                                                                                          
+                              Number of Geometries          : 7                                                           
+                              Wave Function Model           : Spin-Restricted Kohn-Sham                                   
+                              SCF Convergece Threshold      : 1.0e-06                                                     
+                              DFT Functional                : B3LYP                                                       
+                              Molecular Grid Level          : 4                                                           
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 1/7:  Initial state converged                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 2/7:  Initial state converged                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 3/7:  Initial state converged                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 4/7:  Initial state converged                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 5/7:  Initial state converged                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 6/7:  Initial state converged                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 7/7:  Initial state converged                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+               Potential Energy Curve Information                                                                         
+               ----------------------------------                                                                         
+                                               rel. GS energy                                                             
+               Bond distance:     1.1152 angs      0.85540 eV                                                             
+               Bond distance:     1.2211 angs      0.16191 eV                                                             
+               Bond distance:     1.3269 angs      0.00000 eV                                                             
+               Bond distance:     1.4328 angs      0.13406 eV                                                             
+               Bond distance:     1.5386 angs      0.42849 eV                                                             
+               Bond distance:     1.6444 angs      0.80534 eV                                                             
+               Bond distance:     1.7503 angs      1.21628 eV                                                             
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                                   Numerov Driver Setup                                                   
+                                                  ======================                                                  
+                                                                                                                          
+                                         Number of Vibrational States : 4                                                 
+                                         Energy Convergence Threshold : 1.0e-12                                           
+                                         Max. Number of Iterations    : 1000                                              
+                                         Grid Points per Bohr Radius  : 500                                               
+                                         Margin right of scanned PEC  : 1.50                                              
+                                         Margin left of scanned PEC   : 0.50                                              
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 0 converged in 109 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 1 converged in 171 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 2 converged in 161 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 3 converged in 144 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+               *** All vibronic states converged for the initial electronic state                                         
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Rovibronic IR Spectrum                                                                                     
+               ----------------------                                                                                     
+                           Excitation energy    Oscillator strength                                                       
+               P Branch                                                                                                   
+                                2615.49 cm-1            3.94747e-09                                                       
+                                2595.85 cm-1            5.44302e-09                                                       
+                                2576.21 cm-1            5.73425e-09                                                       
+                                2556.57 cm-1            5.04621e-09                                                       
+                                2536.93 cm-1            3.83969e-09                                                       
+                                2517.28 cm-1            2.56958e-09                                                       
+                                2497.64 cm-1            1.52708e-09                                                       
+                                2478.00 cm-1            8.10792e-10                                                       
+                                2458.36 cm-1            3.86134e-10                                                       
+               Q Branch                                                                                                   
+                                2635.13 cm-1            5.86085e-08                                                       
+               R Branch                                                                                                   
+                                2654.77 cm-1            1.37859e-09                                                       
+                                2674.42 cm-1            3.76177e-09                                                       
+                                2694.06 cm-1            5.18696e-09                                                       
+                                2713.70 cm-1            5.46448e-09                                                       
+                                2733.34 cm-1            4.80881e-09                                                       
+                                2752.98 cm-1            3.65905e-09                                                       
+                                2772.62 cm-1            2.44870e-09                                                       
+                                2792.26 cm-1            1.45524e-09                                                       
+                                2811.91 cm-1            7.72649e-10                                                       
+                                2831.55 cm-1            3.67969e-10                                                       
+                                                                                                                          
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results are stored in a dictionary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">num_results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;grid&#39;, &#39;potential&#39;, &#39;psi&#39;, &#39;vib_levels&#39;, &#39;excitation_energies&#39;, &#39;oscillator_strengths&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">]</span>
+<span class="n">potential</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;potential&quot;</span><span class="p">]</span>
+
+<span class="n">vib_psi2</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;psi&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">vib_energies</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;vib_levels&quot;</span><span class="p">]</span>
+
+<span class="n">exc</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;excitation_energies&quot;</span><span class="p">]</span>
+<span class="n">osc</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;oscillator_strengths&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The vibrational levels can be plotted against the potential energy curve.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">energy</span><span class="p">,</span> <span class="n">psi2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">vib_energies</span><span class="p">,</span> <span class="n">vib_psi2</span><span class="p">):</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">psi2</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">potential</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Displacements [Å] respect to the input structure&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy [a.u.]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f00a1f342074a3c850fc630a3443cb85efeb36aab1fe602d362306a9dfd7eb7e.png" src="../../_images/f00a1f342074a3c850fc630a3443cb85efeb36aab1fe602d362306a9dfd7eb7e.png" />
+</div>
+</div>
+</section>
+<section id="rovibrational-spectra">
+<h2>Rovibrational spectra<a class="headerlink" href="#rovibrational-spectra" title="Link to this heading">#</a></h2>
+<p>Once we have the vibrational wave functions we can calculate the dipole transition moments</p>
+<div class="math notranslate nohighlight">
+\[ 
+\mu^{fi} = \langle \psi_{f} | \mu(R) | \psi_{i} \rangle
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu(R)\)</span> is the electronic dipole moment at internuclear separation distance <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<p>Only the first transition dipole moment (corresponding to the Q-branch) is relevant and the rest are negligible. We will obtain the fine structure by deriving the rotational excited states for the R and P branches.</p>
+<p>Applying the rotational selection rules derived before for the rigid rotor, we get the P-branch (<span class="math notranslate nohighlight">\(\Delta J = -1\)</span>)</p>
+<div class="math notranslate nohighlight">
+\[ 
+E = \hbar \omega_{\text{stretch}} + \left( \dfrac{h^2}{8\pi^2I} \right)((J - 1)J - J(J + 1)) = \hbar \omega_{\text{stretch}} -2\left( \dfrac{h^2}{8\pi^2 I} \right)J 
+\]</div>
+<p>and the R-branch (<span class="math notranslate nohighlight">\(\Delta J = +1\)</span>)</p>
+<div class="math notranslate nohighlight">
+\[
+E = \hbar \omega_{\text{stretch}} + \left( \dfrac{h^2}{8\pi^2I} \right)((J+1)(J+2) - J(J + 1)) = \hbar \omega_{\text{stretch}} + 2\left( \dfrac{h^2}{8\pi^2I} \right)(J + 1) \]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[ 
+I = \frac{m_a m_b}{m_a + m_b} R^2 
+\]</div>
+<p>VeloxChem takes care of the spectra and the branches storing the data on the keys: <code class="docutils literal notranslate"><span class="pre">excitation_energies</span></code> and <code class="docutils literal notranslate"><span class="pre">oscillator_strengths</span></code>.</p>
+<p>As well, computes the dipole moment for every point of the potential energy curve</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">exc</span><span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">],</span> <span class="n">osc</span><span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;P-Branch&quot;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">exc</span><span class="p">[</span><span class="s2">&quot;R&quot;</span><span class="p">],</span> <span class="n">osc</span><span class="p">[</span><span class="s2">&quot;R&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;R-Branch&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Excitation energies in cm-1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Oscillator strength&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/fd03eb41a1a43c8f12c8306dce77046fa2f23921b3fe0caca3dad8e8b9b000d6.png" src="../../_images/fd03eb41a1a43c8f12c8306dce77046fa2f23921b3fe0caca3dad8e8b9b000d6.png" />
+</div>
+</div>
+</section>
+<section id="vibronic-transitions">
+<h2>Vibronic transitions<a class="headerlink" href="#vibronic-transitions" title="Link to this heading">#</a></h2>
+<p>In this case, we want to consider the transition dipole moments between rovibrational states in different electronic states. The expression for the transition dipole integral will in this case involve the ground, <span class="math notranslate nohighlight">\(|0\rangle\)</span>, and final, <span class="math notranslate nohighlight">\(|F\rangle\)</span>, electronic states.</p>
+<p>Expanding the electronic transition moment in a Taylor series about the equilibrium distance of the ground electronic state, we get</p>
+<div class="math notranslate nohighlight">
+\[
+\mu^{F0}(R) = \mu_{F0}(R_0) +
+\left.
+\dfrac{\partial \mu^{F0}}{\partial R} 
+\right|_{R_{0}}
+(R - R_{0}) + \cdots .
+\]</div>
+<p>Truncating this expansion to first and second order are known as the Frank–Condon and Herzberg–Teller approximations, respectively. We will here adopt the former.</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">NumerovDriver</span><span class="p">()</span>
+
+<span class="n">numerov_settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;n_vib_states&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;pec_displacements&quot;</span><span class="p">:</span> <span class="s2">&quot;-0.3 - 0.9 (0.2)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;el_transition&quot;</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;final_el_state&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;pec_potential&quot;</span><span class="p">:</span> <span class="s2">&quot;morse&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">num_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">numerov_settings</span><span class="p">,</span> <span class="n">scf_settings</span><span class="p">,</span> <span class="n">method_settings</span><span class="p">)</span>
+<span class="n">num_results</span> <span class="o">=</span> <span class="n">num_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                           Potential Energy Curve Driver Setup                                            
+                                          =====================================                                           
+                                                                                                                          
+                              Number of Geometries          : 7                                                           
+                              Wave Function Model           : Spin-Restricted Kohn-Sham                                   
+                              SCF Convergece Threshold      : 1.0e-06                                                     
+                              DFT Functional                : B3LYP                                                       
+                              Molecular Grid Level          : 4                                                           
+                              Targeted Exicted State        : 2                                                           
+                              Excited State Threshold       : 1.0e-04                                                     
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 1/7:  Initial state converged,  Final state converged                                         
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 2/7:  Initial state converged,  Final state converged                                         
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 3/7:  Initial state converged,  Final state converged                                         
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 4/7:  Initial state converged,  Final state converged                                         
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 5/7:  Initial state converged,  Final state converged                                         
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 6/7:  Initial state converged,  Final state converged                                         
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Geometry 7/7:  Initial state converged,  Final state converged                                         
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+               Potential Energy Curve Information                                                                         
+               ----------------------------------                                                                         
+                                               rel. GS energy  rel. ES energy                                             
+               Bond distance:     1.1152 angs      0.85540 eV     11.00371 eV                                             
+               Bond distance:     1.2211 angs      0.16191 eV     10.18856 eV                                             
+               Bond distance:     1.3269 angs      0.00000 eV      9.77836 eV                                             
+               Bond distance:     1.4328 angs      0.13406 eV      9.68682 eV                                             
+               Bond distance:     1.5386 angs      0.42849 eV      9.83574 eV                                             
+               Bond distance:     1.6444 angs      0.80534 eV     10.11225 eV                                             
+               Bond distance:     1.7503 angs      1.21628 eV     10.28673 eV                                             
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                                   Numerov Driver Setup                                                   
+                                                  ======================                                                  
+                                                                                                                          
+                                         Number of Vibrational States : 3                                                 
+                                         Energy Convergence Threshold : 1.0e-12                                           
+                                         Max. Number of Iterations    : 1000                                              
+                                         Grid Points per Bohr Radius  : 500                                               
+                                         Margin right of scanned PEC  : 1.50                                              
+                                         Margin left of scanned PEC   : 0.50                                              
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 0 converged in 105 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 1 converged in 174 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 2 converged in 162 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+               *** All vibronic states converged for the initial electronic state                                         
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 0 converged in 101 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 1 converged in 137 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 2 converged in 146 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+               *** All vibronic states converged for the final electronic state                                           
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               UV/vis Absorption/Emission Spectrum                                                                        
+               -----------------------------------                                                                        
+                             Excitation energy    Oscillator strength                                                     
+               Absorption                                                                                                 
+                                 78431.04 cm-1            2.62970e-01                                                     
+                                 80560.28 cm-1            5.18422e-02                                                     
+                                 82592.21 cm-1            3.98799e-03                                                     
+               Emission                                                                                                   
+                                 78431.04 cm-1            2.62970e-01                                                     
+                                 75795.91 cm-1            1.01134e-01                                                     
+                                 73268.40 cm-1            6.47555e-03                                                     
+                                                                                                                          
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">num_results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;grid&#39;, &#39;i_potential&#39;, &#39;i_psi&#39;, &#39;i_vib_levels&#39;, &#39;f_potential&#39;, &#39;f_psi&#39;, &#39;f_vib_levels&#39;, &#39;excitation_energies&#39;, &#39;oscillator_strengths&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">]</span>
+
+<span class="n">dE_elec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">num_drv</span><span class="o">.</span><span class="n">pec_energies</span><span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">num_drv</span><span class="o">.</span><span class="n">pec_energies</span><span class="p">[</span><span class="s2">&quot;i&quot;</span><span class="p">])</span>
+
+<span class="n">gs_potential</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;i_potential&quot;</span><span class="p">]</span>
+<span class="n">gs_vib_psi2</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;i_psi&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">gs_vib_energies</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;i_vib_levels&quot;</span><span class="p">]</span>
+
+<span class="n">es_potential</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;f_potential&quot;</span><span class="p">]</span>
+<span class="n">es_vib_psi2</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;f_psi&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">es_vib_energies</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;f_vib_levels&quot;</span><span class="p">]</span>
+
+<span class="n">exc</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;excitation_energies&quot;</span><span class="p">]</span>
+<span class="n">osc</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;oscillator_strengths&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">displacements</span> <span class="o">=</span> <span class="n">num_drv</span><span class="o">.</span><span class="n">pec_displacements</span>
+<span class="n">gs_energies</span> <span class="o">=</span> <span class="n">num_drv</span><span class="o">.</span><span class="n">pec_energies</span><span class="p">[</span><span class="s2">&quot;i&quot;</span><span class="p">]</span>
+<span class="n">es_energies</span> <span class="o">=</span> <span class="n">num_drv</span><span class="o">.</span><span class="n">pec_energies</span><span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">]</span>
+
+<span class="n">delta_E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">es_energies</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">gs_energies</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The vibrational levels can be then plotted against the potential energy curves:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">energy</span><span class="p">,</span> <span class="n">psi2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">gs_vib_energies</span><span class="p">,</span> <span class="n">gs_vib_psi2</span><span class="p">):</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">psi2</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">energy</span><span class="p">,</span> <span class="n">psi2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">es_vib_energies</span><span class="p">,</span> <span class="n">es_vib_psi2</span><span class="p">):</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">delta_E</span> <span class="o">+</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">psi2</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">gs_potential</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">es_potential</span> <span class="o">+</span> <span class="n">delta_E</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Displacements [Å] w.r.t. input structure&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy [a.u.]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c55faf0c44f95cc2dacfc6568a15926b025241e2e2440394bcdc4d4facccfed2.png" src="../../_images/c55faf0c44f95cc2dacfc6568a15926b025241e2e2440394bcdc4d4facccfed2.png" />
+</div>
+</div>
+<p>Now we can just plot the spectrum by representing the results from the driver:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">exc</span><span class="p">[</span><span class="s2">&quot;emission&quot;</span><span class="p">],</span> <span class="n">osc</span><span class="p">[</span><span class="s2">&quot;emission&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;emission&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">exc</span><span class="p">[</span><span class="s2">&quot;absorption&quot;</span><span class="p">],</span> <span class="n">osc</span><span class="p">[</span><span class="s2">&quot;absorption&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;absorption&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Excitation energies in cm-1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Oscillator strength&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/532f8aacb82a3808d1d4ac54d62200c0b224b267a6bba34bbdce69a77ffbc769.png" src="../../_images/532f8aacb82a3808d1d4ac54d62200c0b224b267a6bba34bbdce69a77ffbc769.png" />
+</div>
+</div>
+</section>
+<section id="user-defined-potential">
+<h2>User defined potential<a class="headerlink" href="#user-defined-potential" title="Link to this heading">#</a></h2>
+<p>As an alternative to the automatized determination of potential energy curves and transition moments, these may be instead be determined separately, perhaps with a highly accurate post-Hartree–Fock approach. The method <code class="docutils literal notranslate"><span class="pre">read_pec_data</span></code> is then used.</p>
+<p>As a simple illustration, we will use two harmonic potentials and transition moment that is independent of nuclear displacements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_drv</span> <span class="o">=</span> <span class="n">vlx</span><span class="o">.</span><span class="n">NumerovDriver</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">2.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">delta_E</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+<span class="n">bond_lengths</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">2.0</span>
+<span class="n">gs_energies</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">es_energies</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">delta_E</span>
+
+<span class="n">tmom</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">trans_moments</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmom</span> <span class="k">for</span> <span class="n">displacement</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_drv</span><span class="o">.</span><span class="n">read_pec_data</span><span class="p">(</span><span class="n">bond_lengths</span><span class="p">,</span> <span class="n">trans_moments</span><span class="p">,</span> <span class="n">gs_energies</span><span class="p">,</span> <span class="n">es_energies</span><span class="p">)</span>
+
+<span class="n">num_drv</span><span class="o">.</span><span class="n">set_reduced_mass</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">numerov_settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;n_vib_states&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;el_transition&quot;</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;final_el_state&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;pec_potential&quot;</span><span class="p">:</span> <span class="s2">&quot;harmonic&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">num_drv</span><span class="o">.</span><span class="n">update_settings</span><span class="p">(</span><span class="n">numerov_settings</span><span class="p">,</span> <span class="n">scf_settings</span><span class="p">,</span> <span class="n">method_settings</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_results</span> <span class="o">=</span> <span class="n">num_drv</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+                                                   Numerov Driver Setup                                                   
+                                                  ======================                                                  
+                                                                                                                          
+                                         Number of Vibrational States : 10                                                
+                                         Energy Convergence Threshold : 1.0e-12                                           
+                                         Max. Number of Iterations    : 1000                                              
+                                         Grid Points per Bohr Radius  : 500                                               
+                                         Margin right of scanned PEC  : 1.50                                              
+                                         Margin left of scanned PEC   : 0.50                                              
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 0 converged in 120 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 1 converged in 194 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 2 converged in 193 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 3 converged in 190 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 4 converged in 191 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 5 converged in 187 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 6 converged in 188 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 7 converged in 194 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 8 converged in 195 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 9 converged in 200 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+               *** All vibronic states converged for the initial electronic state                                         
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 0 converged in 103 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 1 converged in 172 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 2 converged in 167 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 3 converged in 170 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 4 converged in 170 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 5 converged in 167 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 6 converged in 172 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 7 converged in 173 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 8 converged in 171 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               *** Vibronic state 9 converged in 167 iterations                                                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                          
+               *** All vibronic states converged for the final electronic state                                           
+                                                                                                                          
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               UV/vis Absorption/Emission Spectrum                                                                        
+               -----------------------------------                                                                        
+                             Excitation energy    Oscillator strength                                                     
+               Absorption                                                                                                 
+                                 43314.88 cm-1            5.67445e-04                                                     
+                                 46035.10 cm-1            3.61293e-03                                                     
+                                 48755.33 cm-1            1.10780e-02                                                     
+                                 51475.56 cm-1            2.17810e-02                                                     
+                                 54195.79 cm-1            3.08405e-02                                                     
+                                 56916.02 cm-1            3.34778e-02                                                     
+                                 59636.25 cm-1            2.89534e-02                                                     
+                                 62356.48 cm-1            2.04635e-02                                                     
+                                 65076.70 cm-1            1.20261e-02                                                     
+                                 67796.93 cm-1            5.94669e-03                                                     
+               Emission                                                                                                   
+                                 43314.88 cm-1            5.67445e-04                                                     
+                                 39983.29 cm-1            2.56212e-03                                                     
+                                 36651.70 cm-1            5.98373e-03                                                     
+                                 33320.12 cm-1            9.60179e-03                                                     
+                                 29988.53 cm-1            1.18635e-02                                                     
+                                 26656.95 cm-1            1.19878e-02                                                     
+                                 23325.36 cm-1            1.02682e-02                                                     
+                                 19993.77 cm-1            7.61992e-03                                                     
+                                 16662.19 cm-1            4.95672e-03                                                     
+                                 13330.60 cm-1            2.83167e-03                                                     
+                                                                                                                          
+</pre></div>
+</div>
+</div>
+</div>
+<p>Retrieving results from the calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">]</span>
+
+<span class="n">gs_potential</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;i_potential&quot;</span><span class="p">]</span>
+<span class="n">gs_psi2</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;i_psi&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">gs_vib_energies</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;i_vib_levels&quot;</span><span class="p">]</span>
+
+<span class="n">es_potential</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;f_potential&quot;</span><span class="p">]</span>
+<span class="n">es_psi2</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;f_psi&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">es_vib_energies</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;f_vib_levels&quot;</span><span class="p">]</span>
+
+<span class="n">exc</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;excitation_energies&quot;</span><span class="p">]</span>
+<span class="n">osc</span> <span class="o">=</span> <span class="n">num_results</span><span class="p">[</span><span class="s2">&quot;oscillator_strengths&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plotting potentials and vibrational wave functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">energy</span><span class="p">,</span> <span class="n">psi2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">gs_vib_energies</span><span class="p">,</span> <span class="n">gs_psi2</span><span class="p">):</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">psi2</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">energy</span><span class="p">,</span> <span class="n">psi2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">es_vib_energies</span><span class="p">,</span> <span class="n">es_psi2</span><span class="p">):</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">delta_E</span> <span class="o">+</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">psi2</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">gs_potential</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">es_potential</span> <span class="o">+</span> <span class="n">delta_E</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/fa934f85999d471caf152535bcbaca73be6a04cefe7b5ca0301a5b6b03dff552.png" src="../../_images/fa934f85999d471caf152535bcbaca73be6a04cefe7b5ca0301a5b6b03dff552.png" />
+</div>
+</div>
+<p>Plotting the vibronic absorption and emission spectra.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">exc</span><span class="p">[</span><span class="s2">&quot;absorption&quot;</span><span class="p">],</span> <span class="n">osc</span><span class="p">[</span><span class="s2">&quot;absorption&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Absorption&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">exc</span><span class="p">[</span><span class="s2">&quot;emission&quot;</span><span class="p">],</span> <span class="n">osc</span><span class="p">[</span><span class="s2">&quot;emission&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Emission&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Excitation energies [cm$^{-1}$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Oscillator strength&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/39db1228340d37929187d925d3306d7d7a4e5278f083e562b6cdbea99ff4df17.png" src="../../_images/39db1228340d37929187d925d3306d7d7a4e5278f083e562b6cdbea99ff4df17.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/spec_prop"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="elec_nuc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Electronic and nuclear contributions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dipole_equiv.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dipole equivalence relations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rotational-schrodinger-equation">Rotational Schrödinger equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-s-method-and-the-vibrational-schrodinger-equation">Numerov’s method and the vibrational Schrödinger equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-s-method-in-veloxchem">Numerov’s method in VeloxChem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rovibrational-spectra">Rovibrational spectra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vibronic-transitions">Vibronic transitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-defined-potential">User defined potential</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The eChem team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
