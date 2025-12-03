@@ -265,6 +265,7 @@
 <li class="toctree-l2"><a class="reference internal" href="opt_constrained.html">Constrained coordinates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="conformer.html">Conformer search</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tst_gen.html">Transition state</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="ts_guesser.html">Guessing transition states with force fireld interpolation</a></li>
 </ul>
 </details></li>
@@ -779,8 +780,8 @@ document.write(`
 <section id="gradient-descent">
 <h2>Gradient descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h2>
 <p>The simplest optimization procedure is to repeatedly take a step in the direction opposite to the local gradient</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cf2c228c-87dc-4122-adb6-2313225c425c">
-<span class="eqno">(6)<a class="headerlink" href="#equation-cf2c228c-87dc-4122-adb6-2313225c425c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3421d3ad-c422-45a9-b874-0e2a95fb7dbd">
+<span class="eqno">(6)<a class="headerlink" href="#equation-3421d3ad-c422-45a9-b874-0e2a95fb7dbd" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathbf{x}_{i+1} = \mathbf{x}_i - k_i\mathbf{g}(\mathbf{x}_i) \nonumber 
 \end{equation}\]</div>
 <p>where by <span class="math notranslate nohighlight">\(\mathbf{x}_{i+1}\)</span> we denote the new coordinates (in a generic coordinate system – either Cartesian or internal coordinates), <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> are the coordinates at the previous step <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(\nabla E\)</span> is the energy gradient and <span class="math notranslate nohighlight">\(k_i\)</span> is the step size. The step size can either be kept constant, or adjusted at each iteration, e.g. by the line search procedure.</p>
@@ -913,18 +914,18 @@ document.write(`
 <section id="conjugate-gradient">
 <h2>Conjugate gradient<a class="headerlink" href="#conjugate-gradient" title="Link to this heading">#</a></h2>
 <p>An improved method over the gradient-descent approach is to use the “gradient history” (steps <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i-1\)</span>) to determine the coordinates at step <span class="math notranslate nohighlight">\(i+1\)</span></p>
-<div class="amsmath math notranslate nohighlight" id="equation-54b10b98-ec1e-4921-b07a-865694a362a0">
-<span class="eqno">(7)<a class="headerlink" href="#equation-54b10b98-ec1e-4921-b07a-865694a362a0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-1551b882-2f39-43c8-be4d-429cce076d55">
+<span class="eqno">(7)<a class="headerlink" href="#equation-1551b882-2f39-43c8-be4d-429cce076d55" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \mathbf{x}_{i+1} = \mathbf{x}_i - k_i \mathbf{h}_i \nonumber
 \end{equation}\]</div>
 <p>with <span class="math notranslate nohighlight">\(\mathbf{h}_i = \mathbf{g}(\mathbf{x}_i)+\gamma_i\mathbf{h}_{i-1}\)</span>. The function <span class="math notranslate nohighlight">\(\gamma_i\)</span> contains gradient information from steps <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i-1\)</span> and can be defined in different ways. For example, in the Fletcher-Reeves conjugate gradient method</p>
-<div class="amsmath math notranslate nohighlight" id="equation-56d634b2-ce72-4b01-bc3f-1bb20369cd28">
-<span class="eqno">(8)<a class="headerlink" href="#equation-56d634b2-ce72-4b01-bc3f-1bb20369cd28" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-82438af9-2656-4df9-8cbb-684649b4bbc1">
+<span class="eqno">(8)<a class="headerlink" href="#equation-82438af9-2656-4df9-8cbb-684649b4bbc1" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \gamma_i = \frac{|\mathbf{g}(\mathbf{x}_i)|^2}{|\mathbf{g}(\mathbf{x}_{i-1})|^2} \nonumber
 \end{equation}\]</div>
 <p>Another option, is the Polak-Ribiere method,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-722d0228-4cac-42f3-8efd-26f988f0e16e">
-<span class="eqno">(9)<a class="headerlink" href="#equation-722d0228-4cac-42f3-8efd-26f988f0e16e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-be8678fd-07ef-48f5-96f9-a3d895ef1ed5">
+<span class="eqno">(9)<a class="headerlink" href="#equation-be8678fd-07ef-48f5-96f9-a3d895ef1ed5" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \gamma_i = \frac{\left[\mathbf{g}(\mathbf{x}_i)-\mathbf{g}(\mathbf{x}_{i-1})\right]^\mathrm{T}\mathbf{g}(\mathbf{x}_i)}{|\mathbf{g}(\mathbf{x}_{i-1})|^2} \nonumber
 \end{equation}\]</div>
 <section id="id2">
@@ -1039,8 +1040,8 @@ $<span class="math notranslate nohighlight">\(
     E(\mathbf{x}+\Delta\mathbf{x}) \approx E(\mathbf{x}) + \mathbf{g}(\mathbf{x})\Delta\mathbf{x} + \frac{1}{2}\Delta\mathbf{x}^\mathrm{T}\mathbf{H}\Delta\mathbf{x}
 \)</span>$</p>
 <p>Here, <span class="math notranslate nohighlight">\(\Delta \mathbf{x}\)</span> is the Newton step used to update the coordinates</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5ef4a56c-2776-4734-a73b-07a6e156787a">
-<span class="eqno">(10)<a class="headerlink" href="#equation-5ef4a56c-2776-4734-a73b-07a6e156787a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e4e7c63f-69c3-48c4-ad62-34d154d86a60">
+<span class="eqno">(10)<a class="headerlink" href="#equation-e4e7c63f-69c3-48c4-ad62-34d154d86a60" title="Permalink to this equation">#</a></span>\[\begin{align}
    \Delta \mathbf{x} &amp;= -\mathbf{H}^{-1}\mathbf{g}(\mathbf{x})\\
    \mathbf{x}_\mathrm{i+1} &amp;= \mathbf{x}_\mathrm{i}+\Delta \mathbf{x}
 \end{align}\]</div>
@@ -1166,13 +1167,13 @@ $<span class="math notranslate nohighlight">\(
 <section id="quasi-newton">
 <h2>Quasi-Newton<a class="headerlink" href="#quasi-newton" title="Link to this heading">#</a></h2>
 <p>The methods illustrated here can easily be adapted to use the molecular energy gradient and molecular coordinates and obtain optimized molecular structures. However, in the case of the Newton-Raphson method, the second order derivatives of the energy with respect to nuclear displacements are required to generate the Newton step. The direct computation of these derivatives (which compose the Hessian matrix) is quite expensive, but good <em>approximations</em> for the Hessian can be constructed using the gradient history. For example, the Broyden-Fletcher-Goldfarb-Shanno (BFGS, used by <a class="reference external" href="https://github.com/leeping/geomeTRIC">geomeTRIC</a>) approach uses the relation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e065dcd3-f9cb-44ff-8610-6b8d04426b98">
-<span class="eqno">(11)<a class="headerlink" href="#equation-e065dcd3-f9cb-44ff-8610-6b8d04426b98" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-adf5eada-e2d5-48cc-9b04-4a5aae4616c6">
+<span class="eqno">(11)<a class="headerlink" href="#equation-adf5eada-e2d5-48cc-9b04-4a5aae4616c6" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{H}_{i+1} &amp;= \mathbf{H}_i + \frac{\mathbf{h}^{}_i\mathbf{h}_i^\mathrm{T}}{\mathbf{h}_i^\mathrm{T}\mathbf{s}^{}_i} - \frac{\mathbf{H}_i\mathbf{s}_i\left(\mathbf{H}_i\mathbf{s}_i\right)_{}^\mathrm{T}}{\mathbf{s}_i^\mathrm{T}\mathbf{H}_i^{}\mathbf{s}_i^{}} \, ,\nonumber
 \end{align}\]</div>
 <p>with,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-956ec5e3-4de1-47bb-9d11-0e535b5feb16">
-<span class="eqno">(12)<a class="headerlink" href="#equation-956ec5e3-4de1-47bb-9d11-0e535b5feb16" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d76dae93-dbd3-4fb7-93ea-a22481b35bc5">
+<span class="eqno">(12)<a class="headerlink" href="#equation-d76dae93-dbd3-4fb7-93ea-a22481b35bc5" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{h}_i &amp;= \mathbf{g}(\mathbf{x}_{i+1}) - \mathbf{g}(\mathbf{x}_i) \, \nonumber \\
 \mathbf{s}_i &amp;= \mathbf{x}_{i+1} - \mathbf{x}_{i} \nonumber \,,
 \end{align}\]</div>
@@ -1185,8 +1186,8 @@ $<span class="math notranslate nohighlight">\(
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Geometry optimizations can be run using differet coordinate systems. For example, <a class="reference external" href="https://github.com/leeping/geomeTRIC">geomeTRIC</a> offers: Cartesian coordinates, delocalized internal coordinates (DLC), hybrid delocalized internal coordinates (HDLC), as well as translation-rotation internal coordinates (TRIC). The choice of coordinates can, to some extent, influence the optimization process. In particular, some care must be taken when redundant internal coordinates are used. In this case, it is important to ensure that the displacements are only performed in the non-redundant region of the internal coordinate space. This can be achieved by applying a projector <span class="math notranslate nohighlight">\(\mathbf{P}=\mathbf{G}^{-}\mathbf{G}\)</span> to the gradient and Hessian before constructing the Newton step <span id="id4">[<a class="reference internal" href="../refs.html#id79" title="F. Neese et al. Orca. An Ab Initio, DFT and Semiempirical electronic structure package, 2009.">Neal09</a>]</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6ef1087d-b632-4029-8a5f-7a5e3f6cd57c">
-<span class="eqno">(13)<a class="headerlink" href="#equation-6ef1087d-b632-4029-8a5f-7a5e3f6cd57c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-86c5f04b-dd79-4de5-95b4-dbc82538967b">
+<span class="eqno">(13)<a class="headerlink" href="#equation-86c5f04b-dd79-4de5-95b4-dbc82538967b" title="Permalink to this equation">#</a></span>\[\begin{align}
 \tilde{\mathbf{g}}_q &amp;= \mathbf{P}\mathbf{g}(\mathbf{q}) \, , \nonumber \\
 \tilde{\mathbf{H}}_q &amp;= \mathbf{P}\mathbf{H}_q\mathbf{P}+\alpha(1-\mathbf{P}) \nonumber \,,
 \end{align}\]</div>
